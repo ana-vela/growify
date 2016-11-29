@@ -493,6 +493,7 @@ class Profile implements \JsonSerializable {
 	 * @return array an array with serialized state variables
 	 **/
 	public function jsonSerialize() {
+		$fields = array();
 		array_push($fields, $this->getProfileId(),$this->getProfileUsername(),$this->getProfileEmail(),$this->getProfileZipCode(),$this->getProfileActivation());
 		return ($fields);
 	}
