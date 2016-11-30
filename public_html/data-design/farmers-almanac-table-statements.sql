@@ -35,7 +35,7 @@ CREATE TABLE profile(
 	profileHash CHAR(128) NOT NULL,
 	profileActivation CHAR(16) NOT NULL,
 	profileSalt CHAR(64) NOT NULL,
-	profileUserName VARCHAR(24) UNIQUE NOT NULL,
+	profileUsername VARCHAR(24) UNIQUE NOT NULL,
 	profileEmail VARCHAR(160) NOT NULL,
 	-- PRIMARY KEY AND FOREIGN KEY
 	PRIMARY KEY (profileId),
