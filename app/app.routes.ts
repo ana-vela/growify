@@ -7,9 +7,10 @@ import {PlantsComponent} from "./components/plants-component";
 import {SettingsComponent} from "./components/settings-component";
 import {SignoutComponent} from "./components/signout-component";
 import {WeatherComponent} from "./components/weather-component";
+import {TacoComponent} from "./components/taco-component";
 
 
-export const allAppComponents = [ HomeComponent, LoginComponent, SignupComponent, GardenComponent, PlantsComponent, SettingsComponent, SignoutComponent, WeatherComponent];
+export const allAppComponents = [ HomeComponent, LoginComponent, SignupComponent, GardenComponent, PlantsComponent, SettingsComponent, SignoutComponent, TacoComponent, WeatherComponent];
 
 export const routes: Routes = [
 	// note: the order the components are listed in matters!

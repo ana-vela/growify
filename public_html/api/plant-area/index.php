@@ -1,7 +1,7 @@
 <?php
 
-require_once "autoloader.php";
-require_once "/lib/xsrf.php";
+require_once dirname(__DIR__,3)."/php/classes/autoload.php";
+require_once dirname(__DIR__,3)."/php/lib/xsrf.php";
 require_once "/etc/apache2/capstone-mysql/encrypted-config.php";
 
 use Edu\Cnm\growify\PlantArea;
@@ -41,7 +41,7 @@ try {
 // Handle GET request
 	if($method === "GET") {
 		//set XSRF cookie
-		setXsrfCookie();
+		setXsrfCookie("/");
 
 		// If id is present, get the plant area for that id
 		if(empty($plantAreaId) === false) {

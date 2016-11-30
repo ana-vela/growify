@@ -8,7 +8,7 @@
 	</div>
 </section>
 
-<section class="centered">
-	<button type="button" class="btn btn-primary">Login</button>
-	<button type="button" class="btn btn-primary">Sign Up</button>
+<section>
+	<button type="button" class="btn btn-primary center-block">Login</button>
+	<button type="button" class="btn btn-primary center-block">Sign Up</button>
 </section>

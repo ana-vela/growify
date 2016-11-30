@@ -1,7 +1,7 @@
-Asparagus,Basil,asparagus officinalis,
+Asparagus,Basil,asparagus officinalis,ocimum basilicum
 Asparagus,Beets,asparagus officinalis,beta vulgaris subsp. vulgaris
 Asparagus,Lettuce,asparagus officinalis,lactuca sativa
-Asparagus,Parsley,asparagus officinalis,
+Asparagus,Parsley,asparagus officinalis,petroselinum crispum
 Asparagus,Spinach,asparagus officinalis,spinacea oleracea
 Asparagus,Tomatoes,asparagus officinalis,lycopersicon esculentum
 Beans,Broccoli,phaseolus vulgaris,brassica oleracea var. italica
@@ -30,7 +30,7 @@ Broccoli,Cucumbers,brassica oleracea var. italica,cucumis sativus
 Broccoli,Onions,brassica oleracea var. italica,allium cepa
 Broccoli,Potatoes,brassica oleracea var. italica,solanum tuberosum
 Broccoli,Sage,brassica oleracea var. italica,salvia officinalis
-Brussel Sprout,Dill,brassica oleracea var. gemmifera,
+Brussel Sprout,Dill,brassica oleracea var. gemmifera,anethum graveolens
 Brussel Sprout,Lettuce,brassica oleracea var. gemmifera,lactuca sativa
 Brussel Sprout,Radishes,brassica oleracea var. gemmifera,raphanus sativus
 Brussel Sprout,Sage,brassica oleracea var. gemmifera,Salvia officinalis
@@ -39,14 +39,14 @@ Brussel Sprout,Turnips,brassica oleracea var. gemmifera,brassica campestrio
 Cabbage,Beans,brassica oleracea var. capitata,phaseolus vulgaris
 Cabbage,Celery,brassica oleracea var. capitata,Apium graveolens
 Cabbage,Cucumbers,brassica oleracea var. capitata,cucumis sativus
-Cabbage,Dill,brassica oleracea var. capitata,
+Cabbage,Dill,brassica oleracea var. capitata,anethum graveolens
 Cabbage,Kale,brassica oleracea var. capitata,brassica oleracea var. sabellica
 Cabbage,Lettuce,brassica oleracea var. capitata,lactuca sativa
 Cabbage,Onions,brassica oleracea var. capitata,allium cepa
 Cabbage,Potatoes,brassica oleracea var. capitata,solanum tuberosum
 Cabbage,Sage,brassica oleracea var. capitata,salvia officinalis
 Cabbage,Spinach,brassica oleracea var. capitata,spinacea oleracea
-Cabbage,Thyme,brassica oleracea var. capitata,
+Cabbage,Thyme,brassica oleracea var. capitata,thymus vulgaris
 Carrots,Beans,daucus carota,phaseolus vulgaris
 Carrots,Lettuce,daucus carota,lactuca sativa
 Carrots,Onions,daucus carota,allium cepa
@@ -75,7 +75,7 @@ Corn,Melons,zea mays,Cucumis melo
 Corn,Peas,zea mays,pisum sativum
 Corn,Potatoes,zea mays,solanum tuberosum
 Corn,Squash,zea mays,curcurbita pepo
-Corn,Sunflowers,zea mays,
+Corn,Sunflowers,zea mays,helianthus
 Cucumbers,Beans,cucumis sativus,phaseolus vulgaris
 Cucumbers,Broccoli,cucumis sativus,brassica oleracea var. italica
 Cucumbers,Cabbage,cucumis sativus,brassica oleracea var. capitata
@@ -84,15 +84,15 @@ Cucumbers,Corn,cucumis sativus,zea mays
 Cucumbers,Lettuce,cucumis sativus,lactuca sativa
 Cucumbers,Peas,cucumis sativus,pisum sativum
 Cucumbers,Radishes,cucumis sativus,raphanus sativus
-Cucumbers,Sunflowers,cucumis sativus,
-Eggplant,Basil,solanum melongena,
+Cucumbers,Sunflowers,cucumis sativus,helianthus
+Eggplant,Basil,solanum melongena,ocimum basilicum
 Eggplant,Beans,solanum melongena,phaseolus vulgaris
 Eggplant,Lettuce,solanum melongena,lactuca sativa
 Eggplant,Peas,solanum melongena,pisum sativum
 Eggplant,Potatoes,solanum melongena,solanum tuberosum
 Eggplant,Spinach,solanum melongena,spinacea oleracea
 Kale,Cabbage,brassica oleracea var. sabellica,brassica oleracea var. capitata
-Kale,Dill,brassica oleracea var. sabellica,
+Kale,Dill,brassica oleracea var. sabellica,anethum graveolens
 Kale,Potatoes,brassica oleracea var. sabellica,solanum tuberosum
 Kale,Rosemary,brassica oleracea var. sabellica,rosmarinus officinalis
 Kale,Sage,brassica oleracea var. sabellica,salvia officinalis
@@ -110,13 +110,13 @@ Lettuce,Potatoes,lactuca sativa,solanum tuberosum
 Lettuce,Radishes,lactuca sativa,raphanus sativus
 Lettuce,Spinach,lactuca sativa,spinacea oleracea
 Lettuce,Strawberries,lactuca sativa,fragaria × ananassa
-Lettuce,Sunflowers,lactuca sativa,
+Lettuce,Sunflowers,lactuca sativa,helianthus
 Lettuce,Tomatoes,lactuca sativa,lycopersicon esculentum
 Melons,Corn,Cucumis melo,zea mays
-Melons,Nasturtiums,Cucumis melo,
+Melons,Nasturtiums,Cucumis melo,tropaeolum
 Melons,Peas,Cucumis melo,pisum sativum
 Melons,Radishes,Cucumis melo,raphanus sativus
-Melons,Sunflowers,Cucumis melo,
+Melons,Sunflowers,Cucumis melo,helianthus
 Melons,Tomatoes,Cucumis melo,lycopersicon esculentum
 Onions,Beets,allium cepa,beta vulgaris subsp. vulgaris
 Onions,Broccoli,allium cepa,brassica oleracea var. italica
@@ -139,8 +139,8 @@ Peas,Potatoes,pisum sativum,solanum tuberosum
 Peas,Radishes,pisum sativum,raphanus sativus
 Peas,Spinach,pisum sativum,spinacea oleracea
 Peas,Turnips,pisum sativum,brassica campestrio
-Peppers,Basil,capsicum annuum,
-Peppers,Coriander,capsicum annuum,
+Peppers,Basil,capsicum annuum,ocimum basilicum
+Peppers,Coriander,capsicum annuum,coriandrum sativum
 Peppers,Onions,capsicum annuum,allium cepa
 Peppers,Spinach,capsicum annuum,spinacea oleracea
 Peppers,Tomatoes,capsicum annuum,lycopersicon esculentum
@@ -159,7 +159,7 @@ Spinach,Asparagus,spinacea oleracea,asparagus officinalis
 Spinach,Brussels,spinacea oleracea,brassica oleracea var. gemmifera
 Spinach,Cabbage,spinacea oleracea,brassica oleracea var. capitata
 Spinach,Celery,spinacea oleracea,Apium graveolens
-Spinach,Dill,spinacea oleracea,
+Spinach,Dill,spinacea oleracea,anethum graveolens
 Spinach,Eggplant,spinacea oleracea,solanum melongena
 Spinach,Lettuce,spinacea oleracea,lactuca sativa
 Spinach,Onions,spinacea oleracea,allium cepa
@@ -169,17 +169,17 @@ Spinach,Radishes,spinacea oleracea,raphanus sativus
 Spinach,Strawberries,spinacea oleracea,fragaria × ananassa
 Spinach,Tomatoes,spinacea oleracea,lycopersicon esculentum
 Tomatoes,Asparagus,lycopersicon esculentum,asparagus officinalis
-Tomatoes,Basil,lycopersicon esculentum,
+Tomatoes,Basil,lycopersicon esculentum,ocimum basilicum
 Tomatoes,Beans,lycopersicon esculentum,phaseolus vulgaris
-Tomatoes,Borage,lycopersicon esculentum,
+Tomatoes,Borage,lycopersicon esculentum,borago officinalis
 Tomatoes,Carrots,lycopersicon esculentum,daucus carota
 Tomatoes,Celery,lycopersicon esculentum,Apium graveolens
-Tomatoes,Dill,lycopersicon esculentum,
+Tomatoes,Dill,lycopersicon esculentum,anethum graveolens
 Tomatoes,Lettuce,lycopersicon esculentum,lactuca sativa
 Tomatoes,Melons,lycopersicon esculentum,Cucumis melo
 Tomatoes,Onions,lycopersicon esculentum,allium cepa
-Tomatoes,Parlsey,lycopersicon esculentum,
+Tomatoes,Parlsey,lycopersicon esculentum,petroselinum crispum
 Tomatoes,Peppers,lycopersicon esculentum,capsicum annuum
 Tomatoes,Radishes,lycopersicon esculentum,raphanus sativus
 Tomatoes,Spinach,lycopersicon esculentum,spinacea oleracea
-Tomatoes,Thyme,lycopersicon esculentum,
+Tomatoes,Thyme,lycopersicon esculentum,thymus vulgaris

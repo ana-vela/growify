@@ -1,9 +1,8 @@
 <?php
 
-
-require_once "autoloader.php";
-require_once "/lib/xsrf.php";
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once dirname(__DIR__,3)."/php/classes/autoload.php";
+require_once dirname(__DIR__,3)."/php/lib/xsrf.php";
+require_once "/etc/apache2/capstone-mysql/encrypted-config.php";
 
 use Edu\Cnm\Growify\CompanionPlant;
 
@@ -32,10 +31,14 @@ try{
 
 	// sanitize input
 	$plantId = filter_input(INPUT_GET, "companionPlantId", FILTER_VALIDATE_INT);
+	$id = filter_input(INPUT_GET, "id");
+
+
 
 // ensure $plantId is valid
 	if($plantId < 0){
 		throw(new InvalidArgumentException("plant Id cannot be negative", 405));
+
 	}
 
 // handle GET request
