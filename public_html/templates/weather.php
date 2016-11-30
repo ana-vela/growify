@@ -4,8 +4,7 @@
 			<div class="col-md-4">
 				<h3>Albuquerque Weather</h3>
 				<ul>
-
-					<li>Current Temp: {{albuquerqueWeather.temperatureMax}} degF</li>
+					<li>Current Temp: {{albuquerqueWeather.currentTemperature}} degF</li>
 					<li>Wind Speed: {{albuquerqueWeather.windSpeed}} mph</li>
 					<li>Timestamp: {{albuquerqueWeather.timestamp}} s</li>
 				</ul>

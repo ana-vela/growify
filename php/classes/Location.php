@@ -99,6 +99,7 @@ class Location implements \JsonSerializable{
 	public static function getLocationByZipCode(\PDO $pdo, $zipCode){
 
 		// input sanitization
+
 		$zipCode = trim($zipCode);
 		$zipCode = filter_var($zipCode, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($zipCode)){
@@ -121,7 +122,7 @@ class Location implements \JsonSerializable{
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false){
-				$location = new Location($Zipcode, $row["locationLatitude"], $row["locationLongitude"]);
+				$location = new Location($zipCode, $row["locationLatitude"], $row["locationLongitude"]);
 			}
 		} catch(\Exception $e){
 			throw(new \PDOException($e->getMessage(), 0, $e));

@@ -1,6 +1,7 @@
 <?php
 require_once(dirname(__DIR__, 3)."/php/classes/Weather.php");
 require_once(dirname(__DIR__, 3)."/php/lib/xsrf.php");
+require_once(dirname(__DIR__,3)."/php/classes/autoload.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // start the session and create a xsrf token
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -12,7 +13,7 @@ $reply->status = 200;
 $reply->data = null;
 try {
 	// grab the mySQL connection
-	$pdo = connectToEncryptedMySQL("etc/apache2/capstone-mysql/growify.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/growify.ini");
 
 // determines which HTTP method needs to be processed
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -45,15 +46,15 @@ try {
 	} else {
 		throw (new InvalidArgumentException("Invalid HTTP method request"));
 	}
-} catch (\Exception $e) {
+} catch (Exception $e) {
 	$reply->status = $e->getCode();
 	$reply->message = $e->getMessage();
-	throw new Exception($e->getMessage());
+	throw (new Exception($e->getMessage()));
 } catch (TypeError $te){
 	$reply->status = $te->getCode();
 	$reply->message = $te->getMessage();
 }
-header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
 if($reply->data === null){
 	unset($reply->data);

@@ -200,6 +200,7 @@ class Weather implements JsonSerializable {
 	public static function getCurrentWeatherByZipcode(\PDO $pdo, string $zipcode){
 
 
+
 		$location = Location::getLocationByZipCode($pdo, $zipcode);
 
 		$config = readConfig("/etc/apache2/capstone-mysql/growify.ini");

@@ -34,9 +34,9 @@ export class WeatherComponent implements OnInit {
 
 			this.weatherService.getCurrentWeatherAlbuquerque().subscribe(weather=>this.albuquerqueWeather=weather);
 
-			this.weatherService.getCurrentWeatherByZipcode(zipcode).subscribe(weather=>this.currentWeather = weather);
+			//this.weatherService.getCurrentWeatherByZipcode(zipcode).subscribe(weather=>this.currentWeather = weather);
 
-			this.weatherService.getWeekForecastWeatherByZipcode(zipcode).subscribe(weather=>this.dailyWeather.push(weather));
+			//this.weatherService.getWeekForecastWeatherByZipcode(zipcode).subscribe(weather=>this.dailyWeather.concat(weather));
 
 		});
 
