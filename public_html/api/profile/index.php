@@ -31,27 +31,56 @@ try{
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	// sanitize input
-	$profileId = filter_input(INPUT_GET, "profileId", FILTER_VALIDATE_INT);
+	$profileUserInput = filter_input(INPUT_GET, "profileUserInput", FILTER_SANITIZE_EMAIL);
+	$profilePasswordInput = filter_input(INPUT_GET, "profilePasswordInput", FILTER_SANITIZE_STRING);
 
-	// check if $profileId is valid
-	if($profileId < 0){
-		throw(new InvalidArgumentException("profile Id cannot be negative", 405));
+	// check if $profileUserInput is valid
+	if(empty($profileUserInput)) {
+		throw(new InvalidArgumentException("profile username or email is empty or invalid input", 405));
+	} elseif(strlen($profileUserInput) > 24) {
+		throw(new RangeException("profile username or email is too long", 405));
 	}
 
 	// handle GET request
-	if($method === "GET"){
+	if($method === "GET") {
 		// set XSRF Cookie
 		setXsrfCookie();
 
-		//get profile or all profiles
-		if(empty($profileId)===false){
-			$profile = Profile::getProfileByProfileId($pdo, $profileId);
-			if($profile !== null){
-				$reply->data = $profile;
+		//get profile by username or email
+		if(empty($profileUserInput) === false) {
+			$profileByUsername = Profile::getProfileByProfileUsername($pdo, $profileUserInput);
+			$profileByEmail = Profile::getProfileByProfileEmail($pdo, $profileUserInput);
+
+			if($profileByUsername !== null) {
+				//checks if user entered a password
+				if(!empty($profilePasswordInput)) {
+					//checks hashed password against stored hash
+					if($profileByUsername->checkHash($profilePasswordInput)) {
+						$reply->data = $profileByUsername;
+						echo "Password match";
+					} else {
+						echo "Password does not match";
+					}
+				} else {
+					throw(new InvalidArgumentException("profile password is empty or invalid input", 405));
+				}
+			} elseif($profileByEmail !== null) {
+				if(!empty($profilePasswordInput)) {
+					if($profileByEmail->checkHash($profilePasswordInput)) {
+						$reply->data = $profileByEmail;
+						echo "Password match";
+					} else {
+						echo "Password does not match";
+					}
+				} else {
+					throw(new InvalidArgumentException("profile password is empty or invalid input", 405));
+				}
+			} else {
+				$reply->data = "No profile found";
 			}
 		} else {
 			$profiles = Profile::getAllProfiles($pdo);
-			if($profiles !== null){
+			if($profiles !== null) {
 				$reply->data = $profiles;
 			}
 		}
@@ -59,16 +88,17 @@ try{
 		throw(new InvalidArgumentException("Invalid HTTP method request"));
 	}
 
-} catch (Exception $exception){
+} catch
+(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
-} catch(TypeError $typeError){
+} catch(TypeError $typeError) {
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
 }
 
 header("Content-type: application/json");
-if($reply->data === null){
+if($reply->data === null) {
 	unset($reply->data);
 }
 
