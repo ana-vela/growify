@@ -34,13 +34,6 @@ try{
 	$profileUserInput = filter_input(INPUT_GET, "profileUserInput", FILTER_SANITIZE_EMAIL);
 	$profilePasswordInput = filter_input(INPUT_GET, "profilePasswordInput", FILTER_SANITIZE_STRING);
 
-	// check if $profileUserInput is valid
-	if(empty($profileUserInput)) {
-		throw(new InvalidArgumentException("profile username or email is empty or invalid input", 405));
-	} elseif(strlen($profileUserInput) > 24) {
-		throw(new RangeException("profile username or email is too long", 405));
-	}
-
 	// handle GET request
 	if($method === "GET") {
 		// set XSRF Cookie
@@ -84,7 +77,66 @@ try{
 				$reply->data = $profiles;
 			}
 		}
-	} else {
+	} elseif($method == "PUT" || $method == "POST") {
+
+		verifyXsrf();
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
+
+		//make sure profileId is available
+		if($requestObject->profileId === null) {
+			throw(new \InvalidArgumentException ("No profile Id", 405));
+		}
+		//make sure profileUsername is available
+		if(empty($requestObject->profileUserName)){
+			throw(new \InvalidArgumentException ("No profile username", 405));
+		}
+		//make sure profileEmail is available
+		if(empty($requestObject->profileEmail)){
+			throw(new \InvalidArgumentException ("No profile email", 405));
+		}
+		//make sure profileZipCode is available
+		if(empty($requestObject->profileZipCode)){
+			throw(new \InvalidArgumentException ("No profile zipcode", 405));
+		}
+		if(empty($requestObject->profilePasswordInput)) {
+			throw(new \InvalidArgumentException ("No profile password", 405));
+		}
+		//perform the actual put or post
+		if($method === "PUT") {
+
+			$profile = Profile::getProfileByProfileId($pdo, $requestObject->profileId);
+			if($profile === null){
+				throw(new RuntimeException("Profile does not exist", 404));
+			}
+			$profile->setProfileEmail($requestObject->profileEmail);
+			$profile->setProfileZipCode($requestObject->profileZipCode);
+			if(hash_pbkdf2("sha512", $requestObject->profilePasswordInput, $profile->getProfileSalt(), 262144) !== $profile->getProfileHash()) {
+				$salt = bin2hex(random_bytes(16));
+				$profile->setProfileHash(hash_pbkdf2("sha512", $requestObject->profilePasswordInput, $salt, 262144));
+				$profile->setProfileSalt($salt);
+			}
+			$profile->update($pdo);
+			}
+			// update reply
+			$reply->message = "Profile Entry Updated OK";
+		}else if($method === "POST") {
+			// create new tweet and insert into the database
+			$salt = bin2hex(random_bytes(16));
+			$profile = new Profile(null, $requestObject->profileUsername, $requestObject->profileEmail,$requestObject->profileZipCode, hash_pbkdf2("sha512", $requestObject->profilePasswordInput, $salt, 262144), $salt, bin2hex(random_bytes(8)));
+			$profile->insert($pdo);
+			// update reply
+			$reply->message = "Profile created OK";
+
+		} elseif($method == "DELETE"){
+			$profile = Profile::getProfileByProfileId($pdo, $requestObject->profileId);
+			if($profile === null){
+			throw(new RuntimeException("Profile does not exist", 404));
+			} else {
+				$profile->delete($pdo);
+			}
+		}
+else {
 		throw(new InvalidArgumentException("Invalid HTTP method request"));
 	}
 
