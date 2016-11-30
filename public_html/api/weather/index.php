@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__DIR__, 3)."/php/classes/weather.php");
+require_once(dirname(__DIR__, 3)."/php/classes/Weather.php");
 require_once(dirname(__DIR__, 3)."/php/lib/xsrf.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // start the session and create a xsrf token
@@ -11,6 +11,9 @@ $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
 try {
+	// grab the mySQL connection
+	$pdo = connectToEncryptedMySQL("etc/apache2/capstone-mysql/growify.ini");
+
 // determines which HTTP method needs to be processed
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
@@ -28,13 +31,13 @@ try {
 	if($method === "GET"){
 		// set XSRF cookie
 		setXsrfCookie("/");
-		if($current === true) {
-			$weather = Weather::getCurrentWeather($zipcode);
+		if($current === "true") {
+			$weather = Weather::getCurrentWeatherByZipcode($pdo, $zipcode);
 			if($weather !== null) {
 				$reply->data = $weather;
 			}
 		} else {
-			$weather = Weather::getWeekForecastWeatherByZipcode($zipcode);
+			$weather = Weather::getWeekForecastWeatherByZipcode($pdo, $zipcode);
 			if($weather !== null){
 				$reply->data = $weather;
 			}

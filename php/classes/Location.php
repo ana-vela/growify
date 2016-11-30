@@ -121,7 +121,7 @@ class Location implements \JsonSerializable{
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false){
-				$location = new Location($row["locationZipCode"], $row["locationLatitude"], $row["locationLongitude"]);
+				$location = new Location($Zipcode, $row["locationLatitude"], $row["locationLongitude"]);
 			}
 		} catch(\Exception $e){
 			throw(new \PDOException($e->getMessage(), 0, $e));
