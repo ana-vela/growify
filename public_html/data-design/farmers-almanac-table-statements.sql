@@ -63,23 +63,36 @@ CREATE TABLE plant(
 );
 
 CREATE TABLE companionPlant(
-	companionPlant1Id SMALLINT UNSIGNED NOT NULL, -- FOREIGN KEY
-	companionPlant2Id SMALLINT UNSIGNED NOT NULL, -- FOREIGN KEY
+
+	companionPlant1Name VARCHAR(64) NOT NULL,
+	companionPlant1LatinName VARCHAR(72) NOT NULL,
+	companionPlant2Name VARCHAR(64) NOT NULL,
+	companionPlant2LatinName VARCHAR(72) NOT NULL,
 	-- index and create foreign keys
-	INDEX(companionPlant1Id),
-	INDEX(companionPlant2Id),
-	FOREIGN KEY (companionPlant1Id) REFERENCES plant(plantId),
-	FOREIGN KEY (companionPlant2Id) REFERENCES plant(plantId)
+	INDEX(companionPlant1Name),
+	INDEX(companionPlant1LatinName),
+	INDEX(companionPlant2Name),
+	INDEX(companionPlant2LatinName),
+	FOREIGN KEY (companionPlant1Name) REFERENCES plant(plantName),
+	FOREIGN KEY (companionPlant1LatinName) REFERENCES plant(plantLatinName),
+	FOREIGN KEY (companionPlant2Name) REFERENCES plant(plantName),
+	FOREIGN KEY (companionPlant2LatinName) REFERENCES plant(plantLatinName)
 );
 
 CREATE TABLE combativePlant(
-	combativePlant1Id SMALLINT UNSIGNED NOT NULL, -- FOREIGN KEY
-	combativePlant2Id SMALLINT UNSIGNED NOT NULL, -- FOREIGN KEY
+	combativePlant1Name VARCHAR(64) NOT NULL,
+	combativePlant1LatinName VARCHAR(72) NOT NULL,
+	combativePlant2Name VARCHAR(64) NOT NULL,
+	combativePlant2LatinName VARCHAR(72) NOT NULL,
 	-- index foreign keys
-	INDEX(combativePlant1Id),
-	INDEX(combativePlant2Id),
-	FOREIGN KEY (combativePlant1Id) REFERENCES plant(plantId),
-	FOREIGN KEY (combativePlant2Id) REFERENCES plant(plantId)
+	INDEX(combativePlant1Name),
+	INDEX(combativePLant1LatinName),
+	INDEX(combativePlant2Name),
+	INDEX(combativePlant2LatinName),
+	FOREIGN KEY (combativePlant1Name) REFERENCES plant(plantName),
+	FOREIGN KEY (combativePlant1LatinName) REFERENCES plant(plantLatinName),
+	FOREIGN KEY (combativePlant2Name) REFERENCES plant(plantName),
+	FOREIGN KEY (combativePlant2LatinName) REFERENCES plant(plantLatinName)
 );
 
 CREATE TABLE garden (
