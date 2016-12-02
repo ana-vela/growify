@@ -23,7 +23,7 @@ export class WeatherService extends BaseService {
 	// add exclude=["minutely", "hourly"]
 	getCurrentWeatherByZipcode(zipcode: string):Observable<Weather>{
 		let current = true;
-		return(this.http.get(this.weatherUrl + current + zipcode)
+		return(this.http.get(this.weatherUrl +"?current="+ current+"&zipcode=" + zipcode)
 			.map(this.extractData)
 			.catch(this.handleError));
 	}
@@ -31,7 +31,7 @@ export class WeatherService extends BaseService {
 	// add get week forecast for zip code
 	getWeekForecastWeatherByZipcode(zipcode: string):Observable<Weather[]>{
 		let current = false;
-		return(this.http.get(this.weatherUrl + current + zipcode)
+		return(this.http.get(this.weatherUrl +"?current="+ current+"&zipcode=" + zipcode)
 			.map(this.extractData)
 			.catch(this.handleError));
 	}
