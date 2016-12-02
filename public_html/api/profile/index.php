@@ -1,8 +1,8 @@
 <?php
 
 
-require_once dirname(__DIR__,3)."/php/classes/autoload.php";
-require_once dirname(__DIR__,3)."/php/lib/xsrf.php";
+require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
+require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\Growify\Profile;
@@ -13,7 +13,7 @@ use Edu\Cnm\Growify\Profile;
  */
 
 // Check the session. If it is not active, start the session.
-if(session_status() !== PHP_SESSION_ACTIVE){
+if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 
@@ -22,13 +22,13 @@ $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
 
-try{
+try {
 
 	// get mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/growify.ini");
 
 	//check which HTTP method was used
-	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+	$method = array_key_exists("HTTP_x_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	// sanitize input
 	$profileUserInput = filter_input(INPUT_GET, "profileUserInput", FILTER_SANITIZE_EMAIL);
@@ -83,20 +83,16 @@ try{
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
-		//make sure profileId is available
-		if($requestObject->profileId === null) {
-			throw(new \InvalidArgumentException ("No profile Id", 405));
-		}
 		//make sure profileUsername is available
-		if(empty($requestObject->profileUserName)){
+		if(empty($requestObject->profileUsername)) {
 			throw(new \InvalidArgumentException ("No profile username", 405));
 		}
 		//make sure profileEmail is available
-		if(empty($requestObject->profileEmail)){
+		if(empty($requestObject->profileEmail)) {
 			throw(new \InvalidArgumentException ("No profile email", 405));
 		}
 		//make sure profileZipCode is available
-		if(empty($requestObject->profileZipCode)){
+		if(empty($requestObject->profileZipCode)) {
 			throw(new \InvalidArgumentException ("No profile zipcode", 405));
 		}
 		if(empty($requestObject->profilePasswordInput)) {
@@ -106,7 +102,7 @@ try{
 		if($method === "PUT") {
 
 			$profile = Profile::getProfileByProfileId($pdo, $requestObject->profileId);
-			if($profile === null){
+			if($profile === null) {
 				throw(new RuntimeException("Profile does not exist", 404));
 			}
 			$profile->setProfileEmail($requestObject->profileEmail);
@@ -117,29 +113,27 @@ try{
 				$profile->setProfileSalt($salt);
 			}
 			$profile->update($pdo);
-			}
 			// update reply
 			$reply->message = "Profile Entry Updated OK";
-		}else if($method === "POST") {
+		} else if($method === "POST") {
 			// create new tweet and insert into the database
-			$salt = bin2hex(random_bytes(16));
-			$profile = new Profile(null, $requestObject->profileUsername, $requestObject->profileEmail,$requestObject->profileZipCode, hash_pbkdf2("sha512", $requestObject->profilePasswordInput, $salt, 262144), $salt, bin2hex(random_bytes(8)));
+			$salt = bin2hex(random_bytes(32));
+			$profile = new Profile(null, $requestObject->profileUsername, $requestObject->profileEmail, $requestObject->profileZipCode, hash_pbkdf2("sha512", $requestObject->profilePasswordInput, $salt, 262144), $salt, bin2hex(random_bytes(8)));
 			$profile->insert($pdo);
 			// update reply
 			$reply->message = "Profile created OK";
 
-		} elseif($method == "DELETE"){
+		} elseif($method == "DELETE") {
 			$profile = Profile::getProfileByProfileId($pdo, $requestObject->profileId);
-			if($profile === null){
-			throw(new RuntimeException("Profile does not exist", 404));
+			if($profile === null) {
+				throw(new RuntimeException("Profile does not exist", 404));
 			} else {
 				$profile->delete($pdo);
 			}
+		} else {
+			throw(new InvalidArgumentException("Invalid HTTP method request"));
 		}
-else {
-		throw(new InvalidArgumentException("Invalid HTTP method request"));
 	}
-
 } catch
 (Exception $exception) {
 	$reply->status = $exception->getCode();
