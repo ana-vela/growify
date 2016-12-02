@@ -1,3 +1,10 @@
+/*******Weather **************/
+/* TODO - I can only seem to link this correctly with an absolute path - either find a better way, or change the path as needed */
+
+@import 'https://bootcamp-coders.cnm.edu/~rdicharry/farmers-almanac/app/css/weather-icons.css';
+/*@import 'https://<?php echo dirname($__DIR__) . "/"; ?>css/weather-icons.css';*/
+/*@import url('../app/css/weather-icons.css');*/
+
 body {
 	background: url("../app/img/vegetable-basket.jpg") no-repeat center fixed;
 	background-size: cover;
@@ -29,18 +36,6 @@ body{
 .centered-form .panel{
 	background: rgba(255, 255, 255, 0.8);
 	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
-}
-
-@font-face {
-	font-family: 'weathericons';
-	src: url('/font/weathericons-regular-webfont.eot');
-	src: url('/font/weathericons-regular-webfont.eot?#iefix') format('embedded-opentype'), url('/font/weathericons-regular-webfont.woff') format('woff'), url('/font/weathericons-regular-webfont.ttf') format('truetype'), url('/font/weathericons-regular-webfont.svg#weathericons-regular-webfontRg') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-.weather-icon {
-	font-family: 'weathericons';
 }
 
 /****** LOGIN MODAL ******/
@@ -135,4 +130,5 @@ body{
 .login-help{
 	font-size: 12px;
 }
+
 

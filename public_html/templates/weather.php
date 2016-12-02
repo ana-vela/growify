@@ -3,6 +3,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<h3>Albuquerque Weather</h3>
+				<h1><i [ngClass]="albuquerqueWeather.getIconClass()"></i></h1>
 				<ul>
 					<li>Current Temp: {{albuquerqueWeather.currentTemperature}} degF</li>
 					<li>Wind Speed: {{albuquerqueWeather.windSpeed}} mph</li>
@@ -15,7 +16,9 @@
 			<div class="col-md-12">
 				<h1><i class="wi wi-day-lightning"></i></h1>
 
-					<ul>
+
+
+				<ul>
 
 					<li *ngFor="let day of dailyWeather">
 						<ul>

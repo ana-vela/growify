@@ -9,19 +9,21 @@ import {Status} from "../classes/status";
 	/*moduleId: module.id,*/
 	templateUrl: "./templates/weather.php",
 	selector: "weather-component",
-	styles: [require('/app/css/weather-icons.css')]
+	/*styles: [require('../css/weather-icons.css')]*/
 	/*styleUrls: ['/app/css/weather-icons.css']*/
 })
 
 export class WeatherComponent implements OnInit {
  // need @ViewChild ??
 	//deleted: boolean = false;
-	currentWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, 0, "");
-	albuquerqueWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, 0, "");
+	currentWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, 0, "", "");
+	albuquerqueWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, 0, "", "");
 	dailyWeather: Weather[] = [];
 	status: Status = null;
 
 	burritos: String[] = ["breakfast", "carne adovada", "frijoles"];
+
+
 
 	constructor(private weatherService: WeatherService, private route: ActivatedRoute){}
 
@@ -57,6 +59,8 @@ export class WeatherComponent implements OnInit {
 		});*/
 
 	}
+
+
 
 
 

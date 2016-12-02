@@ -27,6 +27,7 @@ class Weather implements JsonSerializable {
 	private $precipitatonProbability;
 	private $timestamp; // seconds since beg. of time, timezone based on current location
 	private $summary;
+	private $icon; // what type of icon to display
 	/**
 	 * Weather constructor.
 	 * @param $temperatureMax float the temperature in fahrenheit
@@ -35,7 +36,7 @@ class Weather implements JsonSerializable {
 	 * @param $timestamp int the time associated with this forecast.
 	 * @throws Exception
 	 */
-	public function __construct($currentTemperature, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipitationProbability, int $timestamp, string $summary){
+	public function __construct($currentTemperature, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipitationProbability, int $timestamp, string $summary, string $icon){
 		try{
 			$this->setCurrentTemperature($currentTemperature);
 			$this->setTemperatureMax($temperatureMax);
@@ -45,6 +46,7 @@ class Weather implements JsonSerializable {
 			$this->setPrecipitationProbability($precipitationProbability);
 			$this->setTimestamp($timestamp);
 			$this->setSummary($summary);
+			$this->setIcon($icon);
 		} catch(\InvalidArgumentException $iae){
 			throw(new \InvalidArgumentException($iae->getMessage(), 0, $iae));
 		} catch(\RangeException $re){
@@ -148,6 +150,20 @@ class Weather implements JsonSerializable {
 			throw(new \InvalidArgumentException("weather summary should be a string"));
 		}
 	}
+	public function getIcon(){
+		return $this->icon;
+	}
+	public function setIcon(string $newIcon){
+		if($newIcon === null){
+			$this->icon = "tHermometer"; // default icon
+			return;
+		}
+		$newIcon = filter_var($newIcon, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if($newIcon === false){
+			throw(new \InvalidArgumentException("icon field not a valid string"));
+
+		}
+	}
 	public function getTimestamp(){
 		return $this->timestamp;
 	}
@@ -187,9 +203,10 @@ class Weather implements JsonSerializable {
 		$humidity = $data["humidity"];
 		$precipProbability = $data["precipProbability"];
 		$summary = $data["summary"];
+		$icon = $data["icon"];
 
 		//echo "tmin = ".$temperatureMin ." tmax = ".$temperatureMax ." wind = ".$windSpeed . " time = ".$timestamp;
-		$newWeather = new \Weather($temperature,null, null, $windSpeed, $humidity, $precipProbability, $timestamp, $summary);
+		$newWeather = new \Weather($temperature,null, null, $windSpeed, $humidity, $precipProbability, $timestamp, $summary, $icon);
 		return $newWeather;
 	}
 
@@ -228,13 +245,14 @@ class Weather implements JsonSerializable {
 		$humidity = $data["humidity"];
 		$precipProbability = $data["precipProbability"];
 		$summary = $data["summary"];
+		$icon = $data["icon"];
 
 		// temp min and max not specified - these are only
 		// in FORECAST not current weather.
 		$temperatureMin = null;
 		$temperatureMax = null;
 
-		$newWeather = new \Weather($temperature,null, null, $windSpeed, $humidity, $precipProbability, $timestamp, $summary);
+		$newWeather = new \Weather($temperature,null, null, $windSpeed, $humidity, $precipProbability, $timestamp, $summary, $icon);
 		return $newWeather;
 	}
 
@@ -281,8 +299,9 @@ class Weather implements JsonSerializable {
 			$humidity = $data[$i]["humidity"];
 			$precipProbability = $data[$i]["precipProbability"];
 			$summary = $data[$i]["summary"];
+			$icon = $data[$i]["icon"];
 			//echo "tmin = ".$temperatureMin ." tmax = ".$temperatureMax ." wind = ".$windSpeed . " time = ".$timestamp;
-			$newWeather = new \Weather(null, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipProbability, $timestamp, $summary);
+			$newWeather = new \Weather(null, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipProbability, $timestamp, $summary, $icon);
 			array_push($weekOfWeather, $newWeather);
 		}
 		return $weekOfWeather;
