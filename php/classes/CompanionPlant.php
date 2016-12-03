@@ -31,10 +31,27 @@ class CompanionPlant implements \JsonSerializable{
 	private $companionPlant2Id;
 
 	/**
+	 * companion plant 1 with latin name
+	 *
+	 * @var string $companionPlantLatinName
+	 */
+	private $companionPlant1IdLatinName;
+
+	/**
+	 * companion plant 2 with latin name
+	 *
+	 * @var string $companionPlantLatinName
+	 */
+	private $companionPlant2IdLatinName;
+
+
+	/**
 	 * constructor for this CompanionPlant
 	 *
 	 * @param int $newCompanionPlant1Id
 	 * @param int $newCompanionPlant2Id
+	 * @param string $newCompanionPlant1IdLatinName
+	 * @param string $newCompanionPlant2IdLatinName
 	 * @throws \RangeException if data values are out of bounds (e.g. negative values for plant ids
 	 * @throws \Exception if some other exception occurs
 	 * @throws \TypeError if data types violate type hints
@@ -42,10 +59,12 @@ class CompanionPlant implements \JsonSerializable{
 	 * @internal param int|null $companionPlant2Id second CompanionPlant
 	 *
 	 **/
-	public function __construct(int $newCompanionPlant1Id, int $newCompanionPlant2Id) {
+	public function __construct(int $newCompanionPlant1Id, int $newCompanionPlant2Id, string $newCompanionPlant1IdLatinName, string $newCompanionPlant2IdLatinName) {
 		try {
 			$this->setCompanionPlant1Id($newCompanionPlant1Id);
 			$this->setCompanionPlant2Id($newCompanionPlant2Id);
+			$this->setCompanionPlant1IdLatinName($newCompanionPlant1IdLatinName);
+			$this->setCompanionPlant2IdLatinName($newCompanionPlant2IdLatinName);
 
 		} catch(\RangeException $range) {
 			//rethrow the exception to the caller
@@ -78,7 +97,7 @@ class CompanionPlant implements \JsonSerializable{
 	public function setCompanionPlant1Id (int $newCompanionPlant1Id) {
 		// verify the companion plant 1 is positive
 		if($newCompanionPlant1Id <= 0) {
-			throw(new \RangeException("companion plant  1is not a positive"));
+			throw(new \RangeException("companion plant is not a positive"));
 		}
 		// convert and store the companion plant 1 id
 		$this->companionPlant1Id =$newCompanionPlant1Id;
@@ -109,6 +128,53 @@ class CompanionPlant implements \JsonSerializable{
 		$this->companionPlant2Id = $newCompanionPlant2Id;
 	}
 
+	/**
+	 * accessor method for plantLatinName
+	 * @return string the latin name for this plant
+	 **/
+	public function getCompanionPlant1IdLatinName(){
+		return $this->companionPlant1IdLatinName;
+	}
+
+	/**
+	 * mutator method for companionPlant1IdLatinName
+	 * @param string $newCompanionPlant1IdLatinName new value of companion plant 1 id latin name
+	 * @throws \InvalidArgumentException if $newCompanionPlant1IdLatinName has invalid contents or is empty
+	 * @throws \RangeException if $newPlantLatinName is too long
+	 **/
+	public function setCompanionPlant1IdLatinName($newCompanionPlant1IdLatinName){
+		$newCompanionPlant1IdLatinName = trim($newCompanionPlant1IdLatinName);
+		$newCompanionPlant1IdLatinName = filter_var($newCompanionPlant1IdLatinName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+		if(strlen($newCompanionPlant1IdLatinName)>72) {
+			throw(new \RangeException("latin name is too large"));
+		}
+		$this->Companionplant1IdLatinName = $newCompanionPlant1IdLatinName;
+	}
+
+	/**
+	 * accessor method for plantLatinName
+	 * @return string the latin name for this plant
+	 **/
+	public function getCompanionPlant2IdLatinName(){
+		return $this->companionPlant2IdLatinName;
+	}
+
+	/**
+	 * mutator method for companionPlant1IdLatinName
+	 * @param string $newCompanionPlant1IdLatinName new value of companion plant 1 id latin name
+	 * @throws \InvalidArgumentException if $newCompanionPlant1IdLatinName has invalid contents or is empty
+	 * @throws \RangeException if $newPlantLatinName is too long
+	 **/
+	public function setCompanionPlant2IdLatinName($newCompanionPlant2IdLatinName){
+		$newCompanionPlant2IdLatinName = trim($newCompanionPlant2IdLatinName);
+		$newCompanionPlant2IdLatinName = filter_var($newCompanionPlant2IdLatinName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+		if(strlen($newCompanionPlant2IdLatinName)>72) {
+			throw(new \RangeException("latin name is too large"));
+		}
+		$this->CompanionPlant2IdLatinName = $newCompanionPlant2IdLatinName;
+	}
 	/**
 	 * check whether a mySQL entry for a given pair of plant ids already exists in the table.
 	 * @param \PDO $pdo a PDO connection object
@@ -180,10 +246,6 @@ class CompanionPlant implements \JsonSerializable{
 		$statement->execute($parameters);
 	}
 
-
-
-
-
 	/**
 	 * Gets all Companion Plant entries that have the specified plant id.
 	 *
@@ -222,9 +284,6 @@ class CompanionPlant implements \JsonSerializable{
 		return($companionPlants);
 	}
 
-
-
-
 /**
  * get all companion plants
  * @param \PDO $pdo PDO connection object
@@ -256,6 +315,8 @@ public static function getAllCompanionPlants(\PDO $pdo) {
 	}
 	return ($companionPlants);
 }
+
+
 	/**
 	 * format state variables for JSON serialization
 	 * @return array an array with serialized state variables
@@ -264,4 +325,7 @@ public static function getAllCompanionPlants(\PDO $pdo) {
 		$fields = get_object_vars($this);
 		return($fields);
 	}
+
+
+
 }
