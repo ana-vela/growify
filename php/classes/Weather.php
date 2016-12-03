@@ -19,6 +19,21 @@ require_once("autoload.php");
  */
 class Weather implements JsonSerializable {
 
+
+
+	private $iconCssClasses = ["snow" => 'wi-snow',
+		"rain" => 'wi-rain',
+		"clear-day" => 'wi-day-sunny',
+		"clear-night" => 'wi-night-clear',
+		"sleet" => 'wi-sleet',
+		"wind" => 'wi-strong-wind',
+		"fog" => 'wi-fog',
+		"cloudy" => 'wi-cloudy',
+		"partly-cloudy-day"=> 'wi-partly-cloudy',
+		"partly-cloudy-night" => 'wi-partly-cloudy',
+		"hail" => 'wi-hail',
+		"thermometer" => 'wi-thermometer'];
+
 	private $currentTemperature; // degrees F
 	private $temperatureMin;
 	private $temperatureMax;
@@ -27,13 +42,13 @@ class Weather implements JsonSerializable {
 	private $precipitatonProbability;
 	private $timestamp; // seconds since beg. of time, timezone based on current location
 	private $summary;
-	private $icon; // what type of icon to display
+	private $icon; // what type of icon to display icon css class
 	/**
 	 * Weather constructor.
-	 * @param $temperatureMax float the temperature in fahrenheit
 	 * @param $temperatureMin float the temeprature in fahrenheit
 	 * @param $windSpeed float the wind speed in miles per hour
 	 * @param $timestamp int the time associated with this forecast.
+	 * @param $icon string pass in weather icon data from darksky.net. This is convert to an icon class from http://erikflowers.github.io/weather-icons/ before it is stored.
 	 * @throws Exception
 	 */
 	public function __construct($currentTemperature, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipitationProbability, int $timestamp, string $summary, string $icon){
@@ -136,12 +151,13 @@ class Weather implements JsonSerializable {
 		if($newProbability === false || $newProbability >1 || $newProbability < 0){
 			throw(new \InvalidArgumentException("probability must be a float between 0 and 1"));
 		}
+		$this->precipitatonProbability = $newProbability;
 	}
 	public function getSummary(){
 		return $this->summary;
 	}
 	public function setSummary(string $newSummary){
-		if($newSummary === null){
+		if($newSummary === null) {
 			$this->summary = null;
 			return;
 		}
@@ -149,20 +165,31 @@ class Weather implements JsonSerializable {
 		if($newSummary === false){
 			throw(new \InvalidArgumentException("weather summary should be a string"));
 		}
+		$this->summary = $newSummary;
 	}
+
+	/**
+	 * @return string the weather icon from http://erikflowers.github.io/weather-icons/ corresponding to the weather (e.g. rain)
+	 */
 	public function getIcon(){
 		return $this->icon;
 	}
+
+	/**
+	 * Convert weater icon data from darksky.net to a weather icon css class from http://erikflowers.github.io/weather-icons/
+	 * @param string $newIcon
+	 */
 	public function setIcon(string $newIcon){
 		if($newIcon === null){
-			$this->icon = "tHermometer"; // default icon
+			$this->icon = "wi-thermometer"; // default icon
 			return;
 		}
 		$newIcon = filter_var($newIcon, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if($newIcon === false){
 			throw(new \InvalidArgumentException("icon field not a valid string"));
-
 		}
+
+		$this->icon = $this->iconCssClasses[$newIcon];
 	}
 	public function getTimestamp(){
 		return $this->timestamp;
