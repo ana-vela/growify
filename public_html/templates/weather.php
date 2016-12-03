@@ -1,20 +1,20 @@
 <section class="weather-display">
-	<div class="container">
+	<div class="container text-center">
 		<div class="row">
 
-			<div class="col-md-4 current-weather">
+			<div class="col-md-4 current-weather text-center">
 				<div class="row ">
 					<div class="col-xs-12">
 						<h3>Current weather, 87106</h3>
-						<h3>{{albuquerqueWeather.date}}</h3>
+						<h3 >{{albuquerqueWeather.date}}</h3>
 						<h1><i [ngClass]="['wi', albuquerqueWeather.icon]"></i></h1>
 
 						<div class="row">
 							<div class="col-xs-6">
-								{{albuquerqueWeather.currentTemperature}} &deg;F
+								<h3>{{albuquerqueWeather.currentTemperature}} &deg;F</h3>
 							</div>
 							<div class="col-xs-6">
-								{{albuquerqueWeather.windSpeed}} mph
+								<h3>{{albuquerqueWeather.windSpeed}} mph</h3>
 							</div>
 						</div>
 					</div>
@@ -22,12 +22,16 @@
 			</div> <!-- close current-weather -->
 
 
-			<div class="col-md-8 week-forecast">
-				<div class="row " *ngFor="let day of dailyWeather">
-					<div class="col-xs-12">
-						<span>{{day.date}}</span><i [ngClass]="['wi', day.icon]"></i><span class="low">{{day.temperatureMin}}&deg;F</span><span class="high">{{day.temperatureMax}} &deg;F</span><span>{{day.windSpeed}} mph</span>
-					</div>
-				</div>
+			<div class="col-md-8 week-forecast text-justify">
+				<table class="table">
+					<tr  *ngFor="let dayWeather of dailyWeather">
+						<td>{{dayWeather.date}}</td>
+						<td><h3><i [ngClass]="['wi', dayWeather.icon]"></i></h3></td>
+						<td class="low">{{dayWeather.temperatureMin}}&deg;F</td>
+						<td class="high">{{dayWeather.temperatureMax}} &deg;F</td>
+						<td>{{dayWeather.windSpeed}} mph</td>
+					</tr>
+				</table>
 			</div>
 		</div> <!-- close week-forecast-->
 	</div>

@@ -5,10 +5,7 @@
 /*@import 'https://<?php echo dirname($__DIR__) . "/"; ?>css/weather-icons.css';*/
 /*@import url('../app/css/weather-icons.css');*/
 
-body {
-	/*background: url("../app/img/vegetable-basket.jpg") no-repeat center fixed;
-	background-size: cover;*/
-}
+
 
 body{
 	background-color: #525252;
@@ -18,6 +15,7 @@ body{
 	align-self: flex-end;
 	background: transparent;
 	color: #fff;
+
 }
 
 .jumbotron > h1 {
@@ -39,6 +37,16 @@ body{
 	background: rgba(255, 255, 255, 0.8);
 	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
 }
+
+/******** HOME ***********/
+.home {
+
+	background: url("../app/img/vegetable-basket.jpg") no-repeat center fixed;
+	background-size: cover;
+}
+
+
+
 
 /****** LOGIN MODAL ******/
 .loginmodal-container {
@@ -150,8 +158,18 @@ body{
 
 .current-weather {
 	border-color:  #666;
+
 }
 
 .week-forecast .row {
 	border-color:  #666;
+	padding: 8px;
+}
+
+.week-forecast .table {
+	vertical-align: middle;
+}
+
+.week-forecast .weather-icon-cell {
+	padding: 0px;
 }
