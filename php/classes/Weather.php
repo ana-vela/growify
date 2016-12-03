@@ -29,8 +29,8 @@ class Weather implements JsonSerializable {
 		"wind" => 'wi-strong-wind',
 		"fog" => 'wi-fog',
 		"cloudy" => 'wi-cloudy',
-		"partly-cloudy-day"=> 'wi-partly-cloudy',
-		"partly-cloudy-night" => 'wi-partly-cloudy',
+		"partly-cloudy-day"=> 'wi-day-cloudy',
+		"partly-cloudy-night" => 'wi-night-alt-cloudy',
 		"hail" => 'wi-hail',
 		"thermometer" => 'wi-thermometer'];
 
@@ -40,7 +40,7 @@ class Weather implements JsonSerializable {
 	private $windSpeed; // mph
 	private $humidity;
 	private $precipitatonProbability;
-	private $timestamp; // seconds since beg. of time, timezone based on current location
+	private $date; // seconds since beg. of time, timezone based on current location
 	private $summary;
 	private $icon; // what type of icon to display icon css class
 	/**
@@ -51,7 +51,7 @@ class Weather implements JsonSerializable {
 	 * @param $icon string pass in weather icon data from darksky.net. This is convert to an icon class from http://erikflowers.github.io/weather-icons/ before it is stored.
 	 * @throws Exception
 	 */
-	public function __construct($currentTemperature, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipitationProbability, int $timestamp, string $summary, string $icon){
+	public function __construct($currentTemperature, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipitationProbability, string $date, string $summary, string $icon){
 		try{
 			$this->setCurrentTemperature($currentTemperature);
 			$this->setTemperatureMax($temperatureMax);
@@ -59,7 +59,8 @@ class Weather implements JsonSerializable {
 			$this->setWindSpeed($windSpeed);
 			$this->setHumidity($humidity);
 			$this->setPrecipitationProbability($precipitationProbability);
-			$this->setTimestamp($timestamp);
+			//$this->setTimestamp($timestamp);
+			$this->setDate($date);
 			$this->setSummary($summary);
 			$this->setIcon($icon);
 		} catch(\InvalidArgumentException $iae){
@@ -191,6 +192,14 @@ class Weather implements JsonSerializable {
 
 		$this->icon = $this->iconCssClasses[$newIcon];
 	}
+	public function getDate(){
+		return $this->date;
+	}
+	public function setDate(string $newDate){
+		$newDate = filter_var($newDate, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES );
+		$this->date = $newDate;
+	}
+	/*
 	public function getTimestamp(){
 		return $this->timestamp;
 	}
@@ -202,7 +211,7 @@ class Weather implements JsonSerializable {
 			}
 		}
 		$this->timestamp = $time;
-	}
+	}*/
 	/**
 	 * Get the current daily weather forecast for Albuquerque from darksky.net
 	 * @return Weather a weather object with current conditions
@@ -224,7 +233,7 @@ class Weather implements JsonSerializable {
 
 
 		$temperature = $data["temperature"];
-		$timestamp = $data["time"];
+		$date = date("D, M d",$data["time"]);
 
 		$windSpeed = $data["windSpeed"];
 		$humidity = $data["humidity"];
@@ -233,7 +242,7 @@ class Weather implements JsonSerializable {
 		$icon = $data["icon"];
 
 		//echo "tmin = ".$temperatureMin ." tmax = ".$temperatureMax ." wind = ".$windSpeed . " time = ".$timestamp;
-		$newWeather = new \Weather($temperature,null, null, $windSpeed, $humidity, $precipProbability, $timestamp, $summary, $icon);
+		$newWeather = new \Weather($temperature,null, null, $windSpeed, $humidity, $precipProbability, $date, $summary, $icon);
 		return $newWeather;
 	}
 
@@ -266,7 +275,7 @@ class Weather implements JsonSerializable {
 		$data = $result["currently"];
 
 		$temperature = $data["temperature"];
-		$timestamp = $data["time"];
+		$date = date("D, M d",$data["time"]);
 
 		$windSpeed = $data["windSpeed"];
 		$humidity = $data["humidity"];
@@ -279,7 +288,7 @@ class Weather implements JsonSerializable {
 		$temperatureMin = null;
 		$temperatureMax = null;
 
-		$newWeather = new \Weather($temperature,null, null, $windSpeed, $humidity, $precipProbability, $timestamp, $summary, $icon);
+		$newWeather = new \Weather($temperature,null, null, $windSpeed, $humidity, $precipProbability, $date, $summary, $icon);
 		return $newWeather;
 	}
 
@@ -320,7 +329,7 @@ class Weather implements JsonSerializable {
 
 		for($i = 0; $i < count($data); $i++) {
 			$temperatureMax = $data[$i]["temperatureMax"];
-			$timestamp = $data[$i]["time"];
+			$date = date("D, M d",$data[$i]["time"]);
 			$temperatureMin = $data[$i]["temperatureMin"];
 			$windSpeed = $data[$i]["windSpeed"];
 			$humidity = $data[$i]["humidity"];
@@ -328,7 +337,7 @@ class Weather implements JsonSerializable {
 			$summary = $data[$i]["summary"];
 			$icon = $data[$i]["icon"];
 			//echo "tmin = ".$temperatureMin ." tmax = ".$temperatureMax ." wind = ".$windSpeed . " time = ".$timestamp;
-			$newWeather = new \Weather(null, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipProbability, $timestamp, $summary, $icon);
+			$newWeather = new \Weather(null, $temperatureMin, $temperatureMax, $windSpeed, $humidity, $precipProbability, $date, $summary, $icon);
 			array_push($weekOfWeather, $newWeather);
 		}
 		return $weekOfWeather;
@@ -338,7 +347,9 @@ class Weather implements JsonSerializable {
 	 * @return array array containing all public fields of Weather.
 	 */
 	function jsonSerialize() {
+
 		return(get_object_vars($this));
+
 		// note - if the date is represented as a DateTime rather than an int timestamp, we will need to do a little more work here.
 	}
 }

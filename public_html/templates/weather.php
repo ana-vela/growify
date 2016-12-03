@@ -1,41 +1,34 @@
 <section class="weather-display">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4">
-				<h3>Albuquerque Weather</h3>
-				<h1><i [ngClass]="['wi', albuquerqueWeather.icon]"></i></h1>
-				<ul>
-					<li>Current Temp: {{albuquerqueWeather.currentTemperature}} degF</li>
-					<li>Wind Speed: {{albuquerqueWeather.windSpeed}} mph</li>
-					<li>Timestamp: {{albuquerqueWeather.timestamp}} s</li>
-				</ul>
+
+			<div class="col-md-4 current-weather">
+				<div class="row ">
+					<div class="col-xs-12">
+						<h3>Current weather, 87106</h3>
+						<h3>{{albuquerqueWeather.date}}</h3>
+						<h1><i [ngClass]="['wi', albuquerqueWeather.icon]"></i></h1>
+
+						<div class="row">
+							<div class="col-xs-6">
+								{{albuquerqueWeather.currentTemperature}} &deg;F
+							</div>
+							<div class="col-xs-6">
+								{{albuquerqueWeather.windSpeed}} mph
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- close current-weather -->
+
+
+			<div class="col-md-8 week-forecast">
+				<div class="row " *ngFor="let day of dailyWeather">
+					<div class="col-xs-12">
+						<span>{{day.date}}</span><i [ngClass]="['wi', day.icon]"></i><span class="low">{{day.temperatureMin}}&deg;F</span><span class="high">{{day.temperatureMax}} &deg;F</span><span>{{day.windSpeed}} mph</span>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<h3>Week Forecast</h3>
-			<div class="col-md-8">
-				<h1><i class="wi wi-day-lightning"></i></h1>
-
-
-
-				<ul>
-
-					<li *ngFor="let day of dailyWeather">
-						<ul>
-							<li>Low: {{day.temperatureMin}} degF</li>
-							<li>High: {{day.temperatureMax}} degF</li>
-							<li>Wind Speed: {{day.windSpeed}} mph</li>
-							<li>Timestamp: {{day.timestamp}}</li>
-						</ul>
-
-					</li>
-					</ul>
-
-			</div>
-		</div>
-		<h3>Burritos:</h3>
-		<ul>
-			<li *ngFor="let burrito of burritos">{{burrito}}</li>
-		</ul>
+		</div> <!-- close week-forecast-->
 	</div>
 </section>

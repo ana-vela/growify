@@ -6,8 +6,12 @@
 /*@import url('../app/css/weather-icons.css');*/
 
 body {
-	background: url("../app/img/vegetable-basket.jpg") no-repeat center fixed;
-	background-size: cover;
+	/*background: url("../app/img/vegetable-basket.jpg") no-repeat center fixed;
+	background-size: cover;*/
+}
+
+body{
+	background-color: #525252;
 }
 
 .jumbotron {
@@ -26,9 +30,7 @@ body {
 
 /* signup page */
 
-body{
-	background-color: #525252;
-}
+
 .centered-form{
 	margin-top: 60px;
 }
@@ -131,4 +133,25 @@ body{
 	font-size: 12px;
 }
 
+/****** Weather ***********/
+.weather-display{
+	color: black;
+	background-color: white;
+	padding: 20px;
+}
 
+.weather-display .low{
+	color: #666;
+}
+
+.weather-diplay .high{
+	color: black;
+}
+
+.current-weather {
+	border-color:  #666;
+}
+
+.week-forecast .row {
+	border-color:  #666;
+}

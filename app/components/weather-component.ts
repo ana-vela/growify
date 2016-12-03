@@ -16,8 +16,8 @@ import {Status} from "../classes/status";
 export class WeatherComponent implements OnInit {
  // need @ViewChild ??
 	//deleted: boolean = false;
-	currentWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, 0, "", "");
-	albuquerqueWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, 0, "", "");
+	currentWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, "", "", "");
+	albuquerqueWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, "", "", "");
 	dailyWeather: Weather[] = [];
 	status: Status = null;
 
