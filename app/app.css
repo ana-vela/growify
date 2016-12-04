@@ -161,15 +161,18 @@ body{
 
 }
 
+
+
 .week-forecast .row {
 	border-color:  #666;
 	padding: 8px;
 }
 
-.week-forecast .table {
+.week-forecast > table > tr > td {
 	vertical-align: middle;
 }
 
-.week-forecast .weather-icon-cell {
-	padding: 0px;
+.week-forecast-icon > i {
+	font-size: xx-large;
 }
+
