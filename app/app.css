@@ -8,7 +8,7 @@
 
 
 body{
-	background-color: #525252;
+	/*background-color: #525252;*/
 }
 
 .jumbotron {
@@ -176,3 +176,16 @@ body{
 	font-size: xx-large;
 }
 
+/******* Add Plants View ******/
+#plant-table {
+	border: 2px black;
+	border-radius: 10px;
+}
+
+#combative-plants {
+	background: lightpink;
+}
+
+#companion-plants {
+	background: lightgreen;
+}
