@@ -14,31 +14,26 @@ require_once("autoload.php");
 
 class CompanionPlant implements \JsonSerializable{
 	/**
-	 *
-	 *  Name of  first CompanionPlant - foreign key
+	 * Name of  first CompanionPlant - foreign key
 	 * @var string $companionPlant1Name
 	 **/
 	private $companionPlant1Name;
 
 	/**
-	 *
 	 * Name for second CompanionPlant - foreign key
 	 * @var string $companionPlant2Name
 	 *
 	 **/
-
 	private $companionPlant2Name;
 
 	/**
 	 * companion plant 1 with latin name
-	 *
 	 * @var string $companionPlant1LatinName
 	 */
 	private $companionPlant1LatinName;
 
 	/**
 	 * companion plant 2 with latin name
-	 *
 	 * @var string $companionPlant2LatinName
 	 */
 	private $companionPlant2LatinName;
@@ -90,7 +85,6 @@ class CompanionPlant implements \JsonSerializable{
 
 	/**
 	 * mutator method for this companion plant 1 name
-	 *
 	 * @param string $newCompanionPlant1Id new value of companion plant 1 name
 	 * @throws \InvalidArgumentException if $newCompanionPlant1Name has invalid contents or is empty
 	 * @throws \RangeException if $newCompanionPlant1Name is too long
@@ -109,7 +103,6 @@ class CompanionPlant implements \JsonSerializable{
 	}
 	/**
 	 * accessor method for companion plant 2 name
-	 *
 	 * @return string value for companion plant 2 name
 	 **/
 	public function getCompanionPlant2Name(): string {
@@ -132,22 +125,7 @@ class CompanionPlant implements \JsonSerializable{
 		$this->companionPlant2Name = $newCompanionPlant2Name;
 	}
 	/**
-	 * @throws \InvalidArgumentException if $newPlantLatinName has invalid contents or is empty
-	 * @throws \RangeException if $newPlantLatinName is too long
-	 **/
-	public function setPlantLatinName($newPlantLatinName){
-		$newPlantLatinName = trim($newPlantLatinName);
-		$newPlantLatinName = filter_var($newPlantLatinName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
-		if(strlen($newPlantLatinName)>72) {
-			throw(new \RangeException("latin name is too large"));
-		}
-		$this->plantLatinName = $newPlantLatinName;
-	}
-
-
-	/**
-	 * accessor method for plantLatinName
+	 * accessor method for companionPlant1LatinName
 	 * @return string the latin name for this plant
 	 **/
 	public function getCompanionPlant1LatinName(){
@@ -171,7 +149,7 @@ class CompanionPlant implements \JsonSerializable{
 	}
 
 	/**
-	 * accessor method for CompanionPlant1LatinName
+	 * accessor method for CompanionPlant2LatinName
 	 * @return string the latin name for this plant
 	 **/
 	public function getCompanionPlant2LatinName(){
@@ -195,16 +173,17 @@ class CompanionPlant implements \JsonSerializable{
 	}
 	//**made changes and committed up to here**//
 	/**
-	 * check whether a mySQL entry for a given pair of plant ids already exists in the table.
+	 * check whether a mySQL entry for a given pair of plant names already exists in the table.
+	 *
 	 * @param \PDO $pdo a PDO connection object
-	 * @param int $companionPlant1Id a valid plant id
-	 * @param int $companionPlant2Id a valid plant id
+	 * @param string $companionPlant1Name a valid plant name
+	 * @param string $companionPlant2Name a valid plant name
 	 * @return bool true if the entry already exists in mySQL, false if it doesn't
 	 **/
-	public static function existsCompanionPlantEntry(\PDO $pdo, int $companionPlant1Id, int $companionPlant2Id) {
+	public static function existsCompanionPlantEntry(\PDO $pdo, string $companionPlant1Name, string $companionPlant2Name) {
 		// first check if this will create a duplicate DB entry
-		$query = "SELECT companionPlant1Id, companionPlant2Id FROM companionPlant WHERE (companionPlant1Id = :companionPlant1Id AND companionPlant2Id = :companionPlant2Id) OR (companionPlant1Id = :companionPlant2Id AND companionPlant2Id = :companionPlant1Id)";
-		$parameters = ["companionPlant1Id"=>$companionPlant1Id, "companionPlant2Id"=>$companionPlant2Id];
+		$query = "SELECT companionPlant1Name, companionPlant2Name FROM companionPlant WHERE (companionPlant1Name = :companionPlant1Name) AND (companionPlant2Name = :companionPlant2Name) OR (companionPlant1Name = :companionPlant2Name) AND (companionPlant2Name = :companionPlant1Name)";
+		$parameters = ["companionPlant1Name"=>$companionPlant1Name, "companionPlant2Name"=>$companionPlant2Name];
 		$statement = $pdo->prepare($query);
 		$statement->execute($parameters);
 
@@ -214,21 +193,21 @@ class CompanionPlant implements \JsonSerializable{
 		return false;
 	}
 
-
 	/**
 	 * insert a new companion plant relationship ito mySQL
+	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException if mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object.
 	 **/
 	public function insert(\PDO $pdo) {
 
-		if(CompanionPlant::existsCompanionPlantEntry($pdo, $this->companionPlant1Id, $this->companionPlant2Id)===false) {
+		if(CompanionPlant::existsCompanionPlantEntry($pdo, $this->companionPlant1Name, $this->companionPlant2Name)===false) {
 			// bind the member variables to the place holders in the template
-			$parameters = ["companionPlant1Id" => $this->companionPlant1Id, "companionPlant2Id" => $this->companionPlant2Id];
+			$parameters = ["companionPlant1Name" => $this->companionPlant1Name, "companionPlant2Name" => $this->companionPlant2Name];
 
 			//create query template
-			$insertQuery = "INSERT INTO companionPlant(companionPlant1Id, companionPlant2Id) VALUES (:companionPlant1Id, :companionPlant2Id)";
+			$insertQuery = "INSERT INTO companionPlant(companionPlant1Name, companionPlant2Name) VALUES (:companionPlant1Name, :companionPlant2Name)";
 			$insertStatement = $pdo->prepare($insertQuery);
 
 			//bind the member variables to the place holders in the template
@@ -243,47 +222,47 @@ class CompanionPlant implements \JsonSerializable{
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException if mySQL related errors occur
-	 * @throws \TypeError i $pdo is not a PDO connection object
+	 * @throws \TypeError  $pdo is not a PDO connection object
 	 **/
 	public function delete(\PDO $pdo) {
 		// first check if the entry exists in order to delete , throw an error otherwise
-		if(CompanionPlant::existsCompanionPlantEntry($pdo, $this->companionPlant1Id, $this->companionPlant2Id) === false){
+		if(CompanionPlant::existsCompanionPlantEntry($pdo, $this->companionPlant1Name, $this->companionPlant2Name) === false){
 			throw new \PDOException("cannot delete an entry that does not exist");
 		}
 
 		// bind parameters
-		$parameters = ["companionPlant1Id" => $this->companionPlant1Id, "companionPlant2Id" => $this->companionPlant2Id];
+		$parameters = ["companionPlant1Name" => $this->companionPlant1Name, "companionPlant2Name" => $this->companionPlant2Name];
 
 		// create query template and execute
-		$query = "DELETE FROM companionPlant WHERE (companionPlant1Id  = :companionPlant1Id) AND (companionPlant2Id = :companionPlant2Id)";
+		$query = "DELETE FROM companionPlant WHERE (companionPlant1Name  = :companionPlant1Name) AND (companionPlant2Name = :companionPlant2Name)";
 		$statement = $pdo->prepare($query);
 		$statement->execute($parameters);
 
 		// switch order of parameters input int mySQL, and run the new query
-		$query = "DELETE FROM companionPlant WHERE (companionPlant1Id = :companionPlant2Id) AND (companionPlant2Id =:companionPlant1Id)";
+		$query = "DELETE FROM companionPlant WHERE (companionPlant1Name = :companionPlant2Name) AND (companionPlant2Name =:companionPlant1Name)";
 		$statement = $pdo->prepare($query);
 		$statement->execute($parameters);
 	}
 
 	/**
-	 * Gets all Companion Plant entries that have the specified plant id.
+	 * Gets all Companion Plant entries that have the specified plant name.
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param int $plantId of the plant we are searching for.
+	 * @param string $plantName of the plant we are searching for.
 	 * @return \SplFixedArray SplFixedArray of companion plants found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
-	 * @throw \TypeError if $pdo is not a PDO conneciton object.
+	 * @throw \TypeError if $pdo is not a PDO connection object.
 	 **/
-	public static function getAllCompanionPlantsByPlantId(\PDO $pdo, int $plantId){
-		if($plantId <= 0){
-			throw(new \RangeException("companion plant id must be positive"));
+	public static function getAllCompanionPlantsByPlantName(\PDO $pdo, string $plantName){
+		if($plantName <= 0){
+			throw(new \RangeException("companion plant name is too long"));
 		}
 		// create query template
-		$query = "SELECT companionPlant1Id, companionPlant2Id FROM companionPlant WHERE ((companionPlant1Id = :plantId) OR (companionPlant2Id=:plantId))";
+		$query = "SELECT companionPlant1Name, companionPlant2Name FROM companionPlant WHERE ((companionPlant1Name = :plantName) OR (companionPlant2Name=:plantName))";
 		$statement = $pdo->prepare($query);
 
 		//bind parameters
-		$parameters = ["plantId"=>$plantId];
+		$parameters = ["plantName"=>$plantName];
 		$statement->execute($parameters);
 
 		// build an array of CompanionPlants
@@ -292,7 +271,7 @@ class CompanionPlant implements \JsonSerializable{
 
 		while(($row=$statement->fetch()) !==false){
 			try{
-				$companionPlant = new CompanionPlant ($row["companionPlant1Id"], $row["companionPlant2Id"]);
+				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"]);
 				$companionPlants[$companionPlants->key()]=$companionPlant;
 				$companionPlants->next();
 			}catch(\Exception $exception){
@@ -305,6 +284,7 @@ class CompanionPlant implements \JsonSerializable{
 
 	/**
 	 * get all companion plants
+	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @return \SplFixedArray SplFixedArray of companion plants found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
@@ -314,7 +294,7 @@ class CompanionPlant implements \JsonSerializable{
 	public static function getAllCompanionPlants(\PDO $pdo) {
 
 		// create query template
-		$query = "SELECT companionPlant1Id, companionPlant2Id FROM companionPlant";
+		$query = "SELECT companionPlant1Name, companionPlant2Name FROM companionPlant";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
@@ -324,7 +304,7 @@ class CompanionPlant implements \JsonSerializable{
 
 		while (($row = $statement->fetch()) !=false) {
 			try {
-				$companionPlant = new CompanionPlant ($row["companionPlant1Id"], $row["companionPlant2Id"]);
+				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"]);
 				$companionPlants[$companionPlants->key()] = $companionPlant;
 				$companionPlants->next();
 			} catch(\Exception $exception){
@@ -335,7 +315,6 @@ class CompanionPlant implements \JsonSerializable{
 		return ($companionPlants);
 	}
 
-
 	/**
 	 * format state variables for JSON serialization
 	 * @return array an array with serialized state variables
@@ -344,7 +323,4 @@ class CompanionPlant implements \JsonSerializable{
 		$fields = get_object_vars($this);
 		return($fields);
 	}
-
-
-
 }
