@@ -14,7 +14,8 @@ export class PlantService extends BaseService {
 
 	getPlantsByName(plantName: string) : Observable<Plant[]>{
 
-		return(this.http.get(this.plantUrl+"?plantName="+plantName).map(this.extractData).catch(this.handleError));
+		/*return(this.http.get(this.plantUrl+"?plantName="+plantName).map(this.extractData).catch(this.handleError));*/
+		return(this.http.get("api/plant/?plantName=potato").map(this.extractData).catch(this.handleError));
 
 	}
 
@@ -23,7 +24,7 @@ export class PlantService extends BaseService {
 	}
 
 	/* in this case, only one plant at most should be returned */
-	getPlantByPlantId(plantId: number) : Observable<Plant> {
+	getPlantByPlantId() : Observable<Plant> {
 		return(this.http.get(this.plantUrl+"?plantId").map(this.extractData).catch(this.handleError));
 	}
 

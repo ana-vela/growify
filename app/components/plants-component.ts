@@ -11,21 +11,37 @@ import {Status} from "../classes/status";
 
 export class PlantsComponent {
 
-	plantSearch: Plant[] = [];
+	plantName: string = ""; // search term from plant-form
+	plantLatinName: string = ""; // search term from form
+	plantId: number = 0; // for searching by plantId
+	plantResults: Plant[] = []; // search results
+
+	testPlants = [new Plant(1, "star flower", "Expecto patronus","flower", "flower", "badass",7,  7, 7, 15, 140, "D"),
+		new Plant(1, "beetroot", "Beetle bug","flower", "flower", "badass",7,  7, 7, 15, 140, "D")];
 
 	constructor(private plantService: PlantService){}
 
-	searchForPlantsByName(plantName: string): void{
-
-		this.plantService.getPlantsByName(plantName).subscribe(plants=>this.plantSearch.concat(plants));
+	testSubmit(): void{
+		this.plantName = "tasty plant";
 	}
 
-	searchForPlantsByLatinName(plantLatinName: string): void{
-		this.plantService.getPlantsByLatinName(plantLatinName).subscribe(plants=>this.plantSearch.concat(plants));
+	searchForPlantsByName(): void{
+
+
+		this.plantService.getPlantsByName(this.plantName).subscribe(plants=>this.plantResults.concat(plants));
 	}
 
-	searchForPlantByPlantId(plantId: number): void{
-		this.plantService.getPlantByPlantId(plantId).subscribe(plant=>this.plantSearch.concat(plant));
+	searchForPlantsByLatinName(): void{
+		this.plantService.getPlantsByLatinName(this.plantLatinName).subscribe(plants=>this.plantResults.concat(plants));
 	}
+
+	/*searchForPlantByPlantId(): void{
+	 this.plantService.getPlantByPlantId(this.plantId).subscribe(plant=>this.plantResults.concat(plant));
+	 }*/
+	/*
+	 searchForPlantsByPlantId(): void{
+	 this.plantService.getPlantByPlantId(this.plantId).subscribe(plants=>this.plantResults.concat(plants));
+	 }
+	 */
 
 }

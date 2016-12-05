@@ -9,28 +9,41 @@
 
 		<div class="row">
 			<div class="col-md-10">
-				<form id="plantForm" class="form-inline"  ><!-- add (ngSubmit)="plantSearch()" -->
+				<form #plantForm="ngForm" novalidate name="plantForm" id="plantForm" class="form-inline" (ngSubmit)="searchForPlantsByName(); testSubmit()" >
 
-					<div class="form-group">
+					<div class="input-group">
 						<label for="plant-search" class="sr-only">Search</label>
 						<div class="input-group">
-							<input type="text" name="plant-search" id="plant-search" title="plant-search" >
+							<input type="text" placeholder="Search for Plant by Name&hellip;" name="plantName" id="plantName" title="plantName" [(ngModel)]="plantName" >
 
 							<span class="input-group-button">
-							<a class="btn btn-default" type="submit"><i class="fa fa-search fa-flip-horizontal" aria-hidden="true"></i>
-</a>
-							</span>
+                                                        <a class="btn btn-default" role="button" type="submit" (click)="searchForPlantsByName(); testSubmit()"><i class="fa fa-search fa-flip-horizontal" aria-hidden="true" ></i></a>
+                                                        </span>
 
 						</div>
 					</div>
 
 				</form>
+
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-10">
 				<table class="table  " id="plant-table">
 					<!-- do we want class table responsive? -->
+					<tr><td>{{plantName}}</td></tr>
+					<tr *ngFor="let plant of plantResults" >
+						<td>
+							<button class="btn btn-default" type="button">
+								<i class="fa fa-plus" aria-hidden="true"></i>
+							</button>
+						</td>
+						<td>{{plant.plantName}}</td>
+						<td><em>{{plant.plantLatinName}}</em></td>
+						<td>??</td>
+
+					</tr>
+
 					<tr>
 						<td>
 							<a class="btn btn-default" type="button">
