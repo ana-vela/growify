@@ -72,11 +72,7 @@ CREATE TABLE companionPlant(
 	INDEX(companionPlant1Name),
 	INDEX(companionPlant1LatinName),
 	INDEX(companionPlant2Name),
-	INDEX(companionPlant2LatinName),
-	FOREIGN KEY (companionPlant1Name) REFERENCES plant(plantName),
-	FOREIGN KEY (companionPlant1LatinName) REFERENCES plant(plantLatinName),
-	FOREIGN KEY (companionPlant2Name) REFERENCES plant(plantName),
-	FOREIGN KEY (companionPlant2LatinName) REFERENCES plant(plantLatinName)
+	INDEX(companionPlant2LatinName)
 );
 
 CREATE TABLE combativePlant(
@@ -88,11 +84,7 @@ CREATE TABLE combativePlant(
 	INDEX(combativePlant1Name),
 	INDEX(combativePLant1LatinName),
 	INDEX(combativePlant2Name),
-	INDEX(combativePlant2LatinName),
-	FOREIGN KEY (combativePlant1Name) REFERENCES plant(plantName),
-	FOREIGN KEY (combativePlant1LatinName) REFERENCES plant(plantLatinName),
-	FOREIGN KEY (combativePlant2Name) REFERENCES plant(plantName),
-	FOREIGN KEY (combativePlant2LatinName) REFERENCES plant(plantLatinName)
+	INDEX(combativePlant2LatinName)
 );
 
 CREATE TABLE garden (
