@@ -11,31 +11,31 @@ require_once("autoload.php");
 class CombativePlant implements \JsonSerializable{
 
 	/**
-	 * id of one combative plant - this is a foreign key
-	 * @var int $combativePlant1Id;
+	 * name of one combative plant - this is a foreign key
+	 * @var string $combativePlant1Name;
 	 */
-	private $combativePlant1Id;
+	private $combativePlant1Name;
 
 	/**
-	 * id of another combative plant - this is a foreign key
+	 * name of another combative plant - this is a foreign key
 	 * @var int $combativePlant2Id
 	 */
-	private $combativePlant2Id;
+	private $combativePlant2Name;
 
 	/**
 	 * CombativePlant constructor.
-	 * @param int $newCombativePlant1Id
-	 * @param int $newCombativePlant2Id
-
+	 * @param string $newCombativePlant1Name
+	 * @param string $newCombativePlant2Name
+	 * @throws \InvalidArgumentException if data has invalid contents or is empty
+	 * @throws \RangeException if data is too long
 	 * @throws \TypeError if parameters violate type hints
-	 * @throws \RangeException if data values are out of bounds (e.g. negative values for plant ids
 	 * @throws \Exception if some other exception occurs
 	 *
 	 */
-	public function __construct(int $newCombativePlant1Id, int $newCombativePlant2Id){
+	public function __construct(string $newCombativePlant1Name, string $newCombativePlant2Name){
 		try{
-			$this->setCombativePlant1Id($newCombativePlant1Id);
-			$this->setCombativePlant2Id($newCombativePlant2Id);
+			$this->setCombativePlant1Name($newCombativePlant1Name);
+			$this->setCombativePlant2Name($newCombativePlant2Name);
 		} //rethrow to caller
 		 catch(\RangeException $range){
 			throw(new \RangeException($range->getMessage(), 0, $range));
@@ -47,62 +47,64 @@ class CombativePlant implements \JsonSerializable{
 	}
 
 	/**
-	 * Accessor method for combativePlant1
-	 * @return int $combativePlant1 a plant id
+	 * Accessor method for combativePlant1Name
+	 * @return string $combativePlant1Name a plant name
 	 */
-	public function getCombativePlant1Id(): int {
-		return $this->combativePlant1Id;
+	public function getCombativePlant1Name(): string {
+		return $this->combativePlant1Name;
 	}
 
 	/**
-	 * Mutator method for combativePlant1Id.
-	 * @param int $newCombativePlant
-	 * @throws \RangeException if $newCombativePlant is not positive.
-	 * @throws \TypeError if $newCombativePlant is not an int.
+	 * Mutator method for combativePlant1Name.
+	 * @param string $newCombativePlant1Name
+	 * @throws \InvalidArgumentException if $newCombativePlant1Name has invalid contents or is empty
+	 * @throws \RangeException if $newCombativePlant is too long.
+	 * @throws \TypeError if $newCombativePlant is not a string.
 	 */
-	public function setCombativePlant1Id(int $newCombativePlant) {
+	public function setCombativePlant1Name(string $newCombativePlant) {
 		if($newCombativePlant <= 0){
-			throw(new \RangeException("combative plant id must be positive"));
+			throw(new \RangeException("combative plant is too large"));
 		}
-		$this->combativePlant1Id = $newCombativePlant;
+		$this->combativePlant1Name = $newCombativePlant;
 	}
 
 	/**
-	 * Accessor method for combativePlant2Id
-	 * @return int $combativeplant2Id a plant id.
+	 * Accessor method for combativePlant2Name
+	 * @return string $combativeplant2Id a plant name.
 	 */
-	public function getCombativePlant2Id(): int {
-		return $this->combativePlant2Id;
+	public function getCombativePlant2Name(): string {
+		return $this->combativePlant2Name;
 	}
 
 	/**
-	 * Mutator method for combativePlant2Id
-	 * @param int $newCombativePlant
-	 * @throws \RangeException if $newCombativePlant is not positive
+	 * Mutator method for combativePlant2Name
+	 * @param string $newCombativePlant
+	 * @throws \InvalidArgumentException if $newCombativePlant2Name has invalid contents or is empty
+	 * @throws \RangeException if $newCombativePlant is too long
 	 * @throws \TypeError if $newCombativePlant is not an int.
 	 */
-	public function setCombativePlant2Id(int $newCombativePlant) {
+	public function setCombativePlant2Name(int $newCombativePlant) {
 
 		if($newCombativePlant <= 0){
-			throw (new \RangeException("combative plant id must be positive"));
+			throw (new \RangeException("combative plant name is too long"));
 		}
 
 		$this->combativePlant2Id = $newCombativePlant;
 	}
 
 	/**
-	 * check whethere a mySQL entry for a given pair of plant Ids already exists in the table.
+	 * check whethere a mySQL entry for a given pair of plant names already exists in the table.
 	 * @param \PDO $pdo a PDO connection object
-	 * @param int $combativePlant1Id a valid plant id
-	 * @param int $combativePlant2Id a valid plant id.
+	 * @param int $combativePlant1Id a valid plant name
+	 * @param int $combativePlant2Id a valid plant name
 	 * @return bool true if the entry already exists in mySQL, false if it doesn't
 	 */
-	public static function existsCombativePlantEntry(\PDO $pdo, int $combativePlant1Id, int $combativePlant2Id){
+	public static function existsCombativePlantEntry(\PDO $pdo, string $combativePlant1Name, int $combativePlant2Name){
 		// first check if this will create a duplicate DB entry
-		$query = "SELECT combativePlant1Id, combativePlant2Id FROM combativePlant WHERE 
-(combativePlant1Id = :combativePlant1Id AND combativePlant2Id = :combativePlant2Id) OR 
-(combativePlant1Id = :combativePlant2Id AND combativePlant2Id = :combativePlant1Id)";
-		$parameters = ["combativePlant1Id"=>$combativePlant1Id, "combativePlant2Id"=>$combativePlant2Id];
+		$query = "SELECT combativePlant1Name, combativePlant2Name FROM combativePlant WHERE 
+(combativePlant1Name = :combativePlant1Name) AND (combativePlant2Name = :combativePlant2Name) OR 
+(combativePlant1Name = :combativePlant2Name) AND (combativePlant2Name = :combativePlant1Name)";
+		$parameters = ["combativePlant1Name"=>$combativePlant1Name, "combativePlant2Name"=>$combativePlant2Name];
 		$statement = $pdo->prepare($query);
 		$statement->execute($parameters);
 
@@ -120,12 +122,12 @@ class CombativePlant implements \JsonSerializable{
 	 */
 	public function insert(\PDO $pdo){
 
-		if(CombativePlant::existsCombativePlantEntry($pdo, $this->combativePlant1Id, $this->combativePlant2Id)===false){
+		if(CombativePlant::existsCombativePlantEntry($pdo, $this->combativePlant1Name, $this->combativePlant2Name)===false){
 			//bind the member variables to the place holders in the template
-			$parameters = ["combativePlant1Id"=>$this->combativePlant1Id, "combativePlant2Id"=>$this->combativePlant2Id];
+			$parameters = ["combativePlant1Name"=>$this->combativePlant1Name, "combativePlant2Name"=>$this->combativePlant2Name];
 
 			//create query template
-			$insertQuery = "INSERT INTO combativePlant(combativePlant1Id, combativePlant2Id) VALUES (:combativePlant1Id, :combativePlant2Id )";
+			$insertQuery = "INSERT INTO combativePlant(combativePlant1Name, combativePlant2Name) VALUES (:combativePlant1Name, :combativePlant2Name)";
 			$insertStatement = $pdo->prepare($insertQuery);
 
 			// bind the member variables to the place holders in the template
@@ -144,22 +146,22 @@ class CombativePlant implements \JsonSerializable{
 	 */
 	public function delete(\PDO $pdo){
 		/// first check if the entry exists, if not, throw an exception
-		if(CombativePlant::existsCombativePlantEntry($pdo, $this->combativePlant1Id, $this->combativePlant2Id) === false){
+		if(CombativePlant::existsCombativePlantEntry($pdo, $this->combativePlant1Name, $this->combativePlant2Name) === false){
 			throw new \PDOException("cannot delete an entry that does not exist");
 		}
 
 		// bind parameters
-		$parameters = ["combativePlant1Id"=>$this->combativePlant1Id, "combativePlant2Id"=>$this->combativePlant2Id];
+		$parameters = ["combativePlant1Name"=>$this->combativePlant1Name, "combativePlant2Name"=>$this->combativePlant2Name];
 
 		// create query template
-		$query = "DELETE FROM combativePlant WHERE (combativePlant1Id  = :combativePlant1Id) AND (combativePlant2Id = :combativePlant2Id)";
+		$query = "DELETE FROM combativePlant WHERE (combativePlant1Name  = :combativePlant1Name) AND (combativePlant2Name = :combativePlant2Name)";
 		$statement = $pdo->prepare($query);
 
 		// execute statement
 		$statement->execute($parameters);
 
 		// switch order of parameters input into mySQL, and run new query
-		$query = "DELETE FROM combativePlant WHERE (combativePlant1Id  = :combativePlant2Id) AND ( combativePlant2Id = :combativePlant1Id)";
+		$query = "DELETE FROM combativePlant WHERE (combativePlant1Name = :combativePlant2Name) AND ( combativePlant2Name = :combativePlant1Name)";
 		$statement = $pdo->prepare($query);
 
 		// execute statement
@@ -171,24 +173,24 @@ class CombativePlant implements \JsonSerializable{
 
 
 	/**
-	 * Get all of the Combative Plant entries that have the specified plant Id.
+	 * Get all of the Combative Plant entries that have the specified plant name.
 	 * @param \PDO $pdo the PDO connection object.
-	 * @param int $plantId the Id of the plant we are searching for.
+	 * @param string $plantName the name of the plant we are searching for.
 	 * @return \SplFixedArray SplFixedArray of Combative Plants, or null if no matches found.
 	 * @throws \PDOException for mySQL related errors
 	 * @throws \TypeError if variables are not the correct data type.
 	 */
-	public static function getCombativePlantsByPlantId(\PDO $pdo, int $plantId){
+	public static function getCombativePlantsByPlantName(\PDO $pdo, string $plantId, $plantName){
 		if($plantId <= 0){
-			throw(new \RangeException("combative plant id must be positive"));
+			throw(new \RangeException("combative plant name must be positive"));
 		}
 
 		// create query template
-		$query = "SELECT combativePlant1Id, combativePlant2Id FROM combativePlant WHERE ((combativePlant1Id = :plantId ) OR (combativePlant2Id=:plantId))";
+		$query = "SELECT combativePlant1Name, combativePlant2Name FROM combativePlant WHERE ((combativePlant1Name = :plantName) OR (combativePlant2Name =: plantName))";
 		$statement = $pdo->prepare($query);
 
 		// bind parameters
-		$parameters = ["plantId"=>$plantId];
+		$parameters = ["plantName"=>$plantName];
 		$statement->execute($parameters);
 
 		// build an array of combativePlants
@@ -197,7 +199,7 @@ class CombativePlant implements \JsonSerializable{
 
 		while(($row=$statement->fetch()) !== false){
 			try{
-				$combativePlant = new CombativePlant($row["combativePlant1Id"], $row["combativePlant2Id"]);
+				$combativePlant = new CombativePlant($row["combativePlant1Name"], $row["combativePlant2Name"]);
 				$combativePlants[$combativePlants->key()]=$combativePlant;
 				$combativePlants->next();
 			}catch(\Exception $exception){
@@ -206,7 +208,6 @@ class CombativePlant implements \JsonSerializable{
 			}
 		}
 		return($combativePlants);
-
 	}
 
 	/**
@@ -218,7 +219,7 @@ class CombativePlant implements \JsonSerializable{
 	public static function getAllCombativePlants(\PDO $pdo){
 
 		// create query template
-		$query = "SELECT combativePlant1Id, combativePlant2Id FROM combativePlant";
+		$query = "SELECT combativePlant1Name, combativePlant2Name FROM combativePlant";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
@@ -227,7 +228,7 @@ class CombativePlant implements \JsonSerializable{
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch())!==false){
 			try{
-				$combativePlant = new CombativePlant($row["combativePlant1Id"], $row["combativePlant2Id"]);
+				$combativePlant = new CombativePlant($row["combativePlant1Name"], $row["combativePlant2Name"]);
 				$combativePlants[$combativePlants->key()] = $combativePlant;
 				$combativePlants->next();
 			} catch(\Exception $exception){
@@ -235,10 +236,7 @@ class CombativePlant implements \JsonSerializable{
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-
 		return($combativePlants);
-
-
 	}
 
 	/**
@@ -249,5 +247,4 @@ class CombativePlant implements \JsonSerializable{
 		$fields = get_object_vars($this);
 		return($fields);
 	}
-
 }
