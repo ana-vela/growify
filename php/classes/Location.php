@@ -96,6 +96,12 @@ class Location implements \JsonSerializable{
 		}
 	}
 
+	/**
+	 * get latitude and longitude corresponding to this zip code
+	 * @param \PDO $pdo
+	 * @param $zipCode
+	 * @return Location|null
+	 */
 	public static function getLocationByZipCode(\PDO $pdo, $zipCode){
 
 		// input sanitization
