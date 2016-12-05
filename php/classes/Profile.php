@@ -176,8 +176,7 @@ class Profile implements \JsonSerializable {
 		$newProfileZipCode = filter_var($newProfileZipCode, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(strlen($newProfileZipCode) === 5 || strlen($newProfileZipCode) === 9) {
 			$this->profileZipCode = $newProfileZipCode;
-		}
-		else {
+		} else {
 			throw (new \InvalidArgumentException("zipcode is of invalid length"));
 		}
 	}
@@ -203,7 +202,7 @@ class Profile implements \JsonSerializable {
 			throw (new \InvalidArgumentException("hash is empty or has invalid contents"));
 		}
 		if(strlen($newProfileHash) !== 128) {
-			throw(new \RangeException("hash length ". strlen($newProfileHash) .", is incorrect length"));
+			throw(new \RangeException("hash length " . strlen($newProfileHash) . ", is incorrect length"));
 		}
 		$this->profileHash = $newProfileHash;
 	}
@@ -246,19 +245,21 @@ class Profile implements \JsonSerializable {
 	 * @param string || null $newProfileActivation
 	 **/
 	public function setProfileActivation($newProfileActivation) {
-		$newProfileActivation = trim($newProfileActivation);
-		$newProfileActivation = strtolower($newProfileActivation);
-
-		if($newProfileActivation === null) {
+		if($newProfileActivation !== null) {
+			$newProfileActivation = trim($newProfileActivation);
+			$newProfileActivation = strtolower($newProfileActivation);
+		} else {
 			$this->profileActivation = null;
 			return;
 		}
-			if(ctype_xdigit($newProfileActivation) === false) {
-				throw (new \InvalidArgumentException("activation is empty or has invalid contents"));
-			}
-			if(strlen($newProfileActivation) !== 16) {
-				throw(new \RangeException("activation length " . strlen($newProfileActivation) . " is incorrect length"));
-			}
+
+		if(ctype_xdigit($newProfileActivation) === false) {
+			echo $newProfileActivation;
+			throw (new \InvalidArgumentException("activation is empty or has invalid contents"));
+		}
+		if(strlen($newProfileActivation) !== 16) {
+			throw(new \RangeException("activation length " . strlen($newProfileActivation) . " is incorrect length"));
+		}
 		$this->profileActivation = $newProfileActivation;
 	}
 
@@ -430,7 +431,7 @@ class Profile implements \JsonSerializable {
 	/**
 	 * Get all profiles associated with the specified profile zipcode.
 	 * @param \PDO $pdo a PDO connection object
-	 * @param string $profileZipcode  of profiles being searched for
+	 * @param string $profileZipcode of profiles being searched for
 	 * @return \SplFixedArray SplFixedArray of Profiles found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when parameters are not the correct data type.
@@ -475,7 +476,7 @@ class Profile implements \JsonSerializable {
 		$profileActivation = strtolower($profileActivation);
 
 		if(!ctype_xdigit($profileActivation)) {
-			throw (new \InvalidArgumentException("activation is empty or has invalid contents" . $profileActivation));
+			throw (new \InvalidArgumentException("activation is empty or has invalid contents " . $profileActivation));
 		}
 		// create query template
 		$query = "SELECT profileId, profileUsername, profileEmail, profileZipCode, profileHash, profileSalt, profileActivation FROM profile WHERE profileActivation LIKE :profileActivation";
@@ -528,16 +529,18 @@ class Profile implements \JsonSerializable {
 		}
 		return ($profiles);
 	}
-	public function checkHash(string $password){
+
+	public function checkHash(string $password) {
 		return (hash_pbkdf2("sha512", $password, $this->getProfileSalt(), 262144) === $this->getProfileHash());
 	}
+
 	/**
 	 * format state variables for JSON serialization
 	 * @return array an array with serialized state variables
 	 **/
 	public function jsonSerialize() {
 		$fields = array();
-		array_push($fields, $this->getProfileId(),$this->getProfileUsername(),$this->getProfileEmail(),$this->getProfileZipCode(),$this->getProfileActivation());
+		array_push($fields, $this->getProfileId(), $this->getProfileUsername(), $this->getProfileEmail(), $this->getProfileZipCode(), $this->getProfileActivation());
 		return ($fields);
 	}
 }
