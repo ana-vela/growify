@@ -6,7 +6,7 @@ require_once("autoload.php");
 /**
  * Creating class for CompanionPlant
  *
- * This is the class for the CompanionPlant for the Growify capstone.
+ * This class represents a pair of plants that grow well together.
  *
  * @author Ana Vela <avela7@cnm.edu>
  * @version 1.0
@@ -85,7 +85,7 @@ class CompanionPlant implements \JsonSerializable{
 
 	/**
 	 * mutator method for this companion plant 1 name
-	 * @param string $newCompanionPlant1Id new value of companion plant 1 name
+	 * @param string $newCompanionPlant1Name new value of companion plant 1 name
 	 * @throws \InvalidArgumentException if $newCompanionPlant1Name has invalid contents or is empty
 	 * @throws \RangeException if $newCompanionPlant1Name is too long
 	 **/
