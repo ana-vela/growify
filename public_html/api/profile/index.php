@@ -2,6 +2,7 @@
 
 
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
+require_once dirname(__DIR__, 3) . "/php/util/mailer.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -50,9 +51,9 @@ try {
 					//checks hashed password against stored hash
 					if($profileByUsername->checkHash($profilePasswordInput)) {
 						$reply->data = $profileByUsername;
-						echo "Password match";
+						$reply->message = "Profile Login OK";
 					} else {
-						echo "Password does not match";
+						$reply->message = "Profile password doesn't match";
 					}
 				} else {
 					throw(new InvalidArgumentException("profile password is empty or invalid input", 405));
@@ -61,9 +62,9 @@ try {
 				if(!empty($profilePasswordInput)) {
 					if($profileByEmail->checkHash($profilePasswordInput)) {
 						$reply->data = $profileByEmail;
-						echo "Password match";
+						$reply->message = "Profile Login OK";
 					} else {
-						echo "Password does not match";
+						$reply->message = "Profile password doesn't match";
 					}
 				} else {
 					throw(new InvalidArgumentException("profile password is empty or invalid input", 405));
@@ -72,10 +73,7 @@ try {
 				$reply->data = "No profile found";
 			}
 		} else {
-			$profiles = Profile::getAllProfiles($pdo);
-			if($profiles !== null) {
-				$reply->data = $profiles;
-			}
+			throw(new InvalidArgumentException("profile username or email is empty or invalid input", 405));
 		}
 	} elseif($method == "PUT" || $method == "POST") {
 
@@ -95,45 +93,50 @@ try {
 		if(empty($requestObject->profileZipCode)) {
 			throw(new \InvalidArgumentException ("No profile zipcode", 405));
 		}
-		if(empty($requestObject->profilePasswordInput)) {
+		if(empty($requestObject->profilePassword)) {
 			throw(new \InvalidArgumentException ("No profile password", 405));
 		}
 		//perform the actual put or post
 		if($method === "PUT") {
 
-			$profile = Profile::getProfileByProfileId($pdo, $requestObject->profileId);
+			$profile = Profile::getProfileByProfileUsername($pdo, $requestObject->profileUsername);
 			if($profile === null) {
 				throw(new RuntimeException("Profile does not exist", 404));
 			}
 			$profile->setProfileEmail($requestObject->profileEmail);
 			$profile->setProfileZipCode($requestObject->profileZipCode);
-			if(hash_pbkdf2("sha512", $requestObject->profilePasswordInput, $profile->getProfileSalt(), 262144) !== $profile->getProfileHash()) {
+			if(!$profile->checkHash($requestObject->profilePassword)) {
 				$salt = bin2hex(random_bytes(16));
-				$profile->setProfileHash(hash_pbkdf2("sha512", $requestObject->profilePasswordInput, $salt, 262144));
+				$profile->setProfileHash(hash_pbkdf2("sha512", $requestObject->profilePassword, $salt, 262144));
 				$profile->setProfileSalt($salt);
 			}
 			$profile->update($pdo);
 			// update reply
 			$reply->message = "Profile Entry Updated OK";
-		} else if($method === "POST") {
+		} elseif($method === "POST") {
 			// create new tweet and insert into the database
 			$salt = bin2hex(random_bytes(32));
-			$profile = new Profile(null, $requestObject->profileUsername, $requestObject->profileEmail, $requestObject->profileZipCode, hash_pbkdf2("sha512", $requestObject->profilePasswordInput, $salt, 262144), $salt, bin2hex(random_bytes(8)));
+			$profile = new Profile(null, $requestObject->profileUsername, $requestObject->profileEmail, $requestObject->profileZipCode, hash_pbkdf2("sha512", $requestObject->profilePassword, $salt, 262144), $salt, bin2hex(random_bytes(8)));
 			$profile->insert($pdo);
-			// update reply
-			$reply->message = "Profile created OK";
+			//generate and send activation email
 
-		} elseif($method == "DELETE") {
-			$profile = Profile::getProfileByProfileId($pdo, $requestObject->profileId);
-			if($profile === null) {
-				throw(new RuntimeException("Profile does not exist", 404));
-			} else {
-				$profile->delete($pdo);
-			}
-		} else {
-			throw(new InvalidArgumentException("Invalid HTTP method request"));
+			// update reply
+			$reply->message = "Profile Created OK";
 		}
 	}
+	if($method == "DELETE") {
+		$profile = Profile::getProfileByProfileUsername($pdo, $profileUserInput);
+		if($profile !== null) {
+			$profile->delete($pdo);
+			//update reply
+			$reply->message = "Profile Deleted OK";
+		} else {
+			throw(new RuntimeException("Profile does not exist", 404));
+		}
+	} else {
+		throw(new InvalidArgumentException("Invalid HTTP method request"));
+	}
+
 } catch
 (Exception $exception) {
 	$reply->status = $exception->getCode();
