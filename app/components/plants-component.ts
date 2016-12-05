@@ -20,4 +20,12 @@ export class PlantsComponent {
 		this.plantService.getPlantsByName(plantName).subscribe(plants=>this.plantSearch.concat(plants));
 	}
 
+	searchForPlantsByLatinName(plantLatinName: string): void{
+		this.plantService.getPlantsByLatinName(plantLatinName).subscribe(plants=>this.plantSearch.concat(plants));
+	}
+
+	searchForPlantsByPlantId(plantId: number): void{
+		this.plantService.getPlantsByPlantId(plantId).subscribe(plant=>this.plantSearch.concat(plant));
+	}
+
 }

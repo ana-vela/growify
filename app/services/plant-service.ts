@@ -17,14 +17,15 @@ export class PlantService extends BaseService {
 		return(this.http.get(this.plantUrl+"?plantName="+plantName).map(this.extractData).catch(this.handleError));
 
 	}
-	/* TODO implement
-	getPlantsByLatinName() : Observable<Plant[]>{
 
+	getPlantsByLatinName(plantLatinName: string) : Observable<Plant[]>{
+		return(this.http.get(this.plantUrl+"?plantLatinName="+plantLatinName).map(this.extractData).catch(this.handleError));
 	}
 
+	/* in this case, only one plant at most should be returned */
 	getPlantByPlantId() : Observable<Plant> {
-
-	}*/
+		return(this.http.get(this.plantUrl+"?plantId").map(this.extractData).catch(this.handleError));
+	}
 
 
 }
