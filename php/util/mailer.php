@@ -1,9 +1,9 @@
 <?php
-/*/**
+/**
  * require all composer dependencies; requiring the autoload file loads all composer packages at once
  * while this is convenient, this may load too much if your composer configuration grows to many classes
  * if this is a concern, load "/vendor/swiftmailer/autoload.php" instead to load just SwiftMailer
-
+**/
 require_once(dirname(__DIR__,2) . "/vendor/autoload.php");
 
 try {
@@ -25,7 +25,7 @@ try {
 	 * attach the recipients to the message
 	 * notice this an array that can include or omit the the recipient's real name
 	 * use the recipients' real name where possible; this reduces the probability of the Email being marked as spam
-
+	 **/
 	$recipients = [$email => $username];
 	$swiftMessage->setTo($recipients);
 
@@ -38,7 +38,7 @@ try {
 	 * version of the message that generates a plain text version of the HTML content
 	 * notice one tactic used is to display the entire $confirmLink to plain text; this lets users
 	 * who aren't viewing HTML content in Emails still access your links
-
+	 **/
 	$swiftMessage->setBody($message, "text/html");
 	$swiftMessage->addPart(html_entity_decode($message), "text/plain");
 
@@ -47,7 +47,7 @@ try {
 	 * this default may or may not be available on all web hosts; consult their documentation/support for details
 	 * SwiftMailer supports many different transport methods; SMTP was chosen because it's the most compatible and has the best error handling
 	 * @see http://swiftmailer.org/docs/sending.html Sending Messages - Documentation - SwitftMailer
-
+	 **/
 	$smtp = Swift_SmtpTransport::newInstance("localhost", 25);
 	$mailer = Swift_Mailer::newInstance($smtp);
 	$numSent = $mailer->send($swiftMessage, $failedRecipients);
@@ -55,15 +55,14 @@ try {
 	/**
 	 * the send method returns the number of recipients that accepted the Email
 	 * so, if the number attempted is not the number accepted, this is an Exception
-
+	 **/
 	if($numSent !== count($recipients)) {
 		// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
 		throw(new RuntimeException("unable to send email"));
 	}
 
-	report a successful send
+	//report a successful send
 	echo "<div class=\"alert alert-success\" role=\"alert\">Email successfully sent.</div>";
 } catch(Exception $exception) {
 	echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to send email: " . $exception->getMessage() . "</div>";
 }
-*/
