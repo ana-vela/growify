@@ -243,18 +243,22 @@ class Profile implements \JsonSerializable {
 
 	/**
 	 * mutator method for profile activation code
-	 * @param string $newProfileActivation
+	 * @param string || null $newProfileActivation
 	 **/
 	public function setProfileActivation($newProfileActivation) {
 		$newProfileActivation = trim($newProfileActivation);
 		$newProfileActivation = strtolower($newProfileActivation);
 
-		if(ctype_xdigit($newProfileActivation) === false) {
-			throw (new \InvalidArgumentException("activation is empty or has invalid contents"));
+		if($newProfileActivation === null) {
+			$this->profileActivation = null;
+			return;
 		}
-		if(strlen($newProfileActivation) !== 16) {
-			throw(new \RangeException("activation length ". strlen($newProfileActivation)." is incorrect length"));
-		}
+			if(ctype_xdigit($newProfileActivation) === false) {
+				throw (new \InvalidArgumentException("activation is empty or has invalid contents"));
+			}
+			if(strlen($newProfileActivation) !== 16) {
+				throw(new \RangeException("activation length " . strlen($newProfileActivation) . " is incorrect length"));
+			}
 		$this->profileActivation = $newProfileActivation;
 	}
 
@@ -470,8 +474,8 @@ class Profile implements \JsonSerializable {
 		$profileActivation = trim($profileActivation);
 		$profileActivation = strtolower($profileActivation);
 
-		if(ctype_xdigit($profileActivation) === false) {
-			throw (new \InvalidArgumentException("activation is empty or has invalid contents"));
+		if(!ctype_xdigit($profileActivation)) {
+			throw (new \InvalidArgumentException("activation is empty or has invalid contents" . $profileActivation));
 		}
 		// create query template
 		$query = "SELECT profileId, profileUsername, profileEmail, profileZipCode, profileHash, profileSalt, profileActivation FROM profile WHERE profileActivation LIKE :profileActivation";
