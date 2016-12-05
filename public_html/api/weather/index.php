@@ -23,7 +23,7 @@ try {
 	$zipcode = filter_input(INPUT_GET, "zipcode", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$current = filter_input(INPUT_GET, "current", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	if(empty($zipcode) === true ||!is_numeric($zipcode)){
-		throw( new InvalidArgumentException("zip code location cannot be empty or non-numeric"));
+		throw( new InvalidArgumentException("zip code location cannot be empty or non-numeric", 405));
 	}
 
 

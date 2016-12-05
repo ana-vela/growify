@@ -33,11 +33,10 @@ try{
 
 	// sanitize input
 	$plantId = filter_input(INPUT_GET, "plantId", FILTER_VALIDATE_INT);
+	$plantName = filter_input(INPUT_GET, "plantName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$plantLatinName = filter_input(INPUT_GET, "plantLatinName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	// check if $plantId is valid
-	if($plantId < 0){
-		throw(new InvalidArgumentException("plant Id cannot be negative", 405));
-	}
+
 
 	// handle GET request
 	if($method === "GET"){
@@ -46,11 +45,27 @@ try{
 
 		//get plant or all plants
 		if(empty($plantId)===false){
+			// check if $plantId is valid
+			if($plantId < 0){
+				throw(new InvalidArgumentException("plant Id cannot be negative", 405));
+			}
 			$plant = Plant::getPlantByPlantId($pdo, $plantId);
 			if($plant !== null){
 				$reply->data = $plant;
 			}
-		} else {
+		} else if(empty($plantName)===false){
+			$plant = Plant::getPlantByPlantName($pdo, $plantName);
+			if($plant !== null){
+				$reply->data = $plant;
+			}
+		} else if(empty($plantLatinName)===false){
+			$plant = Plant::getPlantByPlantLatinName($pdo, $plantLatinName);
+			if($plant!==null){
+				$reply->data = $plant;
+			}
+		}
+
+		else {
 			$plants = Plant::getAllPlants($pdo);
 			if($plants !== null){
 				$reply->data = $plants;
