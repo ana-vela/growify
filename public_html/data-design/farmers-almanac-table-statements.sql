@@ -33,7 +33,7 @@ CREATE TABLE profile(
 	profileId INT UNSIGNED AUTO_INCREMENT, -- PRIMARY KEY
 	profileZipCode CHAR(5) NOT NULL, -- FOREIGN KEY
 	profileHash CHAR(128) NOT NULL,
-	profileActivation CHAR(16) NOT NULL,
+	profileActivation CHAR(16),
 	profileSalt CHAR(64) NOT NULL,
 	profileUsername VARCHAR(24) UNIQUE NOT NULL,
 	profileEmail VARCHAR(160) NOT NULL,
