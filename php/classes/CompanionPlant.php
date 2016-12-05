@@ -3,7 +3,6 @@ namespace Edu\Cnm\Growify;
 
 require_once("autoload.php");
 
-
 /**
  * Creating class for CompanionPlant
  *
@@ -14,57 +13,60 @@ require_once("autoload.php");
  **/
 
 class CompanionPlant implements \JsonSerializable{
-/**
- *
- *  id for first CompanionPlant - foreign key
- * @var int $companionPlant1Id
- **/
-	private $companionPlant1Id;
+	/**
+	 *
+	 *  Name of  first CompanionPlant - foreign key
+	 * @var string $companionPlant1Name
+	 **/
+	private $companionPlant1Name;
 
 	/**
 	 *
-	 * id for second CompanionPlant - foreign key
-	 * @var int $companionPlant2Id
+	 * Name for second CompanionPlant - foreign key
+	 * @var string $companionPlant2Name
 	 *
 	 **/
 
-	private $companionPlant2Id;
+	private $companionPlant2Name;
 
 	/**
 	 * companion plant 1 with latin name
 	 *
-	 * @var string $companionPlantLatinName
+	 * @var string $companionPlant1LatinName
 	 */
-	private $companionPlant1IdLatinName;
+	private $companionPlant1LatinName;
 
 	/**
 	 * companion plant 2 with latin name
 	 *
-	 * @var string $companionPlantLatinName
+	 * @var string $companionPlant2LatinName
 	 */
-	private $companionPlant2IdLatinName;
+	private $companionPlant2LatinName;
 
 
 	/**
 	 * constructor for this CompanionPlant
 	 *
-	 * @param int $newCompanionPlant1Id
-	 * @param int $newCompanionPlant2Id
-	 * @param string $newCompanionPlant1IdLatinName
-	 * @param string $newCompanionPlant2IdLatinName
-	 * @throws \RangeException if data values are out of bounds (e.g. negative values for plant ids
+	 * @param string $newCompanionPlant1Name
+	 * @param string $newCompanionPlant2Name
+	 * @param string $newCompanionPlant1LatinName
+	 * @param string $newCompanionPlant2LatinName
+	 * @throws \InvalidArgumentException if data has invalid contents or is empty
+	 * @throws \RangeException if data is too long
 	 * @throws \Exception if some other exception occurs
 	 * @throws \TypeError if data types violate type hints
-	 * @internal param int|null $companionPlant1Id first CompanionPlant
-	 * @internal param int|null $companionPlant2Id second CompanionPlant
+	 * @internal param string $companionPlant1IName first CompanionPlant
+	 * @internal param string $companionPlant2Name second CompanionPlant
+	 * @internal param string $companionPlant1LatinIName first CompanionPlant LatinName
+	 * @internal param string $companionPlant2LatinName second CompanionPlant LatinName
 	 *
 	 **/
-	public function __construct(int $newCompanionPlant1Id, int $newCompanionPlant2Id, string $newCompanionPlant1IdLatinName, string $newCompanionPlant2IdLatinName) {
+	public function __construct(string $newCompanionPlant1Name, string $newCompanionPlant2Name, string $newCompanionPlant1LatinName, string $newCompanionPlant2LatinName) {
 		try {
-			$this->setCompanionPlant1Id($newCompanionPlant1Id);
-			$this->setCompanionPlant2Id($newCompanionPlant2Id);
-			$this->setCompanionPlant1IdLatinName($newCompanionPlant1IdLatinName);
-			$this->setCompanionPlant2IdLatinName($newCompanionPlant2IdLatinName);
+			$this->setCompanionPlant1Name($newCompanionPlant1Name);
+			$this->setCompanionPlant2Name($newCompanionPlant2Name);
+			$this->setCompanionPlant1LatinName($newCompanionPlant1LatinName);
+			$this->setCompanionPlant2LatinName($newCompanionPlant2LatinName);
 
 		} catch(\RangeException $range) {
 			//rethrow the exception to the caller
@@ -78,102 +80,119 @@ class CompanionPlant implements \JsonSerializable{
 		}
 	}
 
-
 	/**
-	 * accessor method for companion plant 1 id
-	 * @return int value of companion plant 1 id
+	 * accessor method for companion plant 1 name
+	 * @return string value of companion plant 1 name
 	 **/
-	public function getCompanionPlant1Id(): int {
-		return ($this->companionPlant1Id);
+	public function getCompanionPlant1Name(): int {
+		return ($this->companionPlant1Name);
 	}
 
 	/**
-	 * mutator method for this companion plant 1 id
+	 * mutator method for this companion plant 1 name
 	 *
-	 * @param int|null $newCompanionPlant1Id new value of companion plant 1 id
-	 * @throws \RangeException if $newCompanionPlant1Id is not positive
-	 * @throws \TypeError if $newCompanionPlant1Id is not an integer
+	 * @param string $newCompanionPlant1Id new value of companion plant 1 name
+	 * @throws \InvalidArgumentException if $newCompanionPlant1Name has invalid contents or is empty
+	 * @throws \RangeException if $newCompanionPlant1Name is too long
 	 **/
-	public function setCompanionPlant1Id (int $newCompanionPlant1Id) {
-		// verify the companion plant 1 is positive
-		if($newCompanionPlant1Id <= 0) {
-			throw(new \RangeException("companion plant is not a positive"));
+	public function setCompanionPlant1Name (string $newCompanionPlant1Name) {
+		// verify the companion plant 1 is not too long
+
+		$newCompanionPlant1Name = trim($newCompanionPlant1Name);
+		$newCompanionPlant1Name = filter_var($newCompanionPlant1Name, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+		if(strlen($newCompanionPlant1Name) > 64) {
+			throw(new \RangeException("name is too large"));
 		}
-		// convert and store the companion plant 1 id
-		$this->companionPlant1Id =$newCompanionPlant1Id;
+		// convert and store the companion plant 1 name
+		$this->companionPlant1Id =$newCompanionPlant1Name;
 	}
 	/**
-	 * accessor method for companion plant 2 id
+	 * accessor method for companion plant 2 name
 	 *
-	 * @return int value for companion plant 2 id
+	 * @return string value for companion plant 2 name
 	 **/
-	public function getCompanionPlant2Id(): int {
-		return $this->companionPlant2Id;
+	public function getCompanionPlant2Name(): string {
+		return $this->companionPlant2Name;
 	}
 	/**
-	 * mutator method for this companion plant 2 id
-	 *
-	 * @param int|null $newCompanionPlant2Id new value of companion plant 2
-	 * @throws \RangeException if $newCompanionPlant2Id is not positive
-	 * @throws \TypeError if $newCompanionPlant2Id is not an integer
-	 *
+	 * mutator method for this companion plant 2 name
+	 *@param string $newCompanionPlant2Name new value of companion plant 2
+	 * @throws \InvalidArgumentException if $newCompanionPlant2Name has invalid contents or is empty
+	 * @throws \RangeException if $newCompanionPlant2Name is too long
 	 **/
 
-	public function setCompanionPlant2Id (int $newCompanionPlant2Id) {
-		// verify the companion plant 2 is positive
-		if($newCompanionPlant2Id <= 0) {
-			throw(new \RangeException("companion plant is not a positive"));
+	public function setCompanionPlant2Name(string $newCompanionPlant2Name) {
+		$newCompanionPlant2Name = trim($newCompanionPlant2Name);
+		$newCompanionPlant2Name = filter_var($newCompanionPlant2Name, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+		if(strlen($newCompanionPlant2Name) > 64) {
+			throw(new \RangeException("name is too large"));
+		}
+		$this->companionPlant2Name = $newCompanionPlant2Name;
 	}
-	 // convert and store the companion plant 2
-		$this->companionPlant2Id = $newCompanionPlant2Id;
+	/**
+
+	 * @throws \InvalidArgumentException if $newPlantLatinName has invalid contents or is empty
+	 * @throws \RangeException if $newPlantLatinName is too long
+	 **/
+	public function setPlantLatinName($newPlantLatinName){
+		$newPlantLatinName = trim($newPlantLatinName);
+		$newPlantLatinName = filter_var($newPlantLatinName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+		if(strlen($newPlantLatinName)>72) {
+			throw(new \RangeException("latin name is too large"));
+		}
+		$this->plantLatinName = $newPlantLatinName;
 	}
+
 
 	/**
 	 * accessor method for plantLatinName
 	 * @return string the latin name for this plant
 	 **/
-	public function getCompanionPlant1IdLatinName(){
-		return $this->companionPlant1IdLatinName;
+	public function getCompanionPlant1LatinName(){
+		return $this->companionPlant1LatinName;
 	}
 
 	/**
-	 * mutator method for companionPlant1IdLatinName
-	 * @param string $newCompanionPlant1IdLatinName new value of companion plant 1 id latin name
-	 * @throws \InvalidArgumentException if $newCompanionPlant1IdLatinName has invalid contents or is empty
-	 * @throws \RangeException if $newPlantLatinName is too long
+	 * mutator method for companionPlant1LatinName
+	 * @param string $newCompanionPlant1LatinName new value of companion plant 1 latin name
+	 * @throws \InvalidArgumentException if $newCompanionPlant1LatinName has invalid contents or is empty
+	 * @throws \RangeException if $newPlant1LatinName is too long
 	 **/
-	public function setCompanionPlant1IdLatinName($newCompanionPlant1IdLatinName){
-		$newCompanionPlant1IdLatinName = trim($newCompanionPlant1IdLatinName);
-		$newCompanionPlant1IdLatinName = filter_var($newCompanionPlant1IdLatinName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	public function setCompanionPlant1LatinName($newCompanionPlant1LatinName){
+		$newCompanionPlant1LatinName = trim($newCompanionPlant1LatinName);
+		$newCompanionPlant1LatinName = filter_var($newCompanionPlant1LatinName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-		if(strlen($newCompanionPlant1IdLatinName)>72) {
+		if(strlen($newCompanionPlant1LatinName)>72) {
 			throw(new \RangeException("latin name is too large"));
 		}
-		$this->Companionplant1IdLatinName = $newCompanionPlant1IdLatinName;
+		$this->Companionplant1LatinName = $newCompanionPlant1LatinName;
 	}
 
 	/**
-	 * accessor method for plantLatinName
+	 * accessor method for CompanionPlant1LatinName
 	 * @return string the latin name for this plant
 	 **/
-	public function getCompanionPlant2IdLatinName(){
-		return $this->companionPlant2IdLatinName;
+	public function getCompanionPlant2LatinName(){
+		return $this->companionPlant2LatinName;
 	}
 
 	/**
-	 * mutator method for companionPlant1IdLatinName
-	 * @param string $newCompanionPlant1IdLatinName new value of companion plant 1 id latin name
-	 * @throws \InvalidArgumentException if $newCompanionPlant1IdLatinName has invalid contents or is empty
-	 * @throws \RangeException if $newPlantLatinName is too long
+	 * mutator method for companionPlant2LatinName
+	 * @param string $newCompanionPlant2LatinName new value of companion plant 2 latin name
+	 * @throws \InvalidArgumentException if $newCompanionPlant2LatinName has invalid contents or is empty
+	 * @throws \RangeException if $newPlant2LatinName is too long
 	 **/
-	public function setCompanionPlant2IdLatinName($newCompanionPlant2IdLatinName){
-		$newCompanionPlant2IdLatinName = trim($newCompanionPlant2IdLatinName);
-		$newCompanionPlant2IdLatinName = filter_var($newCompanionPlant2IdLatinName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	public function setCompanionPlant2LatinName($newCompanionPlant2LatinName){
+		$newCompanionPlant2LatinName = trim($newCompanionPlant2LatinName);
+		$newCompanionPlant2LatinName = filter_var($newCompanionPlant2LatinName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-		if(strlen($newCompanionPlant2IdLatinName)>72) {
+		if(strlen($newCompanionPlant2LatinName)>72) {
 			throw(new \RangeException("latin name is too large"));
 		}
-		$this->CompanionPlant2IdLatinName = $newCompanionPlant2IdLatinName;
+		$this->CompanionPlant2LatinName = $newCompanionPlant2LatinName;
 	}
 	/**
 	 * check whether a mySQL entry for a given pair of plant ids already exists in the table.
@@ -257,8 +276,8 @@ class CompanionPlant implements \JsonSerializable{
 	 **/
 	public static function getAllCompanionPlantsByPlantId(\PDO $pdo, int $plantId){
 		if($plantId <= 0){
-		throw(new \RangeException("companion plant id must be positive"));
-}
+			throw(new \RangeException("companion plant id must be positive"));
+		}
 		// create query template
 		$query = "SELECT companionPlant1Id, companionPlant2Id FROM companionPlant WHERE ((companionPlant1Id = :plantId) OR (companionPlant2Id=:plantId))";
 		$statement = $pdo->prepare($query);
@@ -272,49 +291,49 @@ class CompanionPlant implements \JsonSerializable{
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 
 		while(($row=$statement->fetch()) !==false){
-		try{
-			$companionPlant = new CompanionPlant ($row["companionPlant1Id"], $row["companionPlant2Id"]);
-			$companionPlants[$companionPlants->key()]=$companionPlant;
-			$companionPlants->next();
-		}catch(\Exception $exception){
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
+			try{
+				$companionPlant = new CompanionPlant ($row["companionPlant1Id"], $row["companionPlant2Id"]);
+				$companionPlants[$companionPlants->key()]=$companionPlant;
+				$companionPlants->next();
+			}catch(\Exception $exception){
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
 		return($companionPlants);
 	}
 
-/**
- * get all companion plants
- * @param \PDO $pdo PDO connection object
- * @return \SplFixedArray SplFixedArray of companion plants found or null if none found
- * @throws \PDOException when mySQL related errors occur
- * @throws \TypeError if $do is not a PDO connection object.
- **/
+	/**
+	 * get all companion plants
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of companion plants found or null if none found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $do is not a PDO connection object.
+	 **/
 
-public static function getAllCompanionPlants(\PDO $pdo) {
+	public static function getAllCompanionPlants(\PDO $pdo) {
 
-	// create query template
-	$query = "SELECT companionPlant1Id, companionPlant2Id FROM companionPlant";
-	$statement = $pdo->prepare($query);
-	$statement->execute();
+		// create query template
+		$query = "SELECT companionPlant1Id, companionPlant2Id FROM companionPlant";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
 
-	//build an array of companionPlants
-	$companionPlants = new \SplFixedArray($statement->rowCount());
-	$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		//build an array of companionPlants
+		$companionPlants = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 
-	while (($row = $statement->fetch()) !=false) {
-		try {
-			$companionPlant = new CompanionPlant ($row["companionPlant1Id"], $row["companionPlant2Id"]);
-			$companionPlants[$companionPlants->key()] = $companionPlant;
-			$companionPlants->next();
-		} catch(\Exception $exception){
-			//if the row couldn't be converted, rethrow it
-			throw (new \PDOException($exception->getMessage(), 0, $exception));
+		while (($row = $statement->fetch()) !=false) {
+			try {
+				$companionPlant = new CompanionPlant ($row["companionPlant1Id"], $row["companionPlant2Id"]);
+				$companionPlants[$companionPlants->key()] = $companionPlant;
+				$companionPlants->next();
+			} catch(\Exception $exception){
+				//if the row couldn't be converted, rethrow it
+				throw (new \PDOException($exception->getMessage(), 0, $exception));
+			}
 		}
+		return ($companionPlants);
 	}
-	return ($companionPlants);
-}
 
 
 	/**
