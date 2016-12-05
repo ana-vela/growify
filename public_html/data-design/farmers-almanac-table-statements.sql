@@ -33,10 +33,10 @@ CREATE TABLE profile(
 	profileId INT UNSIGNED AUTO_INCREMENT, -- PRIMARY KEY
 	profileZipCode CHAR(5) NOT NULL, -- FOREIGN KEY
 	profileHash CHAR(128) NOT NULL,
-	profileActivation CHAR(16),
+	profileActivation CHAR(16) UNIQUE,
 	profileSalt CHAR(64) NOT NULL,
 	profileUsername VARCHAR(24) UNIQUE NOT NULL,
-	profileEmail VARCHAR(160) NOT NULL,
+	profileEmail VARCHAR(160) UNIQUE NOT NULL,
 	-- PRIMARY KEY AND FOREIGN KEY
 	PRIMARY KEY (profileId),
 	FOREIGN KEY (profileZipCode) REFERENCES zipCode(zipCodeCode)
