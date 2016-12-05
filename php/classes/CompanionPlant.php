@@ -84,7 +84,7 @@ class CompanionPlant implements \JsonSerializable{
 	 * accessor method for companion plant 1 name
 	 * @return string value of companion plant 1 name
 	 **/
-	public function getCompanionPlant1Name(): int {
+	public function getCompanionPlant1Name(): string {
 		return ($this->companionPlant1Name);
 	}
 
@@ -105,7 +105,7 @@ class CompanionPlant implements \JsonSerializable{
 			throw(new \RangeException("name is too large"));
 		}
 		// convert and store the companion plant 1 name
-		$this->companionPlant1Id =$newCompanionPlant1Name;
+		$this->companionPlant1Name =$newCompanionPlant1Name;
 	}
 	/**
 	 * accessor method for companion plant 2 name
@@ -132,7 +132,6 @@ class CompanionPlant implements \JsonSerializable{
 		$this->companionPlant2Name = $newCompanionPlant2Name;
 	}
 	/**
-
 	 * @throws \InvalidArgumentException if $newPlantLatinName has invalid contents or is empty
 	 * @throws \RangeException if $newPlantLatinName is too long
 	 **/
@@ -183,7 +182,7 @@ class CompanionPlant implements \JsonSerializable{
 	 * mutator method for companionPlant2LatinName
 	 * @param string $newCompanionPlant2LatinName new value of companion plant 2 latin name
 	 * @throws \InvalidArgumentException if $newCompanionPlant2LatinName has invalid contents or is empty
-	 * @throws \RangeException if $newPlant2LatinName is too long
+	 * @throws \RangeException if $newCompanionPlant2LatinName is too long
 	 **/
 	public function setCompanionPlant2LatinName($newCompanionPlant2LatinName){
 		$newCompanionPlant2LatinName = trim($newCompanionPlant2LatinName);
@@ -194,6 +193,7 @@ class CompanionPlant implements \JsonSerializable{
 		}
 		$this->CompanionPlant2LatinName = $newCompanionPlant2LatinName;
 	}
+	//**made changes and committed up to here**//
 	/**
 	 * check whether a mySQL entry for a given pair of plant ids already exists in the table.
 	 * @param \PDO $pdo a PDO connection object
