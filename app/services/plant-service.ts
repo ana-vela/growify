@@ -23,7 +23,7 @@ export class PlantService extends BaseService {
 	}
 
 	/* in this case, only one plant at most should be returned */
-	getPlantByPlantId() : Observable<Plant> {
+	getPlantByPlantId(plantId: number) : Observable<Plant> {
 		return(this.http.get(this.plantUrl+"?plantId").map(this.extractData).catch(this.handleError));
 	}
 
