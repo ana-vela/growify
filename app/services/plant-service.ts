@@ -28,5 +28,9 @@ export class PlantService extends BaseService {
 		return(this.http.get(this.plantUrl+"?plantId").map(this.extractData).catch(this.handleError));
 	}
 
+	getAllPlants(): Observable<Plant[]>{
+		return(this.http.get(this.plantUrl).map(this.extractData).catch(this.handleError));
+	}
+
 
 }

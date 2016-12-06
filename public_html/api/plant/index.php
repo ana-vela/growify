@@ -56,19 +56,19 @@ try{
 		} else if(empty($plantName)===false){
 			$plant = Plant::getPlantByPlantName($pdo, $plantName);
 			if($plant !== null){
-				$reply->data = $plant;
+				$reply->data = $plant->toArray();
 			}
 		} else if(empty($plantLatinName)===false){
 			$plant = Plant::getPlantByPlantLatinName($pdo, $plantLatinName);
 			if($plant!==null){
-				$reply->data = $plant;
+				$reply->data = $plant->toArray();
 			}
 		}
 
 		else {
 			$plants = Plant::getAllPlants($pdo);
 			if($plants !== null){
-				$reply->data = $plants;
+				$reply->data = $plants->toArray();
 			}
 		}
 	} else {
