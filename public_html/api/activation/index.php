@@ -53,8 +53,8 @@ try{
 			if($activation === $profile->getProfileActivation()) {
 				$profile->setProfileActivation(null);
 				$profile->update($pdo);
+				$reply->data = "Activation check OK";
 			}
-			$reply->data = $profile;
 		} else {
 			throw(new RuntimeException("Profile with this activation code does not exist", 404));
 		}

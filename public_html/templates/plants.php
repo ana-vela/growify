@@ -23,6 +23,7 @@
 
 				<!--</form>-->
 
+				<!-- Search Results Table -->
 			</div>
 		</div>
 		<div [hidden]="dataReady">Preparing Data&hellip;</div>
@@ -32,11 +33,11 @@
 
 					<tr *ngFor="let plant of plantResults" >
 						<td>
-							<button class="btn btn-default" type="button">
+							<button class="btn btn-default" type="button" >
 								<i class="fa fa-plus" aria-hidden="true"></i>
 							</button>
 						</td>
-						<td>{{plant.plantName}}</td>
+						<td><a href="#" (click)="setModalPlant(plant)" data-toggle="modal" data-target="#plantDetailModal">{{plant.plantName}}</a></td>
 						<td><em>{{plant.plantLatinName}}</em></td>
 						<td>{{plant.plantVariety}}</td>
 
@@ -47,6 +48,7 @@
 			</div>
 		</div>
 
+		<!-- Companion Plant & Combative Plant data -->
 	<div class="row">
 		<div class="col-xs-6 col-md-4">
 			<div class="well " id="companion-plants">
@@ -73,6 +75,30 @@
 			</div>
 		</div>
 	</div>
+
+		<!-- Modal for detailed plant data display -->
+		<!-- get the plantId that was clicked from the modalPlant field -->
+		<div class="modal fade" id="plantDetailModal" tabindex="-1" role="dialog" aria-labelledby="plantDetailModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel"> {{modalPlant.plantName}}</h4>
+					</div>
+					<div class="modal-body">
+						<p><em>{{modal.plantLatinName}}</em><p>
+						<h4>Description:</h4>
+						<p>{{modalPlant.plantDescription}}</p>
+						<p><b>Spread:</b>{{modalPlant.plantSpread}}</p>
+						<p><b>Height:</b>{{modalPlant.plantHeight}}</p>
+						<p><b>Days to Harvest:</b>{{modalPlant.plantDaysToHarvest}}</p>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 </section>

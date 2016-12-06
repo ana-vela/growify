@@ -20,6 +20,7 @@ export class PlantsComponent implements OnInit{
 	plantId: number = 0; // for searching by plantId
 	allPlants: Plant[] = []; // get all plants
 	plantResults: Plant[] = []; // search results
+	modalPlant: Plant = new Plant(0, "", "", "", "", "", 0, 0, 0, 0, 0, "");
 
 	testPlants = [new Plant(1, "star flower", "Expecto patronus","flower", "flower", "badass",7,  7, 7, 15, 140, "D"),
 		new Plant(1, "beetroot", "Beetle bug","flower", "flower", "badass",7,  7, 7, 15, 140, "D")];
@@ -37,11 +38,11 @@ export class PlantsComponent implements OnInit{
 	searchForPlantsByName(): void{
 
 
-		this.plantService.getPlantsByName(this.plantName).subscribe(plants=>this.plantResults.concat(plants));
+		this.plantService.getPlantsByName(this.plantName).subscribe(plants=>this.plantResults = plants);
 	}
 
 	searchForPlantsByLatinName(): void{
-		this.plantService.getPlantsByLatinName(this.plantLatinName).subscribe(plants=>this.plantResults.concat(plants));
+		this.plantService.getPlantsByLatinName(this.plantLatinName).subscribe(plants=>this.plantResults = plants);
 	}
 /*
 	getAllPlants(): void{
@@ -59,6 +60,12 @@ export class PlantsComponent implements OnInit{
 		if(this.plantName !== null){
 			this.plantResults=this.allPlants.filter((plant: Plant)=>plant.plantName.toLowerCase().indexOf(this.plantName.toLowerCase()) >= 0);
 		}
+	}
+
+	setModalPlant(selectedPlant :Plant): void{
+		// set plant
+		// get detail info via get plant by plant id
+		this.plantService.getPlantByPlantId(selectedPlant.plantId).subscribe(plant=>this.modalPlant = plant);
 	}
 	/*searchForPlantByPlantId(): void{
 	 this.plantService.getPlantByPlantId(this.plantId).subscribe(plant=>this.plantResults.concat(plant));
