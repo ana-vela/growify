@@ -23,7 +23,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a routerLink="">Home</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
-						<li><a routerLink="/signup">Sign Up</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
 						<li><a routerLink="/garden">Garden</a></li>
 						<li><a routerLink="/plants">Plants</a></li>
 						<li><a routerLink="/signout">Sign Out</a></li>

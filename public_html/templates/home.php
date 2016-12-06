@@ -7,7 +7,7 @@
 		</div>
 		<div>
 			<button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#login-modal">Login</button>
-			<button type="button" class="btn btn-primary center-block">Sign Up</button>
+			<button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#signup-modal">Sign Up</button>
 		</div>
 
 	</div>
