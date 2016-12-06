@@ -13,6 +13,7 @@ import {Status} from "../classes/status";
 
 export class PlantsComponent implements OnInit{
 
+	dataReady = false;
 	testPlant: string = ""; // value for test
 	plantName: string = ""; // search term from plant-form
 	plantLatinName: string = ""; // search term from form
@@ -42,10 +43,16 @@ export class PlantsComponent implements OnInit{
 	searchForPlantsByLatinName(): void{
 		this.plantService.getPlantsByLatinName(this.plantLatinName).subscribe(plants=>this.plantResults.concat(plants));
 	}
-
+/*
 	getAllPlants(): void{
 		this.plantService.getAllPlants()
-			.subscribe(plants=>this.allPlants = plants);
+			.subscribe(function(plants){this.allPlants = plants; this.dataReady=true;});
+	}
+*/
+	getAllPlants(): void{
+		this.plantService.getAllPlants()
+			.subscribe(plants=>{this.allPlants = plants;
+												this.dataReady = true;});
 	}
 
 	filterPlantsOnPlantName(): void{

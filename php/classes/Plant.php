@@ -729,7 +729,8 @@ class Plant implements \JsonSerializable{
 	}
 
 	/**
-	 * Get all Plant objects.
+	 * Get all Plant objects. This does NOT return the plant Description for performance reasons.
+	 * A detailed description can easily be retrieved via the getPlantByPlantId later.
 	 * @param \PDO $pdo PDO connection object
 	 * @return \SplFixedArray of Plant objects found or null if none found.
 	 * @throws \PDOException when mySQL related errors occur
@@ -746,7 +747,7 @@ class Plant implements \JsonSerializable{
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row=$statement->fetch())!== false){
 			try {
-				$plant = new Plant($row["plantId"], $row["plantName"], $row["plantLatinName"], $row["plantVariety"], $row["plantDescription"], $row["plantType"], $row["plantSpread"], $row["plantHeight"], $row["plantDaysToHarvest"], $row["plantMinTemp"], $row["plantMaxTemp"], $row["plantSoilMoisture"]);
+				$plant = new Plant($row["plantId"], $row["plantName"], $row["plantLatinName"], $row["plantVariety"], "", $row["plantType"], $row["plantSpread"], $row["plantHeight"], $row["plantDaysToHarvest"], $row["plantMinTemp"], $row["plantMaxTemp"], $row["plantSoilMoisture"]);
 				$plants[$plants->key()] = $plant;
 				$plants->next();
 			} catch(\Exception $exception) {

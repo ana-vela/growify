@@ -25,6 +25,7 @@
 
 			</div>
 		</div>
+		<div [hidden]="dataReady">Preparing Data&hellip;</div>
 		<div class="row">
 			<div class="col-md-10">
 				<table class="table  " id="plant-table">
