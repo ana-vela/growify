@@ -83,15 +83,16 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel"> {{modalPlant.plantName}}</h4>
+						<h4 class="modal-title" id="myModalLabel"> {{modalPlant.plantName}} <span *ngIf="modalPlant.plantVariety!==null"> - {{modalPlant.plantVariety}}</span></h4>
 					</div>
 					<div class="modal-body">
-						<p><em>{{modal.plantLatinName}}</em><p>
+						<p><em>{{modalPlant.plantLatinName}}</em><p>
+						<p><b>Spread:</b> {{modalPlant.plantSpread | number:'.0-1'}}</p>
+						<p><b>Height:</b> {{modalPlant.plantHeight | number:'.0-1'}}</p>
+						<p><b>Days to Harvest:</b> {{modalPlant.plantDaysToHarvest | number:'.0-0'}}</p>
 						<h4>Description:</h4>
 						<p>{{modalPlant.plantDescription}}</p>
-						<p><b>Spread:</b>{{modalPlant.plantSpread}}</p>
-						<p><b>Height:</b>{{modalPlant.plantHeight}}</p>
-						<p><b>Days to Harvest:</b>{{modalPlant.plantDaysToHarvest}}</p>
+
 
 					</div>
 
