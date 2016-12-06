@@ -207,7 +207,7 @@ class CompanionPlant implements \JsonSerializable{
 			$parameters = ["companionPlant1Name" => $this->companionPlant1Name, "companionPlant2Name" => $this->companionPlant2Name];
 
 			//create query template
-			$insertQuery = "INSERT INTO companionPlant(companionPlant1Name, companionPlant2Name) VALUES (:companionPlant1Name, :companionPlant2Name)";
+			$insertQuery = "INSERT INTO companionPlant(companionPlant1Name, companionPlant2Name,companionPlant1LatinName, companionPlant2LatinName) VALUES (:companionPlant1Name, :companionPlant2Name, :companionPlant1LatinName, :companionPlant2LatinName)";
 			$insertStatement = $pdo->prepare($insertQuery);
 
 			//bind the member variables to the place holders in the template
