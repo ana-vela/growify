@@ -145,7 +145,7 @@ class CompanionPlant implements \JsonSerializable{
 		if(strlen($newCompanionPlant1LatinName)>72) {
 			throw(new \RangeException("latin name is too large"));
 		}
-		$this->Companionplant1LatinName = $newCompanionPlant1LatinName;
+		$this->companionPlant1LatinName = $newCompanionPlant1LatinName;
 	}
 
 	/**
@@ -169,7 +169,7 @@ class CompanionPlant implements \JsonSerializable{
 		if(strlen($newCompanionPlant2LatinName)>72) {
 			throw(new \RangeException("latin name is too large"));
 		}
-		$this->CompanionPlant2LatinName = $newCompanionPlant2LatinName;
+		$this->companionPlant2LatinName = $newCompanionPlant2LatinName;
 	}
 	//**made changes and committed up to here**//
 	/**
@@ -202,12 +202,12 @@ class CompanionPlant implements \JsonSerializable{
 	 **/
 	public function insert(\PDO $pdo) {
 
-		if(CompanionPlant::existsCompanionPlantEntry($pdo, $this->companionPlant1Name, $this->companionPlant2Name)===false) {
+		if(CompanionPlant::existsCompanionPlantEntry($pdo, $this->companionPlant1Name, $this->companionPlant2Name) ===false) {
 			// bind the member variables to the place holders in the template
-			$parameters = ["companionPlant1Name" => $this->companionPlant1Name, "companionPlant2Name" => $this->companionPlant2Name];
+			$parameters = ["companionPlant1Name" => $this->companionPlant1Name, "companionPlant2Name" => $this->companionPlant2Name, "companionPlant1LatinName" => $this->companionPlant1LatinName, "companionPlant2LatinName" => $this->companionPlant2LatinName];
 
 			//create query template
-			$insertQuery = "INSERT INTO companionPlant(companionPlant1Name, companionPlant2Name,companionPlant1LatinName, companionPlant2LatinName) VALUES (:companionPlant1Name, :companionPlant2Name, :companionPlant1LatinName, :companionPlant2LatinName)";
+			$insertQuery = "INSERT INTO companionPlant(companionPlant1Name, companionPlant2Name, companionPlant1LatinName, companionPlant2LatinName) VALUES (:companionPlant1Name, :companionPlant2Name, :companionPlant1LatinName, :companionPlant2LatinName)";
 			$insertStatement = $pdo->prepare($insertQuery);
 
 			//bind the member variables to the place holders in the template
@@ -254,8 +254,11 @@ class CompanionPlant implements \JsonSerializable{
 	 * @throw \TypeError if $pdo is not a PDO connection object.
 	 **/
 	public static function getAllCompanionPlantsByPlantName(\PDO $pdo, string $plantName){
-		if($plantName <= 0){
-			throw(new \RangeException("companion plant name is too long"));
+		$plantName = trim($plantName);
+		$plantName = filter_var($plantName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+		if(strlen($plantName)>72) {
+			throw(new \RangeException("latin name is too large"));
 		}
 		// create query template
 		$query = "SELECT companionPlant1Name, companionPlant2Name FROM companionPlant WHERE ((companionPlant1Name = :plantName) OR (companionPlant2Name=:plantName))";
@@ -269,9 +272,9 @@ class CompanionPlant implements \JsonSerializable{
 		$companionPlants = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 
-		while(($row=$statement->fetch()) !==false){
+		while(($row = $statement->fetch()) !==false){
 			try{
-				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"]);
+				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"], $row["companionPlant1LatinName"], $row["companionPlant2LatinName"]);
 				$companionPlants[$companionPlants->key()]=$companionPlant;
 				$companionPlants->next();
 			}catch(\Exception $exception){
@@ -294,7 +297,7 @@ class CompanionPlant implements \JsonSerializable{
 	public static function getAllCompanionPlants(\PDO $pdo) {
 
 		// create query template
-		$query = "SELECT companionPlant1Name, companionPlant2Name FROM companionPlant";
+		$query = "SELECT companionPlant1Name, companionPlant2Name, companionPlant1LatinName, companionPlant2LatinName FROM companionPlant";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
@@ -304,7 +307,7 @@ class CompanionPlant implements \JsonSerializable{
 
 		while (($row = $statement->fetch()) !=false) {
 			try {
-				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"]);
+				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"], $row["companionPlant1Name"], $row["companionPlant2Name"]);
 				$companionPlants[$companionPlants->key()] = $companionPlant;
 				$companionPlants->next();
 			} catch(\Exception $exception){
