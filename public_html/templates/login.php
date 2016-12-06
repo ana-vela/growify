@@ -1,4 +1,4 @@
-<section class="login">
+<!--<section class="login">
 	<div class="container">
 		<div class="jumbotron text-center">
 			<h1>Login Page</h1>
@@ -7,7 +7,7 @@
 	</div>
 </section>
 
-<a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+<a href="#" data-toggle="modal" data-target="#login-modal">Login</a>-->
 
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog">

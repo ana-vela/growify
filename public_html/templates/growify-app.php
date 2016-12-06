@@ -22,7 +22,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a routerLink="">Home</a></li>
-						<li><a routerLink="/login">Login</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
 						<li><a routerLink="/signup">Sign Up</a></li>
 						<li><a routerLink="/garden">Garden</a></li>
 						<li><a routerLink="/plants">Plants</a></li>

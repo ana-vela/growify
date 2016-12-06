@@ -6,10 +6,12 @@
 			<!--<a routerLink="/weather">Weather</a>-->
 		</div>
 		<div>
-			<button type="button" class="btn btn-primary center-block">Login</button>
+			<button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#login-modal">Login</button>
 			<button type="button" class="btn btn-primary center-block">Sign Up</button>
 		</div>
 
 	</div>
+	<login-component></login-component>
+	<signup-component></signup-component>
 </section>
 

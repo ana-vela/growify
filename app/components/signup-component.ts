@@ -3,7 +3,8 @@ import
 import {Router} from "@angular/router";
 
 @Component({
-	templateUrl: "./templates/signup.php"
+	templateUrl: "./templates/signup.php",
+	selector: "signup-component"
 })
 
 export class SignupComponent { }
