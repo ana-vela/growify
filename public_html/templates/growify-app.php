@@ -26,7 +26,7 @@
 						<li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
 						<li><a routerLink="/garden">Garden</a></li>
 						<li><a routerLink="/plants">Plants</a></li>
-						<li><a routerLink="/signout">Sign Out</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#signout-modal">Sign Out</a></li>
 						<!--<li><a routerLink="/garden">Garden</a></li>-->
 
 					</ul>

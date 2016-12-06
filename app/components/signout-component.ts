@@ -3,7 +3,8 @@ import
 import {Router} from "@angular/router";
 
 @Component({
-	templateUrl: "./templates/signout.php"
+	templateUrl: "./templates/signout.php",
+	selector: "signout-component"
 })
 
 export class SignoutComponent { }

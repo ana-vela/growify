@@ -13,5 +13,6 @@
 	</div>
 	<login-component></login-component>
 	<signup-component></signup-component>
+	<signout-component></signout-component>
 </section>
 

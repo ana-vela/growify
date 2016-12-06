@@ -141,6 +141,50 @@ body{
 	font-size: 12px;
 }
 
+/****** signout MODAL ******/
+.signoutmodal-container {
+	padding: 30px;
+	max-width: 350px;
+	width: 100% !important;
+	background-color: #F7F7F7;
+	margin: 0 auto;
+	border-radius: 0px;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+
+}
+
+.signoutmodal-container h1 {
+	text-align: center;
+	font-size: 1.8em;
+
+}
+
+
+.signoutmodal {
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	height: 36px;
+	padding: 0 8px;
+	/* border-radius: 3px; */
+	/* -webkit-user-select: none;
+	  user-select: none; */
+}
+
+.signoutmodal-container a {
+	text-decoration: none;
+	color: #666;
+	font-weight: 400;
+	text-align: center;
+	display: inline-block;
+	opacity: 0.4;
+	transition: opacity ease 0.5s;
+
+}
+
+
+
 /****** Weather ***********/
 .weather-display{
 	color: black;
