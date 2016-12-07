@@ -4,6 +4,9 @@ import {Router} from "@angular/router";
 import {PlantService} from "../services/plant-service";
 import {Observable} from "rxjs/Observable"
 import {Plant} from "../classes/plant";
+import {CompanionPlant} from "../classes/companionPlant";
+import {CombativePlant} from "../classes/combativePlant";
+
 
 import {Status} from "../classes/status";
 
@@ -22,6 +25,14 @@ export class PlantsComponent implements OnInit{
 	plantResults: Plant[] = []; // search results
 	modalPlant: Plant = new Plant(0, "", "", "", "", "", 0, 0, 0, 0, 0, "");
 
+	selectedPlants: Plant[]=[]; // user clicks to select a bunch of plants.
+
+	companionPlants: CompanionPlant[]=[]; // store list of companion plants corresponding to selected plants search term
+	companionPlantNames: string[] = []; // store list of companion plants for display
+
+	combativePlants: CombativePlant[]=[]; // store list of combative plants corresponding to selected plants search term
+	combativePlantNames: string[] = []; // store list of combative plants for display
+
 	testPlants = [new Plant(1, "star flower", "Expecto patronus","flower", "flower", "badass",7,  7, 7, 15, 140, "D"),
 		new Plant(1, "beetroot", "Beetle bug","flower", "flower", "badass",7,  7, 7, 15, 140, "D")];
 
@@ -33,6 +44,14 @@ export class PlantsComponent implements OnInit{
 
 	testSubmit(): void{
 		this.testPlant = "tasty plant";
+	}
+
+	addPlantToSelections(){
+
+	}
+
+	removePlantFromSelections(){
+
 	}
 
 	searchForPlantsByName(): void{
@@ -75,5 +94,7 @@ export class PlantsComponent implements OnInit{
 	 this.plantService.getPlantByPlantId(this.plantId).subscribe(plants=>this.plantResults.concat(plants));
 	 }
 	 */
+
+
 
 }

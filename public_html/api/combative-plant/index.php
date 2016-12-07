@@ -31,12 +31,8 @@ try{
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	// sanitize input
-	$plantId = filter_input(INPUT_GET, "combativePlantId", FILTER_VALIDATE_INT);
+	$plantName = filter_input(INPUT_GET, "combativePlantName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	// ensure $plantId is valid
-	if($plantId < 0){
-		throw(new InvalidArgumentException("plant Id cannot be negative", 405));
-	}
 
 	// handle GET request
 	if($method === "GET"){
@@ -44,8 +40,8 @@ try{
 		setXsrfCookie();
 
 		//get combative plant or all combative plants
-		if(empty($plantId)===false){
-			$combativePlant = CombativePlant::getCombativePlantsByPlantId($pdo, $plantId);
+		if(empty($plantName)===false){
+			$combativePlant = CombativePlant::getCombativePlantsByPlantName($pdo, $plantName);
 			if($combativePlant !== null){
 				$reply->data = $combativePlant;
 			}

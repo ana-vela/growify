@@ -48,33 +48,12 @@
 			</div>
 		</div>
 
-		<!-- Companion Plant & Combative Plant data -->
-	<div class="row">
-		<div class="col-xs-6 col-md-4">
-			<div class="well " id="companion-plants">
-
-				<h3>Companion Plants</h3>
-				<ul>
-					<li>orange</li>
-					<li>strawberry</li>
-					<li>peach</li>
-				</ul>
-
+		<div class="row">
+			<div class="col-md-4">
+				<button class="btn btn-default" type="button" (click)="">Add Selected Plants</button><!-- TODO add click event binding - add selected plants to garden and redirect to garden-->
 			</div>
 		</div>
-		<div class="col-xs-6 col-md-4">
-			<div class="well " id="combative-plants">
 
-				<h3>Combative Plants</h3>
-				<ul>
-					<li>prickly pear</li>
-					<li>saguaro</li>
-					<li>cholla</li>
-				</ul>
-
-			</div>
-		</div>
-	</div>
 
 		<!-- Modal for detailed plant data display -->
 		<!-- get the plantId that was clicked from the modalPlant field -->
@@ -92,6 +71,34 @@
 						<p><b>Days to Harvest:</b> {{modalPlant.plantDaysToHarvest | number:'.0-0'}}</p>
 						<h4>Description:</h4>
 						<p>{{modalPlant.plantDescription}}</p>
+						<!-- Companion Plant & Combative Plant data -->
+						<div class="row">
+							<div class="col-xs-6 col-md-4">
+								<div class="well " id="companion-plants">
+
+									<h3>Companion Plants</h3>
+									<ul>
+										<li>orange</li>
+										<li>strawberry</li>
+										<li>peach</li>
+									</ul>
+
+								</div>
+							</div>
+							<div class="col-xs-6 col-md-4">
+								<div class="well " id="combative-plants">
+
+									<h3>Combative Plants</h3>
+									<ul>
+										<li>prickly pear</li>
+										<li>saguaro</li>
+										<li>cholla</li>
+									</ul>
+
+								</div>
+							</div>
+						</div>
+
 
 
 					</div>
