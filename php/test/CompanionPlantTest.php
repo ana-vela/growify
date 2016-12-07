@@ -64,7 +64,7 @@ class CompanionPlantTest extends GrowifyTest {
 
 		//grab date from mySQL and enforce fields match
 		// e.g. all returned entries have the expected ID as either 1st or 2nd field.
-		$results = CompanionPlant::getAllCompanionPlantsByPlantName($this->getPDO(), $companionPlant->getCompanionPlant1Name(), $companionPlant->getCompanionPlant1LatinName());
+		$results = CompanionPlant::getAllCompanionPlantsByPlantName($this->getPDO(), $companionPlant->getCompanionPlant1Name(), $companionPlant->getCompanionPlant1LatinName(), $companionPlant->getCompanionPlant2Name(), $companionPlant->getCompanionPlant2LatinName());
 
 		//first check array parameters
 		$this->assertEquals($numRows+1, $this->getConnection()->getRowCount("companionPlant"));
@@ -74,8 +74,7 @@ class CompanionPlantTest extends GrowifyTest {
 		//get result from the array and validate it
 		$pdoCompanionPlant = $results[0]; //only one entry in this test
 		$this->assertTrue(($pdoCompanionPlant->getCompanionPlant1Name() === $this->companionPlant1->getPlantName()) ||
-			($pdoCompanionPlant->getCompanionPlant2Name() === $this->companionPlan2->getPlantName()));
-
+			($pdoCompanionPlant->getCompanionPlant2Name() === $this->companionPlant2->getPlantName()));
 	}
 
 	/**
@@ -87,7 +86,7 @@ class CompanionPlantTest extends GrowifyTest {
 		$companionPlant = new CompanionPlant($this->companionPlant1->getPlantName(), $this->companionPlant2->getPlantName(), $this->companionPlant1->getPlantLatinName(), $this->companionPlant2->getPlantLatinName());
 		$companionPlant->insert($this->getPDO());
 
-		$this->assertTrue(CompanionPlant::existsCompanionPlantEntry($this->getPDO(), $this->companionPlant2->getPlantName(), $this->companionPlant2->getPlantName(),  $this->companionPlant2->getPlantName(),  $this->companionPlant2->getPlantName()));
+		$this->assertTrue(CompanionPlant::existsCompanionPlantEntry($this->getPDO(), $this->companionPlant1->getPlantName(), $this->companionPlant2->getPlantName(),  $this->companionPlant1->getPlantLatinName(),  $this->companionPlant2->getPlantLatinName()));
 	}
 
 	/**
@@ -125,11 +124,14 @@ $this->assertCount(1, $results);
 	 * e.g. (companionPlant1Name = 1, companionPlant2Name = 2) and
 	 *      (companionPlant1Name = 2, companionPlant2Name = 1)
 	 * are really the same entry, and we neither require nor do we want to have BOTH
+	 * @expectedException \PDOException
+	 *
 	 **/
 	public function testInsertDuplicateValidCombativePlantEntrySwapNames() {
 		$testCompanionPlant1 = new CompanionPlant ($this->companionPlant1->getPlantName(), $this->companionPlant2->getPlantName(), $this->companionPlant1->getPlantLatinName(), $this->companionPlant2->getPlantLatinName());
 		$testCompanionPlant1->insert($this->getPDO());
-		$testCompanionPlant2 = new CompanionPlant($this->companionPlant2->getPlantName(), $this->companionPlant1>getPlantName(), $this->companionPlant2->getPlantLatinName(), $this->companionPlant1->getPlantLatinName() );
+
+		$testCompanionPlant2 = new CompanionPlant($this->companionPlant2->getPlantName(), $this->companionPlant1->getPlantName(), $this->companionPlant2->getPlantLatinName(), $this->companionPlant1->getPlantLatinName() );
 		$testCompanionPlant2->insert($this->getPDO());
 	}
 
@@ -183,11 +185,11 @@ $this->assertCount(1, $results);
 
 	/**
 	 * test deleting a companion plant entry that does not exist
-	 *
+	 * @expectedException \PDOException
 	 **/
 	public function testDeleteInvalidCompanionPlantEntry(){
 		// create a CompanionPlant and try to delete without actually inserting it
-		$companionPlant = new CompanionPlant(GrowifyTest::INVALID_KEY, $this->companionPlant2->getPlantName(), $this->companionPlant2->getPlantLatinName());
+		$companionPlant = new CompanionPlant($this->companionPlant1->getPlantName(), $this->companionPlant1->getPlantLatinName(),$this->companionPlant2->getPlantName(), $this->companionPlant2->getPlantLatinName());
 		$companionPlant->delete($this->getPDO());
 	}
 
@@ -207,7 +209,7 @@ $this->assertCount(1, $results);
 		$companionPlant->insert($this->getPDO());
 
 		// grab the data and enforce fields match expectations
-		$results = CompanionPlant::getAllCompanionPlantsByPlantName($this->getPDO(), $this->companionPlant2->getPlantName(), $this->companionPlant2->getPlantLatinName());
+		$results = CompanionPlant::getAllCompanionPlantsByPlantName($this->getPDO(), $this->companionPlant1->getPlantName(), $this->companionPlant1->getPlantLatinName(), $this->companionPlant2->getPlantName(), $this->companionPlant2->getPlantLatinName());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("companionPlant"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Growify\\CompanionPlant", $results);
