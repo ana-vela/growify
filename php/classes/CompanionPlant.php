@@ -258,10 +258,10 @@ class CompanionPlant implements \JsonSerializable{
 		$plantName = filter_var($plantName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 		if(strlen($plantName)>72) {
-			throw(new \RangeException("latin name is too large"));
+			throw(new \RangeException("name is too large"));
 		}
 		// create query template
-		$query = "SELECT companionPlant1Name, companionPlant2Name FROM companionPlant WHERE ((companionPlant1Name = :plantName) OR (companionPlant2Name=:plantName))";
+		$query = "SELECT companionPlant1Name, companionPlant2Name, companionPlant1LatinName, companionPlant2LatinName FROM companionPlant WHERE ((companionPlant1Name = :plantName) OR (companionPlant2Name=:plantName) OR (companionPlant1LatinName = :plantName) OR (companionPlant2LatinName = :plantName))";
 		$statement = $pdo->prepare($query);
 
 		//bind parameters
