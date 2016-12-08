@@ -67,7 +67,7 @@ export class PlantsComponent implements OnInit{
 		// check if plant is in "selected" plants list
 		// if it is, change class to selected = false to remove highlightning
 		// remove the plant from the list
-		alert(plant.plantName);
+
 		if(plant.isSelected) {
 			plant.isSelected = false;
 			let index = this.selectedPlants.indexOf(plant);
@@ -123,31 +123,39 @@ export class PlantsComponent implements OnInit{
 		// get detail info via get plant by plant id
 		this.plantService.getPlantByPlantId(selectedPlant.plantId).subscribe(plant=>this.modalPlant = plant);
 		//this.companionPlants = []; // ensure list of combative plants is cleared
-		this.companionPlantService.getCompanionPlantsByName(selectedPlant.plantName).subscribe(companionPlants=>this.companionPlants=companionPlants);
+		this.companionPlantService.getCompanionPlantsByName(selectedPlant.plantName).subscribe(companionPlants=>this.addCompanionPlantsToList(companionPlants, selectedPlant.plantName));
 
-		for(let i = 0; i < this.companionPlants.length; i++){
-			let companionPlant: CompanionPlant = this.companionPlants[i];
-			let plant1 = companionPlant.companionPlant1Name;
-			let plant2 = companionPlant.companionPlant2Name;
-			if(plant1.toLowerCase().indexOf(selectedPlant.plantName.toLowerCase())>=0) {
-				this.companionPlantNames.push(plant2);
-			} else if(plant2.toLowerCase().indexOf(selectedPlant.plantName.toLowerCase())>=0){
-				this.companionPlantNames.push(plant1)
-			}
-		}
 
 		//this.combativePlants = []; // ensure list of combative plants is cleared
-		this.combativePlantService.getCombativePlantsByName(selectedPlant.plantName).subscribe(combativePlants=>this.combativePlants=combativePlants);
+		this.combativePlantService.getCombativePlantsByName(selectedPlant.plantName).subscribe(combativePlants=>this.addCombativePlantsToList(combativePlants, selectedPlant.plantName));
 
+	}
+
+	addCombativePlantsToList(combativePlants: CombativePlant[], plantName: string){
+		this.combativePlants=combativePlants;
 		for(let i =0; i <this.combativePlants.length; i++){
 			let combativePlant: CombativePlant = this.combativePlants[i];
 			let plant1 = combativePlant.combativePlant1Name;
 			let plant2 = combativePlant.combativePlant2Name;
 			// when we get a pair, we want to create a list of the *other* combative plant of the pair.
-			if(plant1.toLowerCase().indexOf(selectedPlant.plantName.toLowerCase())>=0) {
+			if(plant1.toLowerCase().indexOf(plantName.toLowerCase())>=0) {
 				this.combativePlantNames.push(plant2);
-			} else if(plant2.toLowerCase().indexOf(selectedPlant.plantName.toLowerCase())>=0){
+			} else if(plant2.toLowerCase().indexOf(plantName.toLowerCase())>=0){
 				this.combativePlantNames.push(plant1)
+			}
+		}
+	}
+
+	addCompanionPlantsToList(companionPlants: CompanionPlant[], plantName: string){
+		this.companionPlants=companionPlants;
+		for(let i = 0; i < this.companionPlants.length; i++){
+			let companionPlant: CompanionPlant = this.companionPlants[i];
+			let plant1 = companionPlant.companionPlant1Name;
+			let plant2 = companionPlant.companionPlant2Name;
+			if(plant1.toLowerCase().indexOf(plantName.toLowerCase())>=0) {
+				this.companionPlantNames.push(plant2);
+			} else if(plant2.toLowerCase().indexOf(plantName.toLowerCase())>=0){
+				this.companionPlantNames.push(plant1)
 			}
 		}
 
