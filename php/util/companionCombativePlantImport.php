@@ -20,32 +20,24 @@ importCompanionPlants($pdo);
 
 function importCompanionPlants(\PDO  $pdo) {
 
-	if(($handle = fopen("companion-plants.csv", "r")) !== FALSE) {
+	if(($handle = fopen("companion-plants-latin-names.csv", "r")) !== FALSE) {
 		while(($dataCSV = fgetcsv($handle, 0, ",", "\"")) !== FALSE) { // set length to zero for unlimited line length php > 5.1
 
 			$plant1Name = trim($dataCSV[0]);
 			$plant2Name = trim($dataCSV[1]);
 
-			echo $plant1Name.", ".$plant2Name."<br/>";
-			// get plant id for ALL varieties!
-			$plant1PlantEntries = Plant::getPlantByPlantName($pdo, $plant1Name);
-			$plant2PlantEntries = Plant::getPlantByPlantName($pdo, $plant2Name);
+			$plant1LatinName = trim($dataCSV[2]);
+			$plant2LatinName = trim($dataCSV[3]);
 
-			// table entries are the outer product of all these plants! eek!
-			for($i = 0; $i < count($plant1PlantEntries); $i++){
-				for($j = 0; $j <count($plant2PlantEntries); $j++){
-					echo $plant1PlantEntries[$i]->getPlantId().", ".$plant2PlantEntries[$j]->getPlantId()."<br/>";
-					try {
-					$companionEntry = new CompanionPlant($plant1PlantEntries[$i]->getPlantId(), $plant2PlantEntries[$j]->getPlantId());
+			echo $plant1Name.", ".$plant2Name.", ".$plant1LatinName.", ".$plant2LatinName."<br/>";
 
-						$companionEntry->insert($pdo);
-					} catch(\PDOException $pe){
-						echo($pe->getMessage()."<br/>");
-					}
-				}
+			try {
+				$companionEntry = new CompanionPlant($plant1Name, $plant2Name, $plant1LatinName, $plant2LatinName);
+
+				$companionEntry->insert($pdo);
+			} catch(\PDOException $pe) {
+				echo($pe->getMessage() . "<br/>");
 			}
-
-
 
 		}
 	}

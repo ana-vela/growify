@@ -26,7 +26,7 @@
 				<!-- Search Results Table -->
 			</div>
 		</div>
-		<div [hidden]="dataReady">Preparing Data&hellip;</div>
+		<div [hidden]="dataReady">Preparing Data&hellip</div>
 		<div class="row">
 			<div class="col-md-10">
 				<table class="table  " id="plant-table">
@@ -50,7 +50,7 @@
 
 		<div class="row">
 			<div class="col-md-4">
-				<button class="btn btn-default" type="button" (click)="">Add Selected Plants</button><!-- TODO add click event binding - add selected plants to garden and redirect to garden-->
+				<button class="btn btn-default" type="button" >Add Selected Plants</button><!-- TODO add click (click)=""event binding - add selected plants to garden and redirect to garden-->
 			</div>
 		</div>
 
@@ -77,10 +77,9 @@
 								<div class="well " id="companion-plants">
 
 									<h3>Companion Plants</h3>
-									<ul>
-										<li>orange</li>
-										<li>strawberry</li>
-										<li>peach</li>
+									<ul   >
+										<li *ngFor="let companionPlant of companionPlants">{{companionPlant}}</li>
+
 									</ul>
 
 								</div>
@@ -90,9 +89,8 @@
 
 									<h3>Combative Plants</h3>
 									<ul>
-										<li>prickly pear</li>
-										<li>saguaro</li>
-										<li>cholla</li>
+										<li *ngFor="let combativePlant of combativePlants">{{combativePlant}}</li>
+
 									</ul>
 
 								</div>

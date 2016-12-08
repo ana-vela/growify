@@ -2,6 +2,8 @@
 import{Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {PlantService} from "../services/plant-service";
+import {CompanionPlantService} from "../services/companion-plant-service";
+import {CombativePlantService} from "../services/combative-plant-service";
 import {Observable} from "rxjs/Observable"
 import {Plant} from "../classes/plant";
 import {CompanionPlant} from "../classes/companionPlant";
@@ -27,6 +29,7 @@ export class PlantsComponent implements OnInit{
 
 	selectedPlants: Plant[]=[]; // user clicks to select a bunch of plants.
 
+	/* companion plants and combative plants set by the modal plant */
 	companionPlants: CompanionPlant[]=[]; // store list of companion plants corresponding to selected plants search term
 	companionPlantNames: string[] = []; // store list of companion plants for display
 
@@ -36,7 +39,7 @@ export class PlantsComponent implements OnInit{
 	testPlants = [new Plant(1, "star flower", "Expecto patronus","flower", "flower", "badass",7,  7, 7, 15, 140, "D"),
 		new Plant(1, "beetroot", "Beetle bug","flower", "flower", "badass",7,  7, 7, 15, 140, "D")];
 
-	constructor(private plantService: PlantService){}
+	constructor(private plantService: PlantService, private companionPlantService: CompanionPlantService, private combativePlantService: CombativePlantService){}
 
 	ngOnInit(): void {
 		this.getAllPlants();
@@ -85,6 +88,33 @@ export class PlantsComponent implements OnInit{
 		// set plant
 		// get detail info via get plant by plant id
 		this.plantService.getPlantByPlantId(selectedPlant.plantId).subscribe(plant=>this.modalPlant = plant);
+		this.companionPlantService.getCompanionPlantsByName(selectedPlant.plantName).subscribe(companionPlants=>this.companionPlants=companionPlants);
+
+		for(let i = 0; i < this.companionPlants.length; i++){
+			let companionPlant: CompanionPlant = this.companionPlants[i];
+			let plant1 = companionPlant.companionPlant1Name;
+			let plant2 = companionPlant.companionPlant2Name;
+			if(plant1.indexOf(selectedPlant.plantName)>=0) {
+				this.companionPlantNames.push(plant2);
+			} else if(plant2.indexOf(selectedPlant.plantName)>=0){
+				this.companionPlantNames.push(plant1)
+			}
+		}
+
+		this.combativePlantService.getCombativePlantsByName(selectedPlant.plantName).subscribe(combativePlants=>this.combativePlants=combativePlants);
+
+		for(let i =0; i <this.combativePlants.length; i++){
+			let combativePlant: CombativePlant = this.combativePlants[i];
+			let plant1 = combativePlant.combativePlant1Name;
+			let plant2 = combativePlant.combativePlant2Name;
+			// when we get a pair, we want to create a list of the *other* combative plant of the pair.
+			if(plant1.indexOf(selectedPlant.plantName)>=0) {
+				this.combativePlantNames.push(plant2);
+			} else if(plant2.indexOf(selectedPlant.plantName)>=0){
+				this.combativePlantNames.push(plant1)
+			}
+		}
+
 	}
 	/*searchForPlantByPlantId(): void{
 	 this.plantService.getPlantByPlantId(this.plantId).subscribe(plant=>this.plantResults.concat(plant));

@@ -13,11 +13,11 @@ export class CombativePlantService extends BaseService {
 
 	private combativePlantUrl = "api/combativePlant/";
 
-	getCombativePlantsByName(plantName: string): Observable<Plant[]>{
+	getCombativePlantsByName(plantName: string): Observable<CombativePlant[]>{
 		return( this.http.get(this.combativePlantUrl+"?combativePlantName="+plantName).map(this.extractData).catch(this.handleError));
 	}
 
-	getAllCombativePlants(): Observable<Plant[]>{
+	getAllCombativePlants(): Observable<CombativePlant[]>{
 		return(this.http.get(this.combativePlantUrl).map(this.extractData).catch(this.handleError));
 	}
 }

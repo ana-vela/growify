@@ -39,7 +39,7 @@ try{
 
 		//get companion plant or all companion plants
 		if(empty($plantName)===false){
-			$companionPlant = CompanionPlant::getCompanionPlantsByPlantName($pdo, $plantName);
+			$companionPlant = CompanionPlant::getAllCompanionPlantsByPlantName($pdo, $plantName);
 			if($companionPlant !== null){
 				$reply->data = $companionPlant;
 			}
