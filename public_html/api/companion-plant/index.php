@@ -30,16 +30,7 @@ try{
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	// sanitize input
-	$plantId = filter_input(INPUT_GET, "companionPlantId", FILTER_VALIDATE_INT);
-	$id = filter_input(INPUT_GET, "id");
-
-
-
-// ensure $plantId is valid
-	if($plantId < 0){
-		throw(new InvalidArgumentException("plant Id cannot be negative", 405));
-
-	}
+	$plantName = filter_input(INPUT_GET, "companionPlantName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 // handle GET request
 	if($method === "GET"){
@@ -47,8 +38,8 @@ try{
 		setXsrfCookie();
 
 		//get companion plant or all companion plants
-		if(empty($plantId)===false){
-			$companionPlant = CompanionPlant::getCompanionPlantsByPlantId($pdo, $plantId);
+		if(empty($plantName)===false){
+			$companionPlant = CompanionPlant::getCompanionPlantsByPlantName($pdo, $plantName);
 			if($companionPlant !== null){
 				$reply->data = $companionPlant;
 			}
