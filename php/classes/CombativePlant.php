@@ -94,7 +94,7 @@ class CombativePlant implements \JsonSerializable{
 
 	/**
 	 * Accessor method for combativePlant2Name
-	 * @return string $combativeplant2Name a plant name.
+	 * @return string $combativePlant2Name a plant name.
 	 */
 	public function getCombativePlant2Name(): string {
 		return $this->combativePlant2Name;
@@ -113,13 +113,13 @@ class CombativePlant implements \JsonSerializable{
 		if(strlen($newCombativePlant2Name) > 64) {
 			throw(new \RangeException("name is too large"));
 		}
-		// convert and store the companion plant 1 name
+		// convert and store the combative plant 1 name
 		$this->combativePlant2Name =$newCombativePlant2Name;
 	}
 
 	/**
-	 * Accessor method for combativePlant1Name
-	 * @return string $combativePlant1Name a plant name
+	 * Accessor method for combativePlant1LatinName
+	 * @return string $combativePlant1LatinName a plant name
 	 */
 	public function getCombativePlant1LatinName(): string {
 		return $this->combativePlant1LatinName;
@@ -148,7 +148,7 @@ class CombativePlant implements \JsonSerializable{
 	 * @return string $combativePlant2LatinName a plant name.
 	 */
 	public function getCombativePlant2LatinName(): string {
-		return $this->combativePlant2Name;
+		return $this->combativePlant2LatinName;
 	}
 
 	/**
@@ -199,7 +199,7 @@ class CombativePlant implements \JsonSerializable{
 	 */
 	public function insert(\PDO $pdo){
 
-		if(CombativePlant::existsCombativePlantEntry($pdo, $this->combativePlant1Name, $this->combativePlant2Name)===false){
+		if(CombativePlant::existsCombativePlantEntry($pdo, $this->combativePlant1Name, $this->combativePlant2Name,$this->combativePlant1LatinName, $this->combativePlant2LatinName )===false){
 			//bind the member variables to the place holders in the template
 			$parameters = ["combativePlant1Name" => $this->combativePlant1Name, "combativePlant2Name" => $this->combativePlant2Name, "combativePlant1LatinName" => $this->combativePlant1LatinName, "combativePlant2LatinName" => $this->combativePlant2LatinName];
 
@@ -250,7 +250,7 @@ class CombativePlant implements \JsonSerializable{
 	 * @param string $plantName the name of the plant we are searching for.
 	 * @return \SplFixedArray SplFixedArray of Combative Plants, or null if no matches found.
 	 * @throws \PDOException for mySQL related errors
-	 * @throws \TypeError if variables are not the correct data type.
+	 * @throws \TypeError if $pdo is not a PDO connection
 	 */
 	public static function getAllCombativePlantsByPlantName(\PDO $pdo, string $plantName){
 		$plantName = trim($plantName);

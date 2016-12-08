@@ -198,7 +198,7 @@ class CombativePlantTest extends GrowifyTest {
 	 */
 	public function testDeleteInvalidCombativePlantEntry(){
 		// create a CombativePlant and try to delete without actually inserting it
-		$combativePlant = new CombativePlant($this->combativePlant1->getPlantName(),$this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
+		$combativePlant = new CombativePlant($this->combativePlant1->getPlantName(),$this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant->delete($this->getPDO());
 	}
 
@@ -221,7 +221,7 @@ class CombativePlantTest extends GrowifyTest {
 		$combativePlant->insert($this->getPDO());
 
 		// grab the data and enforce fields match expectations
-		$results = CombativePlant::getCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
+		$results = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$this->assertEquals($numRows+1, $this->getConnection()->getRowCount("combativePlant"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Growify\\CombativePlant", $results);
