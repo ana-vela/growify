@@ -16,7 +16,7 @@ Beans,Peas,phaseolus vulgaris,pisum sativum
 Beans,Potatoes,phaseolus vulgaris,solanum tuberosum
 Beans,Radishes,phaseolus vulgaris,raphanus sativus
 Beans,Squash,phaseolus vulgaris,curcurbita pepo
-Beans,Strawberries,phaseolus vulgaris,fragaria × ananassa
+Beans,Strawberries,phaseolus vulgaris,fragaria X ananassa
 Beans,Tomatoes,phaseolus vulgaris,lycopersicon esculentum
 Beets,Asparagus,beta vulgaris subsp. vulgaris,asparagus officinalis
 Beets,Broccoli,beta vulgaris subsp. vulgaris,brassica oleracea var. italica
@@ -60,7 +60,7 @@ Cauliflower,Beets,brassica oleracea var. botrytis,beta vulgaris subsp. vulgaris
 Cauliflower,Celery,brassica oleracea var. botrytis,Apium graveolens
 Cauliflower,Cucumbers,brassica oleracea var. botrytis,cucumis sativus
 Cauliflower,Sage,brassica oleracea var. botrytis,salvia officinalis
-Cauliflower,Thyme,brassica oleracea var. botrytis,fragaria × ananassa
+Cauliflower,Thyme,brassica oleracea var. botrytis,fragaria X ananassa
 Celery,Beans,Apium graveolens,phaseolus vulgaris
 Celery,Broccoli,Apium graveolens,brassica oleracea var. italica
 Celery,Cabbage,Apium graveolens,brassica oleracea var. capitata
@@ -109,7 +109,7 @@ Lettuce,Peas,lactuca sativa,pisum sativum
 Lettuce,Potatoes,lactuca sativa,solanum tuberosum
 Lettuce,Radishes,lactuca sativa,raphanus sativus
 Lettuce,Spinach,lactuca sativa,spinacea oleracea
-Lettuce,Strawberries,lactuca sativa,fragaria × ananassa
+Lettuce,Strawberries,lactuca sativa,fragaria X ananassa
 Lettuce,Sunflowers,lactuca sativa,helianthus
 Lettuce,Tomatoes,lactuca sativa,lycopersicon esculentum
 Melons,Corn,Cucumis melo,zea mays
@@ -166,7 +166,7 @@ Spinach,Onions,spinacea oleracea,allium cepa
 Spinach,Peas,spinacea oleracea,pisum sativum
 Spinach,Peppers,spinacea oleracea,capsicum annuum
 Spinach,Radishes,spinacea oleracea,raphanus sativus
-Spinach,Strawberries,spinacea oleracea,fragaria × ananassa
+Spinach,Strawberries,spinacea oleracea,fragaria X ananassa
 Spinach,Tomatoes,spinacea oleracea,lycopersicon esculentum
 Tomatoes,Asparagus,lycopersicon esculentum,asparagus officinalis
 Tomatoes,Basil,lycopersicon esculentum,ocimum basilicum

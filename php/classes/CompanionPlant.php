@@ -169,6 +169,7 @@ class CompanionPlant implements \JsonSerializable{
 			throw(new \RangeException("latin name is too large"));
 		}
 		$this->companionPlant2LatinName = $newCompanionPlant2LatinName;
+
 	}
 	//**made changes and committed up to here**//
 	/**
@@ -244,7 +245,7 @@ class CompanionPlant implements \JsonSerializable{
 	}
 
 	/**
-	 * Gets all Companion Plant entries that have the specified plant name.
+	 * Gets all Companion Plant entries that have the specified plant name or latin name?.
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $plantName of the plant we are searching for.
