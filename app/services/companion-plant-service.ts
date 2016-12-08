@@ -11,7 +11,7 @@ export class CompanionPlantService extends BaseService {
 		super(http);
 	}
 
-	private companionPlantUrl = "api/companionPlant/";
+	private companionPlantUrl = "api/companion-plant/";
 
 	getCompanionPlantsByName(plantName: string): Observable<CompanionPlant[]>{
 		return( this.http.get(this.companionPlantUrl+"?companionPlantName="+plantName).map(this.extractData).catch(this.handleError));
