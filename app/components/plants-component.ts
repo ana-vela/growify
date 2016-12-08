@@ -57,6 +57,13 @@ export class PlantsComponent implements OnInit{
 
 	}
 
+	toggleSelected(){
+		// check if plant is in "selected" plants list
+			// if it is, change class to selected = false
+			// if not change class to selected = true
+
+	}
+
 	searchForPlantsByName(): void{
 
 
