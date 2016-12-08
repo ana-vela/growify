@@ -112,6 +112,12 @@ export class PlantsComponent implements OnInit{
 		}
 	}
 
+	clearModalPlant(){
+		this.modalPlant = new Plant(0, "", "", "", "", "", 0, 0, 0, 0, 0, "");
+		this.companionPlantNames = [];
+		this.combativePlantNames = [];
+	}
+
 	setModalPlant(selectedPlant :Plant): void{
 		// set plant
 		// get detail info via get plant by plant id

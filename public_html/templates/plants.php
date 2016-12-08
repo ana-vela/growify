@@ -61,13 +61,13 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearModalPlant()"><span aria-hidden="true">&times;</span></button>
 						<h4 class="modal-title" id="myModalLabel"> {{modalPlant.plantName}} <span *ngIf="modalPlant.plantVariety!==null"> - {{modalPlant.plantVariety}}</span></h4>
 					</div>
 					<div class="modal-body">
 						<p><em>{{modalPlant.plantLatinName}}</em><p>
-						<p><b>Spread:</b> {{modalPlant.plantSpread | number:'.0-1'}}</p>
-						<p><b>Height:</b> {{modalPlant.plantHeight | number:'.0-1'}}</p>
+						<p><b>Spread:</b> {{modalPlant.plantSpread | number:'1.0-1'}} ft.</p>
+						<p><b>Height:</b> {{modalPlant.plantHeight | number:'1.0-1'}} ft.</p>
 						<p><b>Days to Harvest:</b> {{modalPlant.plantDaysToHarvest | number:'.0-0'}}</p>
 						<h4>Description:</h4>
 						<p>{{modalPlant.plantDescription}}</p>
