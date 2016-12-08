@@ -2,7 +2,6 @@
 
 
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
-require_once dirname(__DIR__, 3) . "/php/util/mailer.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -123,8 +122,7 @@ try {
 			// update reply
 			$reply->message = "Profile Created OK";
 		}
-	}
-	if($method == "DELETE") {
+	}elseif($method == "DELETE") {
 		$profile = Profile::getProfileByProfileUsername($pdo, $profileUserInput);
 		if($profile !== null) {
 			$profile->delete($pdo);
