@@ -46,8 +46,6 @@ body{
 }
 
 
-
-
 /****** LOGIN MODAL ******/
 .loginmodal-container {
 	padding: 30px;
@@ -232,4 +230,12 @@ body{
 
 #companion-plants {
 	background: lightgreen;
+}
+
+
+/******** garden ********/
+
+.fa-leaf {
+	color: green;
+
 }
