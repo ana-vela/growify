@@ -125,7 +125,7 @@ class CombativePlantTest extends GrowifyTest {
 		}
 
 		// chech that no rows affected.
-		$results = CombativePlant::getCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName());
+		$results = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName());
 		$this->assertCount(1, $results);
 	}
 
@@ -164,7 +164,7 @@ class CombativePlantTest extends GrowifyTest {
 		// get data from mySQL and enforce the entry was deleted.
 
 
-		$pdoCombativePlants = CombativePlant::getCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName());
+		$pdoCombativePlants = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName());
 		$this->assertCount(0, $pdoCombativePlants);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("combativePlant"));
 
@@ -187,7 +187,7 @@ class CombativePlantTest extends GrowifyTest {
 		$combativePlant2->delete($this->getPDO());
 
 		// get data from mySQL and enforce the entry was deleted.
-		$pdoCombativePlant = CombativePlant::getCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant1->getPlantLatinName());
+		$pdoCombativePlant = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant1->getPlantLatinName());
 		//$this->assertEmpty($pdoCombativePlant);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("combativePlant"));
 	}
@@ -238,8 +238,8 @@ class CombativePlantTest extends GrowifyTest {
 	 */
 	public function testGetInvalidCombativePlantEntryByPlantName(){
 
-		// get a combativeplant entry by searching for a plant that does not exist
-		$combativePlants = CombativePlant::getCombativePlantsByPlantName($this->getPDO(),  $this->combativePlant2->getPlantName(), $this->companionPlant2->getPlantLatinName());
+		// get a combativePlant entry by searching for a plant that does not exist
+		$combativePlants = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant2->getPlantName(), $this->combativePlant2->getPlantLatinName());
 
 		$this->assertCount(0, $combativePlants);
 	}

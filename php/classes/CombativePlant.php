@@ -139,8 +139,8 @@ class CombativePlant implements \JsonSerializable{
 		if(strlen($newCombativePlant1LatinName) > 64) {
 			throw(new \RangeException("latin name is too large"));
 		}
-		// convert and store the companion plant 1 name
-		$this->combativePlant1Name =$newCombativePlant1LatinName;
+		// convert and store the companion plant 1 latin name
+		$this->combativePlant1LatinName =$newCombativePlant1LatinName;
 	}
 
 	/**
@@ -199,7 +199,7 @@ class CombativePlant implements \JsonSerializable{
 	 */
 	public function insert(\PDO $pdo){
 
-		if(CombativePlant::existsCombativePlantEntry($pdo, $this->combativePlant1Name, $this->combativePlant2Name,$this->combativePlant1LatinName, $this->combativePlant2LatinName )===false){
+		if(CombativePlant::existsCombativePlantEntry($pdo, $this->combativePlant1Name, $this->combativePlant2Name)===false){
 			//bind the member variables to the place holders in the template
 			$parameters = ["combativePlant1Name" => $this->combativePlant1Name, "combativePlant2Name" => $this->combativePlant2Name, "combativePlant1LatinName" => $this->combativePlant1LatinName, "combativePlant2LatinName" => $this->combativePlant2LatinName];
 
@@ -261,7 +261,7 @@ class CombativePlant implements \JsonSerializable{
 		}
 
 		// create query template
-		$query = "SELECT combativePlant1Name, combativePlant2Name, combativePlant1LatinName, combativePlant2LatinName FROM combativePlant WHERE ((combativePlant1Name = :plantName) OR (combativePlant2Name =: plantName) OR (combativePlant1LatinName = :plantName) OR (combativePlant2LatinName =:plantName))";
+		$query = "SELECT combativePlant1Name, combativePlant2Name, combativePlant1LatinName, combativePlant2LatinName FROM combativePlant WHERE ((combativePlant1Name = :plantName) OR (combativePlant2Name = :plantName) OR (combativePlant1LatinName = :plantName) OR (combativePlant2LatinName =:plantName))";
 		$statement = $pdo->prepare($query);
 
 		// bind parameters
