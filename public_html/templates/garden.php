@@ -13,7 +13,7 @@
 <section>
 	<div class="container">
 		<div class="row">
-			Add a plant
+
 		</div>
 		<div class="col-md-12">
 			<table class="table">
