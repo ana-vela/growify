@@ -26,12 +26,12 @@ class CombativePlantTest extends GrowifyTest {
 
 	/**
 	 * Foreign key relationship to Plant.
-	 * @var Plant combativePlant1Id
+	 * @var Plant combativePlant1Name
 	 */
 	protected $combativePlant1 = null;
 	/**
 	 * Foreign key relationship to Plant.
-	 * @var Plant combativePlant2Id
+	 * @var Plant combativePlant2Name
 	 */
 	protected $combativePlant2 = null;
 
@@ -44,7 +44,7 @@ class CombativePlantTest extends GrowifyTest {
 
 		// created parameters needed
 
-		// create and insert a Plant to go into the gardent
+		// create and insert a Plant to go into the garden
 		$this->combativePlant1 = new Plant(null, "truffula tree", "this is a latin name", "green", "Primary food source for Brown Barbaloots", "tree", 5, 100, 5, 32, 99, "d" );
 		$this->combativePlant1->insert($this->getPDO());
 
@@ -58,8 +58,8 @@ class CombativePlantTest extends GrowifyTest {
 	/**
 	 * insert a combative plant entry and verify that the
 	 * mySQL entry data matches.
-	 * Note: we should be able to get combative plant entries regardless of whether the plantId is found in the first or second entry.
-	 * Note: this should return an array of values (possible more than one entry for a given combative plant.
+	 * Note: we should be able to get combative plant entries regardless of whether the plantName is found in the first or second entry.
+	 * Note: this should return an array of values (possible more than one entry for a given combative plant.)
 	 *
 	 *
 	 */
@@ -68,13 +68,13 @@ class CombativePlantTest extends GrowifyTest {
 		$numRows = $this->getConnection()->getRowCount("combativePlant");
 
 		// create a new combative plant entry and insert it into mySQL
-		$combativePlant = new CombativePlant($this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId());
+		$combativePlant = new CombativePlant($this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant->insert($this->getPDO());
 
 		// grab data from mySQL and enforce fields match
-		// e.g. all returned entries have the expected ID
+		// e.g. all returned entries have the expected name
 		// as either 1st or 2nd field.
-		$results = CombativePlant::getCombativePlantsByPlantId($this->getPDO(), $combativePlant->getCombativePlant1Id());
+		$results = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $combativePlant->getCombativePlant1Name(), $combativePlant->getCombativePlant2Name(), $combativePlant->getCombativePlant1LatinName(), $combativePlant->getCombativePlant2LatinName());
 		// first check array parameters
 		$this->assertEquals($numRows+1, $this->getConnection()->getRowCount("combativePlant"));
 		$this->assertCount(1, $results);
@@ -82,9 +82,7 @@ class CombativePlantTest extends GrowifyTest {
 
 		// get result from the array and validate it.
 		$pdoCombativePlant = $results[0]; // only one entry in this test
-		$this->assertTrue(($pdoCombativePlant->getCombativePlant1Id() === $this->combativePlant1->getPlantId() )|| ($pdoCombativePlant->getCombativePlant2Id() === $this->combativePlant1->getPlantId()));
-
-
+		$this->assertTrue(($pdoCombativePlant->getCombativePlant1Name() === $this->combativePlant1->getPlantName() )|| ($pdoCombativePlant->getCombativePlant2Name() === $this->combativePlant2->getPlantName()));
 	}
 
 	/**
@@ -93,10 +91,10 @@ class CombativePlantTest extends GrowifyTest {
 	 */
 	public function testExistsCombativePlantEntry(){
 		// create a new combative plant entry and insert it into mySQL
-		$combativePlant = new CombativePlant($this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId());
+		$combativePlant = new CombativePlant($this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant->insert($this->getPDO());
 
-		$this->assertTrue( CombativePlant::existsCombativePlantEntry($this->getPDO(), $this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId() ));
+		$this->assertTrue( CombativePlant::existsCombativePlantEntry($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName()));
 	}
 
 	/**
@@ -106,7 +104,7 @@ class CombativePlantTest extends GrowifyTest {
 	public function testExistsCombativePlantEntryNoEntry(){
 		// ask if the entry exists for an entry that shouldn't
 
-		$this->assertFalse( CombativePlant::existsCombativePlantEntry($this->getPDO(), $this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId() ));
+		$this->assertFalse( CombativePlant::existsCombativePlantEntry($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName()));
 	}
 
 	/**
@@ -117,51 +115,36 @@ class CombativePlantTest extends GrowifyTest {
 	 */
 	public function testInsertDuplicateValidCombativePlantEntry(){
 
-		$testCombativePlant1 = new CombativePlant($this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId());
+		$testCombativePlant1 = new CombativePlant($this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$testCombativePlant1->insert($this->getPDO());
 		try {
-			$testCombativePlant2 = new CombativePlant($this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId());
+			$testCombativePlant2 = new CombativePlant($this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 			$testCombativePlant2->insert($this->getPDO());
 		} catch (\PDOException $pdoException){
 			$this->assertTrue(true); // caught expected exception
 		}
 
 		// chech that no rows affected.
-		$results = CombativePlant::getCombativePlantsByPlantId($this->getPDO(), $this->combativePlant1->getPlantId());
+		$results = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName());
 		$this->assertCount(1, $results);
 	}
 
 	/**
 	 * attempt to insert a combative plant entry that already exists
-	 * (with order of plantId's reversed)
+	 * (with order of plantNames reversed)
 	 *
-	 * e.g. (CombativePlant1Id = 1, CombativePlant2Id = 2) and
-	 *      (CombativePlant1Id = 2, CombativePlant1Id = 1)
+	 * e.g. (CombativePlant1Name = 1, CombativePlant2Name = 2) and
+	 *      (CombativePlant1Name = 2, CombativePlant1Name = 1)
 	 * are really the same entry, and we neither require nor do we want to have BOTH
 	 * @expectedException \PDOException
 	 */
-	public function testInsertDuplicateValidCombativePlantEntrySwapIds(){
-		$testCombativePlant1 = new CombativePlant($this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId());
+	public function testInsertDuplicateValidCombativePlantEntrySwapNames(){
+		$testCombativePlant1 = new CombativePlant($this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(),$this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$testCombativePlant1->insert($this->getPDO());
-		$testCombativePlant2 = new CombativePlant($this->combativePlant2->getPlantId(), $this->combativePlant1->getPlantId());
+
+		$testCombativePlant2 = new CombativePlant($this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantName(),$this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$testCombativePlant2->insert($this->getPDO());
 	}
-
-	/**
-	 * test inserting an invalid plant entry (one that has an invalid (non-null) id)
-	 */
-	/* don't use this - it makes more sense to test attempt to
-	 add duplicate entry - see testInsertDuplicateValidCombativePlantEntry()
-	public function testInsertInvalidCombativePlantEntry(){
-
-	}*/
-
-	/**
-	 * test updating a combative plant entry. - omit as we do not currently
-	 * have a use case for updating a combative plant entry
-	 */
-
-
 
 	/**
 	 * test deleting a valid plant entry
@@ -171,7 +154,7 @@ class CombativePlantTest extends GrowifyTest {
 		$numRows = $this->getConnection()->getRowCount("combativePlant");
 
 		// create a new CombativePlant and insert into mySQL
-		$combativePlant = new CombativePlant($this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId());
+		$combativePlant = new CombativePlant($this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant->insert($this->getPDO());
 
 		// delete that combativePlant
@@ -179,32 +162,32 @@ class CombativePlantTest extends GrowifyTest {
 		$combativePlant->delete($this->getPDO());
 
 		// get data from mySQL and enforce the entry was deleted.
-		//
-		// get by 1st Id, then check that 2nd Id also matches!
-		$pdoCombativePlants = CombativePlant::getCombativePlantsByPlantId($this->getPDO(), $this->combativePlant1->getPlantId());
-		//$this->assertEmpty($pdoCombativePlants);
+
+
+		$pdoCombativePlants = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName());
+		$this->assertCount(0, $pdoCombativePlants);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("combativePlant"));
 
 	}
 
 	/**
-	 * Insert combative plant object into mySQL as combativePlant1Id, combativePlant2Id, check that doing delete on combativePlant2Id, combativePlant1Id removes that object.
+	 * Insert combative plant object into mySQL as combativePlant1Name, combativePlant2Name, check that doing delete on combativePlant2Name, combativePlant1Name removes that object.
 	 */
 	public function testDeleteValidCombativePlantEntryOrderInsensitive(){
 		// count the number of rows and save to compare
 		$numRows = $this->getConnection()->getRowCount("combativePlant");
 
 		// create a new CombativePlant and insert into mySQL
-		$combativePlant1 = new CombativePlant($this->combativePlant1->getPlantId(), $this->combativePlant2->getPlantId());
+		$combativePlant1 = new CombativePlant($this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant1->insert($this->getPDO());
 
 		// delete a combativePlant created with reversed indices
 		$this->assertEquals($numRows+1, $this->getConnection()->getRowCount("combativePlant"));
-		$combativePlant2 = new CombativePlant($this->combativePlant2->getPlantId(), $this->combativePlant1->getPlantId());
+		$combativePlant2 = new CombativePlant($this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant2->delete($this->getPDO());
 
 		// get data from mySQL and enforce the entry was deleted.
-		$pdoCombativePlant = CombativePlant::getCombativePlantsByPlantId($this->getPDO(), $this->combativePlant1->getPlantId());
+		$pdoCombativePlant = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant1->getPlantLatinName());
 		//$this->assertEmpty($pdoCombativePlant);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("combativePlant"));
 	}
@@ -215,48 +198,48 @@ class CombativePlantTest extends GrowifyTest {
 	 */
 	public function testDeleteInvalidCombativePlantEntry(){
 		// create a CombativePlant and try to delete without actually inserting it
-		$combativePlant = new CombativePlant($this->combativePlant1->getPlantId(),$this->combativePlant2->getPlantId());
+		$combativePlant = new CombativePlant($this->combativePlant1->getPlantName(),$this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant->delete($this->getPDO());
 	}
 
 	/**
-	 * Test abilitiy to retrieve the CombativePlant record by the second Plant entry (combativePlant2)
+	 * Test ability to retrieve the CombativePlant record by the second Plant entry (combativePlant2)
 	 */
-	public function testGetValidCombativePlantEntryByPlantId(){
+	public function testGetValidCombativePlantEntryByPlantName(){
 
 		// we shouldn't know what order the plants will be inside the DB
-		// so need to test against either one (two plant id's)
+		// so need to test against either one (two plant names)
 
 		// a query for a particular combative plant should return all
 		// valid plants that it is paired with - so we might need to use
-		// more than one Plant entry to test against. e.g. should be able to retrieve the entries with the plantId as either combativePlant1Id or combativePlant2Id
+		// more than one Plant entry to test against. e.g. should be able to retrieve the entries with the plantName as either combativePlant1Name or combativePlant2Name
 		// count number of rows and save for later
 		$numRows = $this->getConnection()->getRowCount("combativePlant");
 
 		// create a new Combative plant and insert it into mySQL
-		$combativePlant = new CombativePlant($this->combativePlant1->getPlantId(),$this->combativePlant2->getPlantId());
+		$combativePlant = new CombativePlant($this->combativePlant1->getPlantName(),$this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant->insert($this->getPDO());
 
 		// grab the data and enforce fields match expectations
-		$results = CombativePlant::getCombativePlantsByPlantId($this->getPDO(), $this->combativePlant2->getPlantId() );
+		$results = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$this->assertEquals($numRows+1, $this->getConnection()->getRowCount("combativePlant"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Growify\\CombativePlant", $results);
 
 		// get result from the array and validate it.
 		$pdoCombativePlant = $results[0];
-		$this->assertEquals($pdoCombativePlant->getCombativePlant1Id(), $this->combativePlant1->getPlantId());
-		$this->assertEquals($pdoCombativePlant->getCombativePlant2Id(), $this->combativePlant2->getPlantId());
+		$this->assertEquals($pdoCombativePlant->getCombativePlant1Name(), $this->combativePlant1->getPlantName(), $this->combativePlant1->getPlantLatinName());
+		$this->assertEquals($pdoCombativePlant->getCombativePlant2Name(), $this->combativePlant2->getPlantName(), $this->combativePlant2->getPlantLatinName());
 
 	}
 
 	/**
 	 * Attempt to get a plant for which no entry exists.
 	 */
-	public function testGetInvalidCombativePlantEntryByPlantId(){
+	public function testGetInvalidCombativePlantEntryByPlantName(){
 
-		// get a combativeplant entry by searching for a plant that does not exist
-		$combativePlants = CombativePlant::getCombativePlantsByPlantId($this->getPDO(),  $this->combativePlant2->getPlantId());
+		// get a combativePlant entry by searching for a plant that does not exist
+		$combativePlants = CombativePlant::getAllCombativePlantsByPlantName($this->getPDO(), $this->combativePlant2->getPlantName(), $this->combativePlant2->getPlantLatinName());
 
 		$this->assertCount(0, $combativePlants);
 	}
@@ -269,7 +252,7 @@ class CombativePlantTest extends GrowifyTest {
 		$numRows = $this->getConnection()->getRowCount("combativePlant");
 
 		// create a new Combative plant and insert it into mySQL
-		$combativePlant = new CombativePlant($this->combativePlant1->getPlantId(),$this->combativePlant2->getPlantId());
+		$combativePlant = new CombativePlant($this->combativePlant1->getPlantName(), $this->combativePlant2->getPlantName(), $this->combativePlant1->getPlantLatinName(), $this->combativePlant2->getPlantLatinName());
 		$combativePlant->insert($this->getPDO());
 
 		// grab the data and enforce fields match expectations
@@ -280,7 +263,7 @@ class CombativePlantTest extends GrowifyTest {
 
 		// get result from the array and validate it.
 		$pdoCombativePlant = $results[0];
-		$this->assertEquals($pdoCombativePlant->getCombativePlant1Id(), $this->combativePlant1->getPlantId());
-		$this->assertEquals($pdoCombativePlant->getCombativePlant2Id(), $this->combativePlant2->getPlantId());
+		$this->assertEquals($pdoCombativePlant->getCombativePlant1Name(), $this->combativePlant1->getPlantName(), $this->combativePlant1->getPlantLatinName());
+		$this->assertEquals($pdoCombativePlant->getCombativePlant2Name(), $this->combativePlant2->getPlantName(), $this->combativePlant2->getPlantLatinName());
 	}
 }

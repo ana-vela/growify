@@ -14,7 +14,7 @@ require_once("autoload.php");
 
 class CompanionPlant implements \JsonSerializable{
 	/**
-	 * Name of  first CompanionPlant - foreign key
+	 * Name of first CompanionPlant - foreign key
 	 * @var string $companionPlant1Name
 	 **/
 	private $companionPlant1Name;
@@ -38,7 +38,6 @@ class CompanionPlant implements \JsonSerializable{
 	 */
 	private $companionPlant2LatinName;
 
-
 	/**
 	 * constructor for this CompanionPlant
 	 *
@@ -52,7 +51,7 @@ class CompanionPlant implements \JsonSerializable{
 	 * @throws \TypeError if data types violate type hints
 	 * @internal param string $companionPlant1IName first CompanionPlant
 	 * @internal param string $companionPlant2Name second CompanionPlant
-	 * @internal param string $companionPlant1LatinIName first CompanionPlant LatinName
+	 * @internal param string $companionPlant1LatinName first CompanionPlant LatinName
 	 * @internal param string $companionPlant2LatinName second CompanionPlant LatinName
 	 *
 	 **/
@@ -128,7 +127,7 @@ class CompanionPlant implements \JsonSerializable{
 	 * accessor method for companionPlant1LatinName
 	 * @return string the latin name for this plant
 	 **/
-	public function getCompanionPlant1LatinName(){
+	public function getCompanionPlant1LatinName(): string {
 		return $this->companionPlant1LatinName;
 	}
 
@@ -307,7 +306,7 @@ class CompanionPlant implements \JsonSerializable{
 
 		while (($row = $statement->fetch()) !=false) {
 			try {
-				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"], $row["companionPlant1Name"], $row["companionPlant2Name"]);
+				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"], $row["companionPlant1LatinName"], $row["companionPlant2LatinName"]);
 				$companionPlants[$companionPlants->key()] = $companionPlant;
 				$companionPlants->next();
 			} catch(\Exception $exception){
