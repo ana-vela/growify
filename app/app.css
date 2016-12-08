@@ -233,3 +233,7 @@ body{
 #companion-plants {
 	background: lightgreen;
 }
+
+.selected-plant {
+	background: lightgreen;
+}

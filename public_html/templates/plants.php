@@ -31,9 +31,9 @@
 			<div class="col-md-10">
 				<table class="table  " id="plant-table">
 
-					<tr *ngFor="let plant of plantResults" >
+					<tr *ngFor="let plant of plantResults" [ngClass]="{'selected-plant': plant.isSelected}">
 						<td>
-							<button class="btn btn-default" type="button" >
+							<button class="btn btn-default" type="button" (click)="toggleSelected(plant)" >
 								<i class="fa fa-plus" aria-hidden="true"></i>
 							</button>
 						</td>
@@ -50,7 +50,7 @@
 
 		<div class="row">
 			<div class="col-md-4">
-				<button class="btn btn-default" type="button" >Add Selected Plants</button><!-- TODO add click (click)=""event binding - add selected plants to garden and redirect to garden-->
+				<button class="btn btn-default" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button><!-- TODO add click (click)=""event binding - add selected plants to garden and redirect to garden-->
 			</div>
 		</div>
 

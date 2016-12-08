@@ -49,18 +49,39 @@ export class PlantsComponent implements OnInit{
 		this.testPlant = "tasty plant";
 	}
 
-	addPlantToSelections(){
-
+//todo when user clicks add all to garden to add then, remember to remove the "selected" quality
+	addSelectedPlantsToGarden(){
+		// toggle selected for all items in selected array (this will set them to selected = false)
+		// get profile id and add items to garden
+		for(let i = 0; i < this.selectedPlants.length; i++){
+			let plant = this.selectedPlants[i];
+			plant.isSelected = false;
+			// TODO add plant to garden !!!!
+		}
+		this.selectedPlants=[]; // hopefully plants will now be garbage-collected :)
 	}
 
-	removePlantFromSelections(){
 
-	}
 
-	toggleSelected(){
+	toggleSelected(plant: Plant) {
 		// check if plant is in "selected" plants list
-			// if it is, change class to selected = false
-			// if not change class to selected = true
+		// if it is, change class to selected = false to remove highlightning
+		// remove the plant from the list
+		alert(plant.plantName);
+		if(plant.isSelected) {
+			plant.isSelected = false;
+			let index = this.selectedPlants.indexOf(plant);
+			// remove the selected plant from the list
+			this.selectedPlants.splice(index, 1);
+		} else {
+		// if not change class to selected = true so it will become highlighted
+		// add the plant to the list
+
+		this.selectedPlants.push(plant);
+		plant.isSelected = true;
+
+		}
+
 
 	}
 
@@ -95,6 +116,7 @@ export class PlantsComponent implements OnInit{
 		// set plant
 		// get detail info via get plant by plant id
 		this.plantService.getPlantByPlantId(selectedPlant.plantId).subscribe(plant=>this.modalPlant = plant);
+		//this.companionPlants = []; // ensure list of combative plants is cleared
 		this.companionPlantService.getCompanionPlantsByName(selectedPlant.plantName).subscribe(companionPlants=>this.companionPlants=companionPlants);
 
 		for(let i = 0; i < this.companionPlants.length; i++){
@@ -108,6 +130,7 @@ export class PlantsComponent implements OnInit{
 			}
 		}
 
+		//this.combativePlants = []; // ensure list of combative plants is cleared
 		this.combativePlantService.getCombativePlantsByName(selectedPlant.plantName).subscribe(combativePlants=>this.combativePlants=combativePlants);
 
 		for(let i =0; i <this.combativePlants.length; i++){
