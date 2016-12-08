@@ -152,11 +152,10 @@ $this->assertCount(1, $results);
 
 		// get data from mySQL and enforce the entry was deleted
 
-		$pdoCompanionPlants = CompanionPlant::getAllCompanionPlantsByPlantName ($this->getPDO(), $this->companionPlant1->getPlantName(), $this->companionPlant1->getPlantName());
+		$pdoCompanionPlants = CompanionPlant::getAllCompanionPlantsByPlantName ($this->getPDO(), $this->companionPlant1->getPlantName(), $this->companionPlant2->getPlantName());
 		$this->assertCount(0, $pdoCompanionPlants);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("companionPlant"));
 	}
-
 
 	/**
 	 * Insert companion plant object into mySQL as companionPlant1Id, companionPlant2Id, check that doing delete on companionPlant2Id, companionPlant1Id removes that object.

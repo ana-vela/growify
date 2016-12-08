@@ -38,7 +38,6 @@ class CompanionPlant implements \JsonSerializable{
 	 */
 	private $companionPlant2LatinName;
 
-
 	/**
 	 * constructor for this CompanionPlant
 	 *
@@ -307,7 +306,7 @@ class CompanionPlant implements \JsonSerializable{
 
 		while (($row = $statement->fetch()) !=false) {
 			try {
-				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"], $row["companionPlant1Name"], $row["companionPlant2Name"]);
+				$companionPlant = new CompanionPlant ($row["companionPlant1Name"], $row["companionPlant2Name"], $row["companionPlant1LatinName"], $row["companionPlant2LatinName"]);
 				$companionPlants[$companionPlants->key()] = $companionPlant;
 				$companionPlants->next();
 			} catch(\Exception $exception){
