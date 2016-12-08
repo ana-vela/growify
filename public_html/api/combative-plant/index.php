@@ -41,14 +41,14 @@ try{
 
 		//get combative plant or all combative plants
 		if(empty($plantName)===false){
-			$combativePlant = CombativePlant::getCombativePlantsByPlantName($pdo, $plantName);
+			$combativePlant = CombativePlant::getAllCombativePlantsByPlantName($pdo, $plantName);
 			if($combativePlant !== null){
-				$reply->data = $combativePlant;
+				$reply->data = $combativePlant->toArray();
 			}
 		} else {
 			$combativePlants = CombativePlant::getAllCombativePlants($pdo);
 			if($combativePlants !== null){
-				$reply->data = $combativePlants;
+				$reply->data = $combativePlants->toArray();
 			}
 		}
 	} else {

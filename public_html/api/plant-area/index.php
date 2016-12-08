@@ -43,8 +43,16 @@ try {
 		//set XSRF cookie
 		setXsrfCookie("/");
 
+		// if plant id and plant area number are present get the plant area for that combination -- (need help with this)
+		if (empty($plantId) === false && empty($plantAreaNumber) === false) {
+			$plantArea = PlantArea::getPlantAreaByPlantIdAndAreaNumber($pdo, $plantId, $plantAreaNumber);
+			if($plantArea !== null) {
+				$reply->data = $plantArea;
+			}
+		} elseif(empty($plantAreaId) === false) {
+
 		// If id is present, get the plant area for that id
-		if(empty($plantAreaId) === false) {
+
 			// ensure $plantAreaId is valid
 			if($plantAreaId < 0) {
 				throw(new InvalidArgumentException ("plant area Id cannot be negative", 405));
@@ -56,13 +64,7 @@ try {
 			}
 		}
 
-// if plant id and plant area number are present get the plant area for that combination -- (need help with this)
-		if (empty($plantId) === false && empty($plantAreaNumber) === false) {
-			$plantArea = PlantArea::getPlantAreaByPlantIdAndAreaNumber($pdo, $plantId, $plantAreaNumber);
-			if($plantArea !== null) {
-				$reply->data = $plantArea;
-			}
-		}
+
 
 	}else {
 		throw(new InvalidArgumentException("Invalid HTTP method request"));

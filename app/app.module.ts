@@ -6,6 +6,8 @@ import {AppComponent} from "./app.component";
 import {allAppComponents, appRoutingProviders, routing} from "./app.routes";
 import {WeatherService} from "./services/weather-service";
 import {PlantService} from "./services/plant-service";
+import {CompanionPlantService} from "./services/companion-plant-service";
+import {CombativePlantService} from "./services/combative-plant-service";
 
 
 const moduleDeclarations = [AppComponent];
@@ -14,6 +16,6 @@ const moduleDeclarations = [AppComponent];
 	imports:      [BrowserModule, FormsModule, HttpModule, routing],
 	declarations: [...moduleDeclarations, ...allAppComponents],
 	bootstrap:    [AppComponent],
-	providers:    [appRoutingProviders, WeatherService, PlantService]
+	providers:    [appRoutingProviders, WeatherService, PlantService, CompanionPlantService, CombativePlantService]
 })
 export class AppModule {}

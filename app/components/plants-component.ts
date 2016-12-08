@@ -94,9 +94,9 @@ export class PlantsComponent implements OnInit{
 			let companionPlant: CompanionPlant = this.companionPlants[i];
 			let plant1 = companionPlant.companionPlant1Name;
 			let plant2 = companionPlant.companionPlant2Name;
-			if(plant1.indexOf(selectedPlant.plantName)>=0) {
+			if(plant1.toLowerCase().indexOf(selectedPlant.plantName.toLowerCase())>=0) {
 				this.companionPlantNames.push(plant2);
-			} else if(plant2.indexOf(selectedPlant.plantName)>=0){
+			} else if(plant2.toLowerCase().indexOf(selectedPlant.plantName.toLowerCase())>=0){
 				this.companionPlantNames.push(plant1)
 			}
 		}
@@ -108,9 +108,9 @@ export class PlantsComponent implements OnInit{
 			let plant1 = combativePlant.combativePlant1Name;
 			let plant2 = combativePlant.combativePlant2Name;
 			// when we get a pair, we want to create a list of the *other* combative plant of the pair.
-			if(plant1.indexOf(selectedPlant.plantName)>=0) {
+			if(plant1.toLowerCase().indexOf(selectedPlant.plantName.toLowerCase())>=0) {
 				this.combativePlantNames.push(plant2);
-			} else if(plant2.indexOf(selectedPlant.plantName)>=0){
+			} else if(plant2.toLowerCase().indexOf(selectedPlant.plantName.toLowerCase())>=0){
 				this.combativePlantNames.push(plant1)
 			}
 		}

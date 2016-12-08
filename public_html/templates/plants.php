@@ -26,7 +26,7 @@
 				<!-- Search Results Table -->
 			</div>
 		</div>
-		<div [hidden]="dataReady">Preparing Data&hellip</div>
+		<div [hidden]="dataReady">Preparing Data&hellip;</div>
 		<div class="row">
 			<div class="col-md-10">
 				<table class="table  " id="plant-table">
@@ -73,23 +73,23 @@
 						<p>{{modalPlant.plantDescription}}</p>
 						<!-- Companion Plant & Combative Plant data -->
 						<div class="row">
-							<div class="col-xs-6 col-md-4">
+							<div class="col-md-6">
 								<div class="well " id="companion-plants">
 
-									<h3>Companion Plants</h3>
+									<b>Companion Plants</b>
 									<ul   >
-										<li *ngFor="let companionPlant of companionPlants">{{companionPlant}}</li>
+										<li *ngFor="let companionPlant of companionPlantNames">{{companionPlant}}</li>
 
 									</ul>
 
 								</div>
 							</div>
-							<div class="col-xs-6 col-md-4">
+							<div class=" col-md-6">
 								<div class="well " id="combative-plants">
 
-									<h3>Combative Plants</h3>
+									<b>Combative Plants</b>
 									<ul>
-										<li *ngFor="let combativePlant of combativePlants">{{combativePlant}}</li>
+										<li *ngFor="let combativePlant of combativePlantNames">{{combativePlant}}</li>
 
 									</ul>
 

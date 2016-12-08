@@ -41,12 +41,12 @@ try{
 		if(empty($plantName)===false){
 			$companionPlant = CompanionPlant::getAllCompanionPlantsByPlantName($pdo, $plantName);
 			if($companionPlant !== null){
-				$reply->data = $companionPlant;
+				$reply->data = $companionPlant->toArray();
 			}
 		} else {
 			$companionPlants = CompanionPlant::getAllCompanionPlants($pdo);
 			if($companionPlants !== null){
-				$reply->data = $companionPlants;
+				$reply->data = $companionPlants->toArray();
 			}
 		}
 	} else {

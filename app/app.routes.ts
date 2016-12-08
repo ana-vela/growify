@@ -10,6 +10,7 @@ import {WeatherComponent} from "./components/weather-component";
 import {TacoComponent} from "./components/taco-component";
 
 
+
 export const allAppComponents = [ HomeComponent, LoginComponent, SignupComponent, GardenComponent, PlantsComponent, SettingsComponent, SignoutComponent, TacoComponent, WeatherComponent];
 
 export const routes: Routes = [
