@@ -46,8 +46,6 @@ body{
 }
 
 
-
-
 /****** LOGIN MODAL ******/
 .loginmodal-container {
 	padding: 30px;
@@ -236,4 +234,12 @@ body{
 
 .selected-plant {
 	background: lightgreen;
+}
+
+
+/******** garden ********/
+
+.fa-leaf {
+	color: green;
+
 }
