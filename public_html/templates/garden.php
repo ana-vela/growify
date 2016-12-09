@@ -7,6 +7,10 @@
 				<weather-component></weather-component>
 			</div>
 		</div>
+		<div class="col-md-10 col-offset-1">
+		<h1>Test:</h1>
+			<h1 *ngFor="let item of garden">{{item.gardenDatePlanted}}</h1>
+		</div>
 	</div>
 </section>
 
