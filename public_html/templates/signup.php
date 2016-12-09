@@ -9,48 +9,112 @@
 								<h3 class="panel-title text-center">Please sign up for Growify!</h3>
 							</div>
 							<div class="panel-body">
-								<form role="form">
-									<div class="row">
-										<div class="col-xs-6 col-sm-6 col-md-6">
-											<div class="form-group">
-												<input type="text" name="user_name" id="user_name" class="form-control input-sm" placeholder="User Name">
-											</div>
+								<form #signUpForm="ngForm" name="signUpForm" id="signUpForm" class="form-vertical well"
+										(ngSubmit)="createProfile();">
+									<label for="profileUsername">Username</label>
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-comment" aria-hidden="true"></i>
 										</div>
-										<div class="col-xs-6 col-sm-6 col-md-6">
-											<div class="form-group">
-												<input type="text" name="zip_code" id="zip_code" class="form-control input-sm" placeholder="Zip Code">
+										<input type="text" name="profile" id="profile" class="form-control" maxlength="255"
+												 required [(ngModel)]="profile.profileUsername" #profileUsername="ngModel"/>
+									</div>
+									<div [hidden]="profileUsername.valid || profileUsername.pristine" class="alert alert-danger"
+										  role="alert">
+										<p *ngIf="profileUsername.errors?.required">Username is required.</p>
+										<p *ngIf="profileUsername.errors?.maxlength">Username is too long. You typed</p>
+									</div>
+									<div class="form-group"
+										  [ngClass]="{ 'has-error': profileEmail.touched && profileEmail.invalid }">
+										<label for="profileEmail">Email</label>
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-quote-left" aria-hidden="true"></i>
+											</div>
+											<input type="text" name="profileEmail" id="profileEmail" class="form-control"
+													 maxlength="64"
+													 required [(ngModel)]="profile.profileEmail" #profileEmail="ngModel"/>
+										</div>
+										<div [hidden]="profileEmail.valid || profileEmail.pristine" class="alert alert-danger"
+											  role="alert">
+											<p *ngIf="profileEmail.errors?.required">Email is required.</p>
+											<p *ngIf="profileEmail.errors?.maxlength">Email is too long.</p>
+										</div>
+										<div class="form-group"
+											  [ngClass]="{ 'has-error': profileZipCode.touched && profileZipCode.invalid }">
+											<label for="profileZipCode">Zipcode</label>
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-user" aria-hidden="true"></i>
+												</div>
+												<input type="text" name="profileZipCode" id="profileZipCode" class="form-control"
+														 maxlength="64" required [(ngModel)]="profile.profileZipCode"
+														 #profileZipCode="ngModel"/>
+											</div>
+											<div [hidden]="profileZipCode.valid || profileZipCode.pristine"
+												  class="alert alert-danger"
+												  role="alert">
+												<p *ngIf="profileZipCode.errors?.required">Zipcode is required.</p>
+												<p *ngIf="profileZipCode.errors?.maxlength">Zipcode is too long.</p>
+											</div>
+											<div class="form-group"
+												  [ngClass]="{ 'has-error': profilePassword.touched && profilePassword.invalid }">
+												<label for="profilePassword">Password</label>
+												<div class="input-group">
+													<div class="input-group-addon">
+														<i class="fa fa-user" aria-hidden="true"></i>
+													</div>
+													<input type="text" name="profilePassword" id="profilePassword"
+															 class="form-control"
+															 maxlength="64" required [(ngModel)]="profile.profilePassword"
+															 #profilePassword="ngModel"/>
+												</div>
+												<div [hidden]="profilePassword.valid || profilePassword.pristine"
+													  class="alert alert-danger"
+													  role="alert">
+													<p *ngIf="profilePassword.errors?.required">Password is required.</p>
+													<p *ngIf="profilePassword.errors?.maxlength">Password is too long.</p>
+												</div>
+												<div class="form-group"
+													  [ngClass]="{ 'has-error': profilePasswordConfirmation.touched && profilePasswordConfirmation.invalid }">
+													<label for="profilePasswordConfirmation">Confirm Password</label>
+													<div class="input-group">
+														<div class="input-group-addon">
+															<i class="fa fa-user" aria-hidden="true"></i>
+														</div>
+														<input type="text" name="profilePasswordConfirmation"
+																 id="profilePasswordConfirmation" class="form-control"
+																 maxlength="64" required
+																 [(ngModel)]="profile.profilePasswordConfirmation"
+																 #profilePasswordConfirmation="ngModel"/>
+													</div>
+													<div
+														[hidden]="profilePasswordConfirmation.valid || profilePasswordConfirmation.pristine"
+														class="alert alert-danger" role="alert">
+														<p *ngIf="profilePasswordConfirmation.errors?.required">Confirm Password is
+															required.</p>
+														<p *ngIf="profilePasswordConfirmation.errors?.maxlength">Confirm Password is
+															too long.</p>
+														<p *ngIf="profilePasswordConfirmation.errors?.value!=profilePassword.value">
+															Passwords do not
+															match.</p>
+													</div>
+													<button type="submit" class="btn btn-info btn-lg"
+															  [disabled]="signUpForm.invalid"><i
+															class="fa fa-share"></i> Submit
+													</button>
+													<button type="reset" class="btn btn-warning btn-lg"><i class="fa fa-ban"></i>
+														Reset
+													</button>
+
+													<div *ngIf="status !== null" class="alert alert-dismissible"
+														  [ngClass]="status.type" role="alert">
+														<button type="button" class="close" aria-label="Close"
+																  (click)="status = null;"><span
+																aria-hidden="true">&times;</span></button>
+														{{ status.message }}
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-
-									<div class="form-group">
-										<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
-									</div>
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-12 col-md-12">
-											<div class="form-group">
-												<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-xs-12 col-sm-12 col-md-12">
-											<div class="form-group">
-												<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
-											</div>
-										</div>
-									</div>
-
-
-									<input type="submit" value="Register" class="btn btn-info btn-block">
-
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
