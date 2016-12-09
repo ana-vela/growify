@@ -18,13 +18,13 @@ body{
 
 }
 
-.jumbotron > h1 {
+/*.jumbotron > h1 {
 	text-shadow: 2px 1px 0 #000;
 }
 
 .jumbotron > .lead {
 	text-shadow: 2px 1px 0 #000;
-}
+}*/
 
 /* signup page */
 
@@ -42,18 +42,28 @@ body{
 
 .navbar-brand {
 	font-family: 'Merienda One', cursive;
+	color: white;
+}
+
+.navbar-default {
+background-color: rgb(196, 112, 214);
+	color: white;
+}
+
+.nav + a {
+	color: white;
 }
 
 
 /******** HOME ***********/
-.home {
-
-	background: url("../app/img/vegetable-basket.jpg") no-repeat center fixed;
-	background-size: cover;
-	padding-top: 110px;
-	padding-bottom: 110px;
+.splash-text {
+	margin-top: -50vh;
 }
 
+.text-center + img {
+	width: 100vw;
+	height: auto;
+}
 .home h1 {
 	font-family: 'Merienda One', cursive;
 	color: white;
