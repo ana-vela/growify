@@ -22,32 +22,16 @@ export class SignupComponent implements OnInit{
 	constructor(private profileService: ProfileService, private router: Router){}
 
 	ngOnInit(): void {
-		this.testSubmit();
-	}
-
-	testSubmit(): void{
-
-		if(this.profileService.getProfileByUsername(this.testProfile.profileUsername, null) !== null || this.profileService.getProfileByEmail(this.testProfile.profileEmail, null) !== null ) {
-			this.profileService.postProfile(this.testProfile)
-				.subscribe(status => {
-					this.status = status;
-					if(status.status === 200) {
-						this.signUpForm.reset();
-					}
-				});
-		}
 	}
 
 	createProfile() : void {
 
-		this.profile = new Profile(null, this.profileUsername, this.profileZipCode, this.profileEmail, this.profilePassword);
-
 		this.profileService.postProfile(this.profile)
 			.subscribe(status => {
 				this.status = status;
-				/*if(status.status === 200) {
-					this.signUpForm.reset();
-				}*/
+				if(status.status === 200) {
+					this.signUpForm.reset()
+				}
 			});
 	}
 }
