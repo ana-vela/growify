@@ -38,14 +38,35 @@ body{
 	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
 }
 
+/********Nav Bar********/
+
+.navbar-brand {
+	font-family: 'Merienda One', cursive;
+}
+
+
 /******** HOME ***********/
 .home {
 
 	background: url("../app/img/vegetable-basket.jpg") no-repeat center fixed;
 	background-size: cover;
+	padding-top: 110px;
+	padding-bottom: 110px;
 }
 
+.home h1 {
+	font-family: 'Merienda One', cursive;
+	color: white;
+	font-size: 80px;
+	text-shadow: 2px 1px 0 #000;
+}
 
+.home p {
+	font-family: 'Merienda One', cursive;
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 1px 0 #000;
+}
 /****** LOGIN MODAL ******/
 .loginmodal-container {
 	padding: 30px;
