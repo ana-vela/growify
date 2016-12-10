@@ -1,8 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
 import {WeatherService} from "../services/weather-service";
+import {LoginService} from "../services/login-service";
+
 import {Observable} from "rxjs/Observable"
 import {Weather} from "../classes/weather";
+import {Profile} from "../classes/profile";
+
 import {Status} from "../classes/status";
 
 @Component({
@@ -25,7 +29,7 @@ export class WeatherComponent implements OnInit {
 
 
 
-	constructor(private weatherService: WeatherService, private route: ActivatedRoute){}
+	constructor(private weatherService: WeatherService,private loginService: LoginService, private route: ActivatedRoute){}
 
 	ngOnInit() : void {
 		// call getCurrentWeatherAlbuquerque() method of the weather service.
@@ -33,6 +37,7 @@ export class WeatherComponent implements OnInit {
 		// in the subscribe method, we pass a function(lambda) to be executed
 		// when the data is available
 
+		let profile: Profile = this.loginService.profile;
 		let zipcode = "87106";
 		// get current and daily weather
 

@@ -73,6 +73,7 @@ try {
 		$_SESSION["profile"] = $profile;
 		// TODO do we need to store any other info in the session? maybe not?
 		$reply->message = "Successfully logged in!";
+
 	} else {
 		throw(new \InvalidArgumentException("Invalid HTTP method request"));
 	}

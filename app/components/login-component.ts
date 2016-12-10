@@ -1,5 +1,7 @@
 import {Component, ViewChild, OnInit} from "@angular/core";
 import {LoginService} from "../services/login-service";
+import {ProfileService} from "../services/profile-service";
+
 import {Router} from "@angular/router";
 import {Profile} from "../classes/profile";
 import {Status} from "../classes/status";
@@ -12,23 +14,36 @@ import {Status} from "../classes/status";
 export class LoginComponent implements OnInit{
 	@ViewChild("loginForm") loginForm : any;
 
+
 	profile: Profile = new Profile(null, "", "", "","");
-	testProfile: Profile = new Profile(null, "gbloom3", "87112", "gbloomdev@gmail.com", "abc123");
 	status: Status = null;
 
-	constructor(private loginService:LoginService, private router: Router){}
+	constructor(private loginService:LoginService, private profileService:ProfileService, private router: Router){}
 
 	ngOnInit(): void {
 	}
+
+	/*isLoggedIn(){
+		return this.loginService.isLoggedIn;
+	}*/
 
 	loginUser(): void{
 		this.loginService.postLogin(this.profile)
 			.subscribe(status => {
 				this.status = status;
-				/* TODO success -- display message, redirect to garden page
-				* failure - display error message on form*/
+				//this.loginService.isLoggedIn = false;
+
+
 				if(status.status === 200) {
-					this.loginForm.reset()
+					this.router.navigate(['']);
+
+					this.loginForm.reset();
+					this.profileService.getProfileByUsername(this.profile.profileUsername, this.profile.profilePassword).subscribe(profile=>this.profile = profile);
+
+					this.loginService.profile = this.profile;
+					//this.loginService.isLoggedIn = true;
+
+
 				}
 			});
 

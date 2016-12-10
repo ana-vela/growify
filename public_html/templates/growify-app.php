@@ -22,11 +22,14 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a routerLink="">Home</a></li>
+						<?php if(empty($_SESSION["profile"])){ ?>
 						<li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li> <?php }
+	if(!empty($_SESSION["profile"])) {?>}
 						<li><a routerLink="/garden">Garden</a></li>
 						<li><a routerLink="/plants">Plants</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#logout-modal" onclick="logoutUser()">Logout</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#signout-modal">Sign Out</a></li> <?php }?>
 						<!--<li><a routerLink="/garden">Garden</a></li>-->
 
 					</ul>

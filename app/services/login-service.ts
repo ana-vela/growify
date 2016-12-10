@@ -13,6 +13,11 @@ export class LoginService extends BaseService {
 
 	private loginUrl = "api/login/";
 
+	profile: Profile = new Profile(0, "", "", "", "");
+	//status: Status = null;
+
+	//isLoggedIn: boolean = false;
+
 	postLogin(profile: Profile) : Observable<Status> {
 
 		return(this.http.post(this.loginUrl, profile)
@@ -20,5 +25,7 @@ export class LoginService extends BaseService {
 			.catch(this.handleError));
 
 	}
+
+
 
 }
