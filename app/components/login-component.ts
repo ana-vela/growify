@@ -11,10 +11,7 @@ import {Status} from "../classes/status";
 
 export class LoginComponent implements OnInit{
 	@ViewChild("loginForm") loginForm : any;
-	profileUsername: string = ""; // username from form
-	profileEmail: string = ""; // email from form
-	profileZipCode: string = ""; // zipcode from form
-	profilePassword: string = ""; // password from form
+
 	profile: Profile = new Profile(null, "", "", "","");
 	testProfile: Profile = new Profile(null, "gbloom3", "87112", "gbloomdev@gmail.com", "abc123");
 	status: Status = null;
@@ -28,6 +25,8 @@ export class LoginComponent implements OnInit{
 		this.loginService.postLogin(this.profile)
 			.subscribe(status => {
 				this.status = status;
+				/* TODO success -- display message, redirect to garden page
+				* failure - display error message on form*/
 				if(status.status === 200) {
 					this.loginForm.reset()
 				}

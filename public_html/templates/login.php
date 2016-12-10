@@ -14,14 +14,14 @@
 		<div class="loginmodal-container">
 			<h1>Login to Growify!</h1><br>
 			<!--<form>-->
-				<input type="text" name="user" placeholder="Username">
-				<input type="password" name="pass" placeholder="Password">
-				<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+			<form #signUpForm="ngForm" name="loginForm" id="loginForm" class="form-vertical well"
+					(ngSubmit)="loginUser();">
+			<input type="text" name="user" placeholder="Username" class="form-control" required [(ngModel)]="profile.profileUsername" #profileUsername="ngModel">
+			<input type="password" name="pass" placeholder="Password" class="form-control" required [(ngModel)]="profile.profilePassword" #profilePassword="ngModel">
+			<input type="submit" name="login" class="login loginmodal-submit" value="Login">
 			<!--</form>-->
 
-			<div class="login-help">
-				<a href="#">Register</a> - <a href="#">Forgot Password</a>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>

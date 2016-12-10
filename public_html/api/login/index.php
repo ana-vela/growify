@@ -39,23 +39,23 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		// check username & password available and sanitize
-		if(empty($requestObject->userName) === true) {
+		if(empty($requestObject->profileUsername) === true) {
 			throw(new \InvalidArgumentException("Must enter a username", 405));
 		} else {
-			$userName = filter_var($requestObject->userName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			$userName = filter_var($requestObject->profileUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
-		if(empty($requestObject->userPassword) === true) {
+		if(empty($requestObject->profilePassword) === true) {
 			throw(new \InvalidArgumentException("must enter a password", 405));
 		} else {
-			$password = filter_var($requestObject->userPassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			$password = filter_var($requestObject->profilePassword, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		}
 
 		// create a user object
 		$profile = Profile::getProfileByProfileUsername($pdo, $userName);
 
-		if(empty($user)) {
-			throw(new \InvalidArgumentException("username or password incorrct", 401));
+		if(empty($profile)) {
+			throw(new \InvalidArgumentException("username or password incorrect", 401));
 		}
 
 		// check for activation token - it would indicate account not activated yet
@@ -65,8 +65,8 @@ try {
 
 		$hash = hash_pbkdf2("sha512", $password, $profile->getProfileSalt(), 262144);
 
-		if($hash !== $user->getUserHash()) {
-			throw(new \InvalidArgumentException("username or password is inocrrect", 401));
+		if($hash !== $profile->getProfileHash()) {
+			throw(new \InvalidArgumentException("username or password is incorrect", 401));
 		}
 
 		// add info to session so we can track who is logged in

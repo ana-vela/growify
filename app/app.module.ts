@@ -10,6 +10,8 @@ import {CompanionPlantService} from "./services/companion-plant-service";
 import {CombativePlantService} from "./services/combative-plant-service";
 import {ProfileService} from "./services/profile-service";
 import {GardenService} from "./services/garden-service";
+import {LoginService} from "./services/login-service";
+
 
 
 const moduleDeclarations = [AppComponent];
@@ -18,6 +20,6 @@ const moduleDeclarations = [AppComponent];
 	imports:      [BrowserModule, FormsModule, HttpModule, routing],
 	declarations: [...moduleDeclarations, ...allAppComponents],
 	bootstrap:    [AppComponent],
-	providers:    [appRoutingProviders, ProfileService ,WeatherService, PlantService, CompanionPlantService, CombativePlantService,GardenService]
+	providers:    [appRoutingProviders, ProfileService ,WeatherService, PlantService, CompanionPlantService, CombativePlantService,GardenService, LoginService]
 })
 export class AppModule {}
