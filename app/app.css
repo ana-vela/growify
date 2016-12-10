@@ -5,8 +5,6 @@
 /*@import 'https://<?php echo dirname($__DIR__) . "/"; ?>css/weather-icons.css';*/
 /*@import url('../app/css/weather-icons.css');*/
 
-
-
 body{
 
 	/*background-color: #525252;*/
@@ -16,11 +14,9 @@ body{
 	align-self: flex-end;
 	background: transparent;
 	color: #fff;
-
 }
 
 /******** signup page ********/
-
 
 .centered-form{
 	margin-top: 60px;
@@ -47,11 +43,8 @@ body{
 }
 
 .navbar-default {
-	/*background-color: rebeccapurple;*/
-/*background-color: rgb(196, 112, 214);*/
 	background-color: rgb(66, 0, 50);
 }
-
 
 .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
 	color: #f5f5f5;
@@ -94,13 +87,11 @@ body{
 	border-radius: 0px;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	overflow: hidden;
-
 }
 
 .loginmodal-container h1 {
 	text-align: center;
 	font-size: 1.8em;
-
 }
 
 .loginmodal-container input[type=submit] {
@@ -187,15 +178,12 @@ body{
 	border-radius: 0px;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	overflow: hidden;
-
 }
 
 .signoutmodal-container h1 {
 	text-align: center;
 	font-size: 1.8em;
-
 }
-
 
 .signoutmodal {
 	text-align: center;
@@ -216,10 +204,7 @@ body{
 	display: inline-block;
 	opacity: 0.4;
 	transition: opacity ease 0.5s;
-
 }
-
-
 
 /****** Weather ***********/
 .weather-display{
@@ -240,8 +225,6 @@ body{
 	border-color:  #666;
 
 }
-
-
 
 .week-forecast .row {
 	border-color:  #666;
