@@ -12,6 +12,9 @@
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
 		<div class="loginmodal-container">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
 			<h1>Login to Growify!</h1><br>
 			<!--<form>-->
 			<form #signUpForm="ngForm" name="loginForm" id="loginForm" class="form-vertical well"

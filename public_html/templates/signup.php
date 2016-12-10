@@ -6,6 +6,9 @@
 					<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
 								<h3 class="panel-title text-center">Please sign up for Growify!</h3>
 							</div>
 							<div class="panel-body">
