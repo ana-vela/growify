@@ -21,13 +21,19 @@ $reply->data = null;
 
 try {
 
-	verifyXsrf();
+
 
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/growify.ini");
 
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
-	if($method === "POST") {
+	if($method === "GET") {
+		//set xsrf cookie
+		verifyXsrf();
+	}
+	else if($method === "POST") {
+
+		verifyXsrf();
 		// retrieveds json package from front end
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
