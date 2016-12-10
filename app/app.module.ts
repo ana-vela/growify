@@ -11,6 +11,7 @@ import {CombativePlantService} from "./services/combative-plant-service";
 import {ProfileService} from "./services/profile-service";
 import {GardenService} from "./services/garden-service";
 import {LoginService} from "./services/login-service";
+import {LogoutService} from "./services/logout-service";
 
 
 
@@ -20,6 +21,6 @@ const moduleDeclarations = [AppComponent];
 	imports:      [BrowserModule, FormsModule, HttpModule, routing],
 	declarations: [...moduleDeclarations, ...allAppComponents],
 	bootstrap:    [AppComponent],
-	providers:    [appRoutingProviders, ProfileService ,WeatherService, PlantService, CompanionPlantService, CombativePlantService,GardenService, LoginService]
+	providers:    [appRoutingProviders, ProfileService ,WeatherService, PlantService, CompanionPlantService, CombativePlantService,GardenService, LoginService, LogoutService]
 })
 export class AppModule {}
