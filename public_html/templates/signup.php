@@ -67,7 +67,7 @@
 													<div class="input-group-addon">
 														<i class="fa fa-user" aria-hidden="true"></i>
 													</div>
-													<input type="text" name="profilePassword" id="profilePassword"
+													<input type="password" name="profilePassword" id="profilePassword"
 															 class="form-control"
 															 maxlength="64" required [(ngModel)]="profile.profilePassword"
 															 #profilePassword="ngModel"/>
@@ -85,7 +85,7 @@
 														<div class="input-group-addon">
 															<i class="fa fa-user" aria-hidden="true"></i>
 														</div>
-														<input type="text" name="profilePasswordConfirmation"
+														<input type="password" name="profilePasswordConfirmation"
 																 id="profilePasswordConfirmation" class="form-control"
 																 maxlength="64" required
 																 [(ngModel)]="profile.profilePasswordConfirmation"
