@@ -26,7 +26,7 @@
 						<li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
 						<li><a routerLink="/garden">Garden</a></li>
 						<li><a routerLink="/plants">Plants</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#signout-modal">Sign Out</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#logout-modal" onclick="logoutUser()">Logout</a></li>
 						<!--<li><a routerLink="/garden">Garden</a></li>-->
 
 					</ul>
@@ -34,6 +34,7 @@
 			</div><!-- /.container-fluid -->
 		</nav>
 		<router-outlet></router-outlet>
+		<logout-component></logout-component>
 	</main>
 
 
