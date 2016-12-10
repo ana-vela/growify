@@ -20,7 +20,7 @@
 			<form #signUpForm="ngForm" name="loginForm" id="loginForm" class="form-vertical well"
 					(ngSubmit)="loginUser();">
 			<input type="text" name="user" placeholder="Username" class="form-control" required [(ngModel)]="profile.profileUsername" #profileUsername="ngModel">
-			<input type="password" name="pass" placeholder="Password" class="form-control" required [(ngModel)]="profile.profilePassword" #profilePassword="ngModel">
+			<input type="password" name="pass" class="form-control" placeholder="Password" required [(ngModel)]="profile.profilePassword" #profilePassword="ngModel">
 			<input type="submit" name="login" class="login loginmodal-submit" value="Login">
 			<!--</form>-->
 
