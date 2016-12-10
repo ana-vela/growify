@@ -35,10 +35,6 @@ try {
 	//stores the Primary Key for the GET, DELETE, and PUT methods in $id. This key will come in the URL sent by the front end. If no key is present, $id will remain empty. Note that the input is filtered.
 	$gardenProfileId = filter_input(INPUT_GET, "gardenProfileId", FILTER_VALIDATE_INT);
 
-	//Here we check and make sure that we have the Primary Key for the DELETE and PUT requests. If the request is a PUT or DELETE and no key is present in $id, An Exception is thrown.
-	if(($method === "DELETE" || $method === "PUT") && (empty($gardenProfileId) === true || $gardenProfileId < 0)) {
-		throw(new InvalidArgumentException("Garden Profile Id cannot be empty or negative", 405));
-	}
 
 	if($method === "GET"){
 		//set XSRF cookie
@@ -47,12 +43,12 @@ try {
 			if(empty($gardenProfileId) === false) {
 				$garden = Garden::getGardensByGardenProfileId($pdo, $gardenProfileId);
 			if($garden !== null) {
-				$reply->data = $garden;
+				$reply->data = $garden->toArray();
 			}
 		}else {
 				$gardens = Garden::getAllGardens($pdo);
 				if($gardens !== null) {
-					$reply->data = $gardens;
+					$reply->data = $gardens->toArray();
 				}
 			}
 	} else if($method === "PUT" || $method === "POST") {
