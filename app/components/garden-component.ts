@@ -23,7 +23,6 @@ export class GardenComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		alert("begin");
 		this.gardenService.getGardenByGardenProfileId(34).subscribe(
 			(data) => {
 				for(let count = 0; count < data.length; count++) {
