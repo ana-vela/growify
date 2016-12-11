@@ -18,16 +18,15 @@ import {Status} from "../classes/status";
 })
 
 export class WeatherComponent implements OnInit {
- // need @ViewChild ??
-	//deleted: boolean = false;
+
 	currentWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, "", "", "");
-	albuquerqueWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, "", "", "");
+	//albuquerqueWeather: Weather = new Weather(0, 0, 0, 0, 0, 0, "", "", "");
 	dailyWeather: Weather[] = [];
 	status: Status = null;
 
 	burritos: String[] = ["breakfast", "carne adovada", "frijoles"];
 
-	profile: Profile = new Profile(0, "old", "old data", "old", "old data");
+	profile: Profile = new Profile(0, "old", "old data", "old", "old data"); // initialize
 	testProfile: Profile = new Profile(23, "this", "is", "a", "test");
 
 	constructor(private weatherService: WeatherService,private profileService: ProfileService, private route: ActivatedRoute){}
@@ -40,31 +39,17 @@ export class WeatherComponent implements OnInit {
 		// when the data is available
 
 		// get profile for current user.
-		this.profileService.getProfile().subscribe(profile=>this.profile = profile);
-		let zipcode = "87106";
+		this.profileService.getProfile()
+			.subscribe(
+				profile=>{this.profile = profile; // get weather inside callback since we need to know zipcode first!
+					this.weatherService.getCurrentWeatherByZipcode(profile.profileZipCode).subscribe(weather=>this.currentWeather = weather);
+					this.weatherService.getWeekForecastWeatherByZipcode(profile.profileZipCode).subscribe(weather=>this.dailyWeather=weather);
+		});
+
 		// get current and daily weather
 
-		this.weatherService.getCurrentWeatherAlbuquerque().subscribe(weather=>this.albuquerqueWeather=weather);
+		//this.weatherService.getCurrentWeatherAlbuquerque().subscribe(weather=>this.albuquerqueWeather=weather);
 
-		this.weatherService.getCurrentWeatherByZipcode(zipcode).subscribe(weather=>this.currentWeather = weather);
-
-		this.weatherService.getWeekForecastWeatherByZipcode(zipcode).subscribe(weather=>this.dailyWeather=weather);
-
-		/**
-		this.route.params.forEach((params: Params)=> {
-
-			let zipcode = params["zipcode"];
-
-
-			// get current and daily weather
-
-			this.weatherService.getCurrentWeatherAlbuquerque().subscribe(weather=>this.albuquerqueWeather=weather);
-
-			this.weatherService.getCurrentWeatherByZipcode(zipcode).subscribe(weather=>this.currentWeather = weather);
-
-			this.weatherService.getWeekForecastWeatherByZipcode(zipcode).subscribe(weather=>this.dailyWeather.concat(weather));
-
-		});*/
 
 	}
 
