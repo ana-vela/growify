@@ -1,5 +1,7 @@
+<div class="container">
 <!-- will need to populate with user's name-->
-<h1>Millie's Garden</h1>
+	<h1>Millie's Garden</h1>
+</div>
 <section class="weather-display">
 	<div class="container">
 		<div class="row">
