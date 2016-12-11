@@ -38,9 +38,10 @@ export class LoginComponent implements OnInit{
 					this.router.navigate(['']);
 
 					this.loginForm.reset();
-					this.profileService.getProfileByUsername(this.profile.profileUsername, this.profile.profilePassword).subscribe(profile=>this.profile = profile);
+					//this.profileService.getProfileByUsername(this.profile.profileUsername, this.profile.profilePassword).subscribe(profile=>{this.profile = profile;
+					//this.loginService.profile = this.profile;});
 
-					this.loginService.profile = this.profile;
+
 					//this.loginService.isLoggedIn = true;
 
 

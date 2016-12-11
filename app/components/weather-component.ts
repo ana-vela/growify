@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
 import {WeatherService} from "../services/weather-service";
-import {LoginService} from "../services/login-service";
+import {ProfileService} from "../services/profile-service";
 
 import {Observable} from "rxjs/Observable"
 import {Weather} from "../classes/weather";
@@ -27,9 +27,11 @@ export class WeatherComponent implements OnInit {
 
 	burritos: String[] = ["breakfast", "carne adovada", "frijoles"];
 
+	profile: Profile = new Profile(0, "old", "old data", "old", "old data");
+	testProfile: Profile = new Profile(23, "this", "is", "a", "test");
 
+	constructor(private weatherService: WeatherService,private profileService: ProfileService, private route: ActivatedRoute){}
 
-	constructor(private weatherService: WeatherService,private loginService: LoginService, private route: ActivatedRoute){}
 
 	ngOnInit() : void {
 		// call getCurrentWeatherAlbuquerque() method of the weather service.
@@ -37,7 +39,8 @@ export class WeatherComponent implements OnInit {
 		// in the subscribe method, we pass a function(lambda) to be executed
 		// when the data is available
 
-		let profile: Profile = this.loginService.profile;
+		// get profile for current user.
+		this.profileService.getProfile().subscribe(profile=>this.profile = profile);
 		let zipcode = "87106";
 		// get current and daily weather
 

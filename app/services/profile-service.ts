@@ -12,7 +12,7 @@ export class ProfileService extends BaseService {
 	}
 
 	private profileUrl = "api/profile/";
-
+/*
 	getProfileByUsername(profileUsername: string, profilePassword: string) : Observable<Profile>{
 
 	return(this.http.get(this.profileUrl+"?profileUserInput="+profileUsername+",?profilePasswordInput="+profilePassword)
@@ -27,7 +27,15 @@ export class ProfileService extends BaseService {
 			.map(this.extractData)
 			.catch(this.handleError));
 
+	}*/
+
+	/* get profile for already-logged in user
+	 * based on session */
+
+	getProfile(): Observable<Profile>{
+		return(this.http.get(this.profileUrl).map(this.extractData).catch(this.handleError));
 	}
+
 	postProfile(profile: Profile) : Observable<Status> {
 
 		return(this.http.post(this.profileUrl, profile)

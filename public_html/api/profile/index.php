@@ -40,7 +40,16 @@ try {
 		// set XSRF Cookie
 		setXsrfCookie();
 
+		// get profile associated with the current session
+		if(isset($_SESSION["profile"])){
+			$profile = Profile::getProfileByProfileId($pdo, $_SESSION["profileId"]);
+			$reply->data = $profile;
+		} else {
+			throw( new\InvalidArgumentException("no session - user is not logged in", 401));
+		}
+
 		//get profile by username or email
+		/*
 		if(empty($profileUserInput) === false) {
 			$profileByUsername = Profile::getProfileByProfileUsername($pdo, $profileUserInput);
 			$profileByEmail = Profile::getProfileByProfileEmail($pdo, $profileUserInput);
@@ -74,7 +83,7 @@ try {
 			}
 		} else {
 			throw(new InvalidArgumentException("profile username or email is empty or invalid input", 405));
-		}
+		}*/
 	} elseif($method == "PUT" || $method == "POST") {
 
 		verifyXsrf();

@@ -71,6 +71,7 @@ try {
 
 		// add info to session so we can track who is logged in
 		$_SESSION["profile"] = $profile;
+		$_SESSION["profileId"] = $profile->getProfileId();
 		// TODO do we need to store any other info in the session? maybe not?
 		$reply->message = "Successfully logged in!";
 
@@ -86,7 +87,9 @@ try {
 }
 
 header("Content-type: application/json");
-
+if($reply->data === null) {
+	unset($reply->data);
+}
 // encode & return reply
 echo json_encode($reply);
 

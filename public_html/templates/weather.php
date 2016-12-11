@@ -5,7 +5,9 @@
 			<div class="col-md-4 col-md-offset-1 current-weather text-center">
 				<div class="row ">
 					<div class="col-xs-12">
-						<h3>Zipcode {{profile.zipcode}}</h3>
+						<h3>Zipcode test {{testProfile.profileZipCode}}</h3>
+						<h3>Zipcode profile {{profile.profileZipCode}}</h3>
+
 						<h3>Current weather, 87106</h3>
 						<h3 >{{albuquerqueWeather.date}}</h3>
 						<h1><i [ngClass]="['wi', albuquerqueWeather.icon]"></i></h1>
