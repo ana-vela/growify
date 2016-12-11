@@ -4,10 +4,14 @@ import {Router} from "@angular/router";
 import {PlantService} from "../services/plant-service";
 import {CompanionPlantService} from "../services/companion-plant-service";
 import {CombativePlantService} from "../services/combative-plant-service";
+import {ProfileService} from "../services/profile-service";
+
 import {Observable} from "rxjs/Observable"
 import {Plant} from "../classes/plant";
 import {CompanionPlant} from "../classes/companionPlant";
 import {CombativePlant} from "../classes/combativePlant";
+import {Profile} from "../classes/profile";
+
 
 
 import {Status} from "../classes/status";
@@ -39,10 +43,16 @@ export class PlantsComponent implements OnInit{
 	testPlants = [new Plant(1, "star flower", "Expecto patronus","flower", "flower", "badass",7,  7, 7, 15, 140, "D"),
 		new Plant(1, "beetroot", "Beetle bug","flower", "flower", "badass",7,  7, 7, 15, 140, "D")];
 
-	constructor(private plantService: PlantService, private companionPlantService: CompanionPlantService, private combativePlantService: CombativePlantService){}
+	profile: Profile = new Profile(0, "", "", "", "");
+
+	constructor(private plantService: PlantService, private companionPlantService: CompanionPlantService, private combativePlantService: CombativePlantService, private profileService: ProfileService){}
 
 	ngOnInit(): void {
 		this.getAllPlants();
+		this.profileService.getProfile().subscribe(profile=> {
+			this.profile = profile;
+			this.
+		});
 	}
 
 	testSubmit(): void{
