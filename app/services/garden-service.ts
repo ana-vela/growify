@@ -7,19 +7,20 @@ import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {BaseService} from "./base-service";
 import {Garden} from "../classes/garden";
+import {PlantGarden} from "../classes/plantGarden";
 import {Status} from "../classes/status";
+import {Plant} from "../classes/plant";
 
 @Injectable()
 export class GardenService extends BaseService {
 	constructor(http:Http) {
 		super(http);
 	}
-
 	private url = "api/garden/";
 
 
 	getGardenByGardenProfileId(gardenProfileId: number) : Observable<Garden[]> {
-		return (this.http.get("api/garden/?gardenProfileId=19").map(this.extractData).catch(this.handleError));
+		return (this.http.get("api/garden/?gardenProfileId=34").map(this.extractData).catch(this.handleError));
 	}
 
 	postGarden(garden: Garden) : Observable<Status> {
