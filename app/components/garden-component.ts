@@ -10,6 +10,7 @@ import {GardenService} from "../services/garden-service";
 import{PlantService} from "../services/plant-service";
 import {Plant} from "../classes/plant"
 import {PlantGarden} from "../classes/plantGarden";
+
 @Component({
 	templateUrl: "./templates/garden.php"
 })
@@ -23,19 +24,19 @@ export class GardenComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.gardenService.getGardenByGardenProfileId(34).subscribe(
-			(data) => {
-				for(let count = 0; count < data.length; count++) {
-					this.garden[count] = new Garden(data[count].gardenProfileId, data[count].gardenDatePlanted, data[count].gardenPlantId);
-				}
-				for(let c = 0; c < data.length; c++) {
+		this.gardenService.getGardens().subscribe(
+			garden => {
+				this.garden = garden;
+
+				for(let c = 0; c < this.garden.length; c++) {
 					this.plantService.getPlantByPlantId(this.garden[c].gardenPlantId).subscribe(
-						(data) => {
-							this.plant[c] = new Plant(data.plantId, data.plantName, data.plantLatinName, data.plantVariety, data.plantType, data.plantDescription, data.plantSpread, data.plantHeight, data.plantDaysToHarvest, data.plantMinTemp, data.plantMaxTemp, data.plantSoilMoisture, false);
-							//plant Garden Initialization
-							this.plantGarden[c] = new PlantGarden(this.garden[c], this.plant[c]);
-						}
-					)
+						plant => {
+							this.plant.push(plant);
+							let newPlantGarden: PlantGarden = new PlantGarden(this.garden[c], plant);
+							this.plantGarden.push(newPlantGarden);
+
+						})
+
 				}
 			}
 		);

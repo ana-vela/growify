@@ -22,16 +22,10 @@
 			<th></th>
 		</tr>
 		<tr *ngFor="let item of plantGarden">
-			<td>Plant Name of:{{item.plant.plantName}}</td>
-			<td>Date Planted of: {{item.garden.gardenDatePlanted}}</td>
-		</tr>
-		<tr>
-			<!--<td [ngSwitch]="let item.plant.plantType of plantGarden">
-				<i [ngSwitchCase]="Vegetable" class="fa fa-car success-leaf fa-2x" aria-hidden="true"></i>
-				<i [ngSwitchCase]="Fruit" class="fa fa-car success-leaf fa-2x" aria-hidden="true"></i>
-				<i [ngSwitchDefault] class="fa fa-leaf success-leaf fa-2x" aria-hidden="true"></i>
-			</td>-->
-			<td>What the hell were you thinking Daniel?!?!?!??!? <img src="http://images-cdn.9gag.com/photo/3629420_700b.jpg"></td>
+			<td>{{item.plant.plantName}}</td>
+			<td>{{item.garden.gardenDatePlanted}}</td>
+			<td>Icon</td>
+
 			<td>
 				<div class="progress">
 					<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
@@ -43,10 +37,10 @@
 		</tr>
 	</table>
 </div>
-			<div>(click)="toggleSelected(plant)"
-				<button class="btn btn-default" type="button">
-					<i class="fa fa-plus" aria-hidden="true"></i>
+			<div>
+				<button routerLink="/plants" class="btn btn-default" type="button">
+					Click here to add plants
+
 				</button>
-				   Add a Plant
 			</div>
 </section>

@@ -19,8 +19,8 @@ export class GardenService extends BaseService {
 	private url = "api/garden/";
 
 
-	getGardenByGardenProfileId(gardenProfileId: number) : Observable<Garden[]> {
-		return (this.http.get("api/garden/?gardenProfileId=34").map(this.extractData).catch(this.handleError));
+	getGardens() : Observable<Garden[]> {
+		return (this.http.get(this.url).map(this.extractData).catch(this.handleError));
 	}
 
 	postGarden(garden: Garden) : Observable<Status> {

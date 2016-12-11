@@ -35,6 +35,8 @@
 			</div><!-- /.container-fluid -->
 		</nav>
 		<router-outlet></router-outlet>
+
+
 	</main>
 
 
