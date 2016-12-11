@@ -5,9 +5,12 @@ import {PlantService} from "../services/plant-service";
 import {CompanionPlantService} from "../services/companion-plant-service";
 import {CombativePlantService} from "../services/combative-plant-service";
 import {ProfileService} from "../services/profile-service";
+import {GardenService} from "../services/garden-service";
 
 import {Observable} from "rxjs/Observable"
 import {Plant} from "../classes/plant";
+import {Garden} from "../classes/garden";
+
 import {CompanionPlant} from "../classes/companionPlant";
 import {CombativePlant} from "../classes/combativePlant";
 import {Profile} from "../classes/profile";
@@ -32,7 +35,8 @@ export class PlantsComponent implements OnInit{
 	modalPlant: Plant = new Plant(0, "", "", "", "", "", 0, 0, 0, 0, 0, "");
 
 	selectedPlants: Plant[]=[]; // user clicks to select a bunch of plants.
-
+	status: Status = null; // status of adding a plant.
+	addPlantsSuccess = false; // display a message if plants added successfully
 	/* companion plants and combative plants set by the modal plant */
 	companionPlants: CompanionPlant[]=[]; // store list of companion plants corresponding to selected plants search term
 	companionPlantNames: string[] = []; // store list of companion plants for display
@@ -45,7 +49,7 @@ export class PlantsComponent implements OnInit{
 
 	profile: Profile = new Profile(0, "", "", "", "");
 
-	constructor(private plantService: PlantService, private companionPlantService: CompanionPlantService, private combativePlantService: CombativePlantService, private profileService: ProfileService){}
+	constructor(private plantService: PlantService, private companionPlantService: CompanionPlantService, private combativePlantService: CombativePlantService, private profileService: ProfileService, private gardenService: GardenService){}
 
 	ngOnInit(): void {
 		this.getAllPlants();
@@ -66,7 +70,14 @@ export class PlantsComponent implements OnInit{
 		for(let i = 0; i < this.selectedPlants.length; i++){
 			let plant = this.selectedPlants[i];
 			plant.isSelected = false;
-			// TODO add plant to garden !!!!
+			let garden = new Garden(this.profile.profileId, "", plant.plantId);
+			this.gardenService.postGarden(garden).subscribe(status => {
+				this.addPlantsSuccess = true;
+				this.status = status;
+				if(status.status !== 200) {
+					this.addPlantsSuccess = false;
+				}
+			});
 		}
 		this.selectedPlants=[]; // hopefully plants will now be garbage-collected :)
 	}
@@ -75,8 +86,8 @@ export class PlantsComponent implements OnInit{
 
 	toggleSelected(plant: Plant) {
 		// check if plant is in "selected" plants list
-		// if it is, change class to selected = false to remove highlightning
 		// remove the plant from the list
+		this.addPlantsSuccess = false;
 
 		if(plant.isSelected) {
 			plant.isSelected = false;
@@ -84,11 +95,11 @@ export class PlantsComponent implements OnInit{
 			// remove the selected plant from the list
 			this.selectedPlants.splice(index, 1);
 		} else {
-		// if not change class to selected = true so it will become highlighted
 		// add the plant to the list
 
 		this.selectedPlants.push(plant);
 		plant.isSelected = true;
+
 
 		}
 

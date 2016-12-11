@@ -72,7 +72,7 @@ try {
 		//perform the actual put or post
 		if($method === "PUT") {
 			//TO DO: FINISH SOLUTION TO PUT************
-			// retrieve the tweet to update
+			// retrieve the garden to update
 			$gardens = Garden::getGardensByGardenProfileId($pdo, $gardenProfileId);
 			if($gardens === null){
 				throw(new RuntimeException("Garden(s) does not exist", 404));
@@ -84,7 +84,7 @@ try {
 			// update reply
 			$reply->message = "Garden Entry Updated OK";
 		}else if($method === "POST") {
-			// create new tweet and insert into the database
+			// create new garden and insert into the database
 			$garden = new Garden($requestObject->gardenProfileId, $requestObject->gardenDatePlanted, $requestObject->gardenPlantId);
 			$garden->insert($pdo);
 			// update reply

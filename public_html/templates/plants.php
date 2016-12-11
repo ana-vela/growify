@@ -50,8 +50,9 @@
 
 		<div class="row">
 			<div class="col-md-4">
-				<button class="btn btn-default" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button><!-- TODO add click (click)=""event binding - add selected plants to garden and redirect to garden-->
+				<button class="btn btn-default" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
 			</div>
+			<div class="col-md-4" [hidden]="addPlantsSuccess===true">Success! Plants added to garden.</div>
 		</div>
 
 
