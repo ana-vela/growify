@@ -9,11 +9,11 @@
 			</div>
 			<div class="row center-block">
 				<div class="col-md-2 col-md-offset-9">
-					<div class="row">
-						<button type="button" class="btn btn-success center-block" data-toggle="modal" data-target="#login-modal">Login</button>
+					<div class="row btn-group">
+						<button type="button" class="btn btn-success center-block btn-default" data-toggle="modal" data-target="#login-modal">Login</button>
 					</div>
 					<div class="row">
-						<button type="button" class="btn btn-success center-block" data-toggle="modal" data-target="#signup-modal">Sign Up</button>
+						<button type="button" class="btn btn-success center-block btn-default" data-toggle="modal" data-target="#signup-modal">Sign Up</button>
 					</div>
 				</div>
 			</div>

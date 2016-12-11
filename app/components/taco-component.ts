@@ -6,7 +6,7 @@ import {Component} from "@angular/core";
 })
 
 export class TacoComponent {
-	shouldHaveTacos() : boolean {
-		return(true);
+	shouldHaveTacos(): boolean {
+		return (true);
 	}
 }

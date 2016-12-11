@@ -22,7 +22,6 @@
 					</div>
 
 				<!--</form>-->
-
 				<!-- Search Results Table -->
 			</div>
 		</div>
@@ -40,10 +39,7 @@
 						<td><a href="#" (click)="setModalPlant(plant)" data-toggle="modal" data-target="#plantDetailModal">{{plant.plantName}}</a></td>
 						<td><em>{{plant.plantLatinName}}</em></td>
 						<td>{{plant.plantVariety}}</td>
-
 					</tr>
-
-
 				</table>
 			</div>
 		</div>
@@ -78,7 +74,7 @@
 								<div class="well " id="companion-plants">
 
 									<b>Companion Plants</b>
-									<ul   >
+									<ul>
 										<li *ngFor="let companionPlant of companionPlantNames">{{companionPlant}}</li>
 
 									</ul>
