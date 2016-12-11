@@ -51,7 +51,7 @@ export class PlantsComponent implements OnInit{
 		this.getAllPlants();
 		this.profileService.getProfile().subscribe(profile=> {
 			this.profile = profile;
-			this.
+			//this.plantAreaService.get...
 		});
 	}
 
