@@ -11,12 +11,8 @@ import {Status} from "../classes/status";
 
 export class SignupComponent implements OnInit{
 	@ViewChild("signUpForm") signUpForm : any;
-	profileUsername: string = ""; // username from form
-	profileEmail: string = ""; // email from form
-	profileZipCode: string = ""; // zipcode from form
-	profilePassword: string = ""; // password from form
-	profile: Profile = new Profile(null, "", "", "","");
-	testProfile: Profile = new Profile(null, "gbloom3", "87112", "gbloomdev@gmail.com", "abc123");
+	profile: Profile = new Profile(null,"", "", "","");
+	//testProfile: Profile = new Profile(null, "gbloom3", "87112", "gbloomdev@gmail.com", "abc123");
 	status: Status = null;
 
 	constructor(private profileService: ProfileService, private router: Router){}
