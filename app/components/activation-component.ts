@@ -5,7 +5,7 @@ import {ActivationService} from "../services/activation-service";
 
 @Component({
 	templateUrl: "./templates/signup.php",
-	selector: "signup-component"
+	selector: "activation-component"
 })
 
 export class ActivationComponent implements OnInit{
