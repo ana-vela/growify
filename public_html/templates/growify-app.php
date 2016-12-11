@@ -36,7 +36,6 @@
 			</div><!-- /.container-fluid -->
 		</nav>
 		<router-outlet></router-outlet>
-		<logout-component></logout-component>
 	</main>
 
 
