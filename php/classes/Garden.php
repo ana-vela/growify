@@ -158,7 +158,6 @@ class Garden implements \JsonSerializable {
 	 */
 	public function delete(\PDO $pdo){
 
-
 		if(Garden::existsGardenEntry($pdo, $this->gardenProfileId, $this->gardenDatePlanted, $this->gardenPlantId ) === false){
 			throw(new \PDOException("cannot delete a garden entry that does not exist"));
 		}
@@ -267,6 +266,49 @@ class Garden implements \JsonSerializable {
 			}
 		}
 		return($gardens);
+	}
+
+	/**
+	 * Get all garden entries associated with the specified profile Id.
+	 * @param \PDO $pdo a PDO connection object
+	 * @param int $profileId a valid profile Id
+	 * @param int $plantId a valid plant id
+	 * @return Garden garden found
+	 * @throws \RangeException when $gardenProfileId is not positive
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when parameters are not the correct data type
+	 */
+	public static function getGardenByProfileIdAndPlantId(\PDO $pdo, int $profileId, int $plantId){
+		// could return many values (an array of garden entries
+		// sanatize the profile id before searching
+		if($profileId <=0){
+			throw(new \RangeException("Garden profile id must be positive."));
+		}
+		if($plantId <=0){
+			throw(new \RangeException("Garden plant id must be positive."));
+		}
+
+		// create query template
+		$query = "SELECT gardenDatePlanted, gardenPlantId FROM garden WHERE gardenProfileId = :profileId AND gardenPlantId = :plantId";
+		$statement = $pdo->prepare($query);
+
+		// bind the garden profile id to place holder in the template
+		$parameters = ["profileId" => $profileId, "plantId" => $plantId];
+		$statement->execute($parameters);
+
+		// grab the profile from mySQL
+		try {
+			$garden = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$garden = new Garden($row["gardenProfileId"], $row["gardenPlantId"], $row["gardenDatePlanted"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($garden);
 	}
 
 	/**
