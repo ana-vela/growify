@@ -35,7 +35,6 @@ export class GardenComponent implements OnInit {
 							this.plant[c] = new Plant(data.plantId, data.plantName, data.plantLatinName, data.plantVariety, data.plantType, data.plantDescription, data.plantSpread, data.plantHeight, data.plantDaysToHarvest, data.plantMinTemp, data.plantMaxTemp, data.plantSoilMoisture, false);
 							//plant Garden Initialization
 							this.plantGarden[c] = new PlantGarden(this.garden[c], this.plant[c]);
-							alert(this.plantGarden[c].plant.plantType);
 						}
 					)
 				}
