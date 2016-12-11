@@ -19,11 +19,9 @@
 			</div>
 		</div>
 	</div>
-	<?php if(empty($_SESSION["profile"]) === true) { ?>
+
 	<login-component></login-component>
 	<signup-component></signup-component>
-	<?php } else { ?>
 	<logout-component></logout-component>
-	<?php } ?>
 </section>
 
