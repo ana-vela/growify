@@ -33,7 +33,9 @@ export class ProfileService extends BaseService {
 	 * based on session */
 
 	getProfile(): Observable<Profile>{
-		return(this.http.get(this.profileUrl).map(this.extractData).catch(this.handleError));
+		return(this.http.get(this.profileUrl)
+			.map(this.extractData)
+			.catch(this.handleError));
 	}
 
 	postProfile(profile: Profile) : Observable<Status> {
