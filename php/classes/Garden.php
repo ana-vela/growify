@@ -233,14 +233,15 @@ class Garden implements \JsonSerializable {
 	 * @param \PDO $pdo a PDO connection object
 	 * @param int $gardenProfileId a valid profile Id
 	 * @return \SplFixedArray SplFixedArray of all garden entries associated with the given profile Id, or null if no entries found.
+	 * @throws \RangeException when $gardenProfileId is not positive
 	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when parameters are not the correct data type.
+	 * @throws \TypeError when parameters are not the correct data type
 	 */
 	public static function getGardensByGardenProfileId(\PDO $pdo, int $gardenProfileId){
 		// could return many values (an array of garden entries
 		// sanatize the profile id before searching
 		if($gardenProfileId <=0){
-			throw(new RangeExceptin("Garden profile id must be positive."));
+			throw(new \RangeException("Garden profile id must be positive."));
 		}
 
 		// create query template
