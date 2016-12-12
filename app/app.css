@@ -59,6 +59,10 @@ body{
 	color: lightgreen;
 }
 
+.navbar-default .navbar-nav>li>a:focus {
+	color: lightgreen;
+}
+
 .navbar-default .navbar-nav>li>a:active, .navbar-default .navbar-text {
 	color: lightgreen;
 }
