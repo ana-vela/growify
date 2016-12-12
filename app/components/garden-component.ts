@@ -53,10 +53,8 @@ export class GardenComponent implements OnInit {
 									}
 								}
 							}
-
 							let newPlantGarden: PlantGarden = new PlantGarden(this.garden[c], plant, Number.parseInt(this.garden[c].gardenDatePlanted), progress);
 							this.plantGarden.push(newPlantGarden);
-
 						})
 
 				}
