@@ -33,10 +33,7 @@ export class WeatherComponent implements OnInit {
 
 
 	ngOnInit() : void {
-		// call getCurrentWeatherAlbuquerque() method of the weather service.
-		// this returns an observable, which we subscribe to
-		// in the subscribe method, we pass a function(lambda) to be executed
-		// when the data is available
+
 
 		// get profile for current user.
 		this.profileService.getProfile()
@@ -45,10 +42,6 @@ export class WeatherComponent implements OnInit {
 					this.weatherService.getCurrentWeatherByZipcode(profile.profileZipCode).subscribe(weather=>this.currentWeather = weather);
 					this.weatherService.getWeekForecastWeatherByZipcode(profile.profileZipCode).subscribe(weather=>this.dailyWeather=weather);
 		});
-
-		// get current and daily weather
-
-		//this.weatherService.getCurrentWeatherAlbuquerque().subscribe(weather=>this.albuquerqueWeather=weather);
 
 
 	}

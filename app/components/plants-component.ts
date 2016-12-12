@@ -6,9 +6,13 @@ import {CompanionPlantService} from "../services/companion-plant-service";
 import {CombativePlantService} from "../services/combative-plant-service";
 import {ProfileService} from "../services/profile-service";
 import {GardenService} from "../services/garden-service";
+import {PlantAreaService} from "../services/plant-area-service";
+
 
 import {Observable} from "rxjs/Observable"
 import {Plant} from "../classes/plant";
+import {PlantArea} from "../classes/plantArea";
+
 import {Garden} from "../classes/garden";
 
 import {CompanionPlant} from "../classes/companionPlant";
@@ -33,6 +37,7 @@ export class PlantsComponent implements OnInit{
 	allPlants: Plant[] = []; // get all plants
 	plantResults: Plant[] = []; // search results
 	modalPlant: Plant = new Plant(0, "", "", "", "", "", 0, 0, 0, 0, 0, "");
+	modalPlantArea: PlantArea = null;
 
 	selectedPlants: Plant[]=[]; // user clicks to select a bunch of plants.
 	status: Status = null; // status of adding a plant.
@@ -49,7 +54,7 @@ export class PlantsComponent implements OnInit{
 
 	profile: Profile = new Profile(0, "", "", "", "");
 
-	constructor(private plantService: PlantService, private companionPlantService: CompanionPlantService, private combativePlantService: CombativePlantService, private profileService: ProfileService, private gardenService: GardenService){}
+	constructor(private plantService: PlantService, private companionPlantService: CompanionPlantService, private combativePlantService: CombativePlantService, private profileService: ProfileService, private gardenService: GardenService, private plantAreaService: PlantAreaService){}
 
 	ngOnInit(): void {
 		this.getAllPlants();
@@ -135,6 +140,7 @@ export class PlantsComponent implements OnInit{
 
 	clearModalPlant(){
 		this.modalPlant = new Plant(0, "", "", "", "", "", 0, 0, 0, 0, 0, "");
+		this.modalPlantArea = null;
 		this.companionPlantNames = [];
 		this.combativePlantNames = [];
 	}
@@ -149,6 +155,8 @@ export class PlantsComponent implements OnInit{
 
 		//this.combativePlants = []; // ensure list of combative plants is cleared
 		this.combativePlantService.getCombativePlantsByName(selectedPlant.plantName).subscribe(combativePlants=>this.addCombativePlantsToList(combativePlants, selectedPlant.plantName));
+
+		this.plantAreaService.getPlantAreaByPlantId(selectedPlant.plantId).subscribe(plantArea=>this.modalPlantArea=plantArea);
 
 	}
 
@@ -181,15 +189,6 @@ export class PlantsComponent implements OnInit{
 		}
 
 	}
-	/*searchForPlantByPlantId(): void{
-	 this.plantService.getPlantByPlantId(this.plantId).subscribe(plant=>this.plantResults.concat(plant));
-	 }*/
-	/*
-	 searchForPlantsByPlantId(): void{
-	 this.plantService.getPlantByPlantId(this.plantId).subscribe(plants=>this.plantResults.concat(plants));
-	 }
-	 */
-
 
 
 }

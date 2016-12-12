@@ -4,7 +4,10 @@ require_once dirname(__DIR__,3)."/php/classes/autoload.php";
 require_once dirname(__DIR__,3)."/php/lib/xsrf.php";
 require_once "/etc/apache2/capstone-mysql/encrypted-config.php";
 
-use Edu\Cnm\growify\PlantArea;
+use Edu\Cnm\Growify\PlantArea;
+use Edu\Cnm\Growify\ZipCode;
+use Edu\Cnm\Growify\Profile;
+
 
 /**
  * API for PlantArea class
@@ -32,10 +35,11 @@ try {
 
 
 //sanitize input
+
 	$plantAreaId = filter_input(INPUT_GET, "plantAreaId", FILTER_VALIDATE_INT);
 	$plantAreaPlantId = filter_input(INPUT_GET, "plantAreaPlantId", FILTER_VALIDATE_INT);
 	$plantAreaNumber = filter_input(INPUT_GET, "plantAreaNumber", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
+	$plantId = $plantAreaPlantId;
 
 
 // Handle GET request
@@ -49,7 +53,16 @@ try {
 			if($plantArea !== null) {
 				$reply->data = $plantArea;
 			}
-		} elseif(empty($plantAreaId) === false) {
+		} elseif(isset($_SESSION["profile"]) && empty($plantId)===false){
+			// user is logged in, get zip code -> plant area number -> plant area
+			$profile = Profile::getProfileByProfileId($pdo, $_SESSION["profileId"]);
+			$zipcode = ZipCode::getZipCodeByZipCodeCode($pdo, $profile->getProfileZipCode());
+			$plantArea = PlantArea::getPlantAreaByPlantIdAndAreaNumber($pdo, $plantId ,$zipcode->getZipCodeArea());
+
+			$reply->data = $plantArea;
+		}
+
+		elseif(empty($plantAreaId) === false) {
 
 		// If id is present, get the plant area for that id
 

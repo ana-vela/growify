@@ -8,6 +8,8 @@ import {Garden} from "../classes/garden";
 import {Status} from "../classes/status";
 import {GardenService} from "../services/garden-service";
 import{PlantService} from "../services/plant-service";
+import{PlantAreaService} from "../services/plant-area-service";
+
 import {Plant} from "../classes/plant"
 import {PlantGarden} from "../classes/plantGarden";
 
@@ -30,7 +32,7 @@ export class GardenComponent implements OnInit {
 
 				for(let c = 0; c < this.garden.length; c++) {
 					this.plantService.getPlantByPlantId(this.garden[c].gardenPlantId).subscribe(
-						plant => {
+						plant => { // for all of the plants in the garden, retrieve the plant area and store it.
 							this.plant.push(plant);
 							let newPlantGarden: PlantGarden = new PlantGarden(this.garden[c], plant);
 							this.plantGarden.push(newPlantGarden);
