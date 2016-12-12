@@ -1,10 +1,10 @@
 import {Component, ViewChild, OnInit} from "@angular/core";
 import {LoginService} from "../services/login-service";
 import {ProfileService} from "../services/profile-service";
-
 import {Router} from "@angular/router";
 import {Profile} from "../classes/profile";
 import {Status} from "../classes/status";
+declare var $: any;
 
 @Component({
 	templateUrl: "./templates/login.php",
@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit{
 	/*isLoggedIn(){
 		return this.loginService.isLoggedIn;
 	}*/
-
 	loginUser(): void{
 		this.loginService.postLogin(this.profile)
 			.subscribe(status => {
@@ -36,8 +35,8 @@ export class LoginComponent implements OnInit{
 
 				if(status.status === 200) {
 					this.router.navigate(['']);
-
 					this.loginForm.reset();
+					setTimeout(function(){$("#login-modal").modal('hide');},1000);
 					//this.profileService.getProfileByUsername(this.profile.profileUsername, this.profile.profilePassword).subscribe(profile=>{this.profile = profile;
 					//this.loginService.profile = this.profile;});
 
@@ -49,4 +48,5 @@ export class LoginComponent implements OnInit{
 			});
 
 	}
+
 }
