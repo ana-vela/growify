@@ -5,6 +5,8 @@
 export class Garden{
 	constructor(public gardenProfileId:number, public gardenDatePlanted:string, public gardenPlantId:number){
 	}
+
+
 	/* why am I not able to access these methods? */
 	/*
 	public getDatePlanted(): Date{

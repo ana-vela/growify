@@ -278,9 +278,38 @@ body{
 	background: lightgreen;
 }
 
+.plant-search-icon {
+	test-align:right;
+}
+
 /******** garden ********/
 
 .success-leaf {
 	color: green;
 
 }
+
+.harvest-progress{
+	width: 12rem;
+}
+
+.gray-dot{
+	color: gray;
+	padding: 0;
+	margin: 0;
+}
+
+.gray-dot::before{
+	padding:0;
+	margin:0
+}
+
+.fa-circle::before{
+	padding: 0;
+	margin: 0;
+}
+i.fa-circle::before{
+	padding:0;
+	margin:0;
+}
+

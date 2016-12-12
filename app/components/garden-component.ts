@@ -38,22 +38,15 @@ export class GardenComponent implements OnInit {
 							this.plant.push(plant);
 
 							let progress = 0;
-							if(plant.plantDaysToHarvest !== null && plant.plantDaysToHarvest !== 0){
-								if(this.garden[c].gardenDatePlanted !== null){
+							if(plant.plantDaysToHarvest !== null && plant.plantDaysToHarvest !== 0 && this.garden[c].gardenDatePlanted !== null){
 									let currentTime = Date.now();
-
 									let elapsedDays = (currentTime-Number.parseInt(this.garden[c].gardenDatePlanted))/(1000*60*60*24);
-
-
 									if(elapsedDays >= plant.plantDaysToHarvest){
 										progress = 100;
-									} else {
-										if(elapsedDays > 0){
+									} else if(elapsedDays > 0){
 											progress = (elapsedDays / plant.plantDaysToHarvest)*100;
-										}
 									}
 
-								}
 							}
 							let newPlantGarden: PlantGarden = new PlantGarden(this.garden[c], plant, Number.parseInt(this.garden[c].gardenDatePlanted), progress);
 							this.plantGarden.push(newPlantGarden);
