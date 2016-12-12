@@ -260,6 +260,12 @@ body{
 	border-radius: 10px;
 }
 
+/*input[type=search] {
+	-webkit-appearance: textfield;
+}*/
+
+/*input-group-addon*/
+
 #combative-plants {
 	background: lightpink;
 }
