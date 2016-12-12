@@ -13,20 +13,25 @@ export class WeatherService extends BaseService {
 
 	private weatherUrl = "api/weather/";
 
-
+	getCurrentWeatherAlbuquerque() : Observable<Weather>{
+		let albuquerqueWeatherUrl = "api/weather/?current=true&zipcode=87106";
+		return(this.http.get(albuquerqueWeatherUrl)
+			.map(this.extractData)
+			.catch(this.handleError));
+	}
 
 	// add exclude=["minutely", "hourly"]
-	getCurrentWeather():Observable<Weather>{
+	getCurrentWeatherByZipcode(zipcode: string):Observable<Weather>{
 		let current = true;
-		return(this.http.get(this.weatherUrl +"?current="+ current)
+		return(this.http.get(this.weatherUrl +"?current="+ current+"&zipcode=" + zipcode)
 			.map(this.extractData)
 			.catch(this.handleError));
 	}
 
 	// add get week forecast for zip code
-	getWeekForecastWeather():Observable<Weather[]>{
+	getWeekForecastWeatherByZipcode(zipcode: string):Observable<Weather[]>{
 		let current = false;
-		return(this.http.get(this.weatherUrl +"?current="+ current)
+		return(this.http.get(this.weatherUrl +"?current="+ current+"&zipcode=" + zipcode)
 			.map(this.extractData)
 			.catch(this.handleError));
 	}
