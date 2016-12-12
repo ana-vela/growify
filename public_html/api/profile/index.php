@@ -130,8 +130,8 @@ try {
 			$profile->insert($pdo);
 			//generate and send activation email
 			$subject = "Activate your account";
-			$basePath = dirname($_SERVER["SCRIPT_NAME"], 2);
-			$urlglue = $basePath . "/activation/?activation=" . $activation;
+			$basePath = dirname($_SERVER['SCRIPT_NAME'],3);
+			$urlglue = $basePath . "/activation/" . $activation;
 			$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 			$message = <<< EOF
 				<h2>Welcome to Growify!</h2>
