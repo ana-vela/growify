@@ -14,94 +14,68 @@
 							<div class="panel-body">
 								<form #signUpForm="ngForm" name="signUpForm" id="signUpForm" class="form-vertical well"
 										(ngSubmit)="createProfile();">
-									<label for="profileUsername">Username</label>
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-comment" aria-hidden="true"></i>
-										</div>
-										<input type="text" name="profile" id="profile" class="form-control" maxlength="255"
-												 required [(ngModel)]="profile.profileUsername" #profileUsername="ngModel"/>
-									</div>
-									<div [hidden]="profileUsername.valid || profileUsername.pristine" class="alert alert-danger"
-										  role="alert">
-										<p *ngIf="profileUsername.errors?.required">Username is required.</p>
-										<p *ngIf="profileUsername.errors?.maxlength">Username is too long. You typed</p>
-									</div>
 									<div class="form-group"
-										  [ngClass]="{ 'has-error': profileEmail.touched && profileEmail.invalid }">
-										<label for="profileEmail">Email</label>
+										  [ngClass]="{ 'has-error': profileUsername.touched && profileUsername.invalid }">
+										<label for="profileUsername">Username</label>
 										<div class="input-group">
 											<div class="input-group-addon">
-												<i class="fa fa-quote-left" aria-hidden="true"></i>
+												<i class="fa fa-comment" aria-hidden="true"></i>
 											</div>
-											<input type="text" name="profileEmail" id="profileEmail" class="form-control"
-													 maxlength="64"
-													 required [(ngModel)]="profile.profileEmail" #profileEmail="ngModel"/>
+											<input type="text" name="profile" id="profile" class="form-control" maxlength="255"
+													 required [(ngModel)]="profile.profileUsername" #profileUsername="ngModel"/>
 										</div>
-										<div [hidden]="profileEmail.valid || profileEmail.pristine" class="alert alert-danger"
+										<div [hidden]="profileUsername.valid || profileUsername.pristine"
+											  class="alert alert-danger"
 											  role="alert">
-											<p *ngIf="profileEmail.errors?.required">Email is required.</p>
-											<p *ngIf="profileEmail.errors?.maxlength">Email is too long.</p>
+											<p *ngIf="profileUsername.errors?.required">Username is required.</p>
+											<p *ngIf="profileUsername.errors?.maxlength">Username is too long. You typed</p>
 										</div>
 										<div class="form-group"
-											  [ngClass]="{ 'has-error': profileZipCode.touched && profileZipCode.invalid }">
-											<label for="profileZipCode">Zipcode</label>
+											  [ngClass]="{ 'has-error': profileEmail.touched && profileEmail.invalid }">
+											<label for="profileEmail">Email</label>
 											<div class="input-group">
 												<div class="input-group-addon">
-													<i class="fa fa-user" aria-hidden="true"></i>
+													<i class="fa fa-quote-left" aria-hidden="true"></i>
 												</div>
-												<input type="text" name="profileZipCode" id="profileZipCode" class="form-control"
-														 maxlength="64" required [(ngModel)]="profile.profileZipCode"
-														 #profileZipCode="ngModel"/>
+												<input type="text" name="profileEmail" id="profileEmail" class="form-control"
+														 maxlength="64"
+														 required [(ngModel)]="profile.profileEmail" #profileEmail="ngModel"/>
 											</div>
-											<div [hidden]="profileZipCode.valid || profileZipCode.pristine"
-												  class="alert alert-danger"
+											<div [hidden]="profileEmail.valid || profileEmail.pristine" class="alert alert-danger"
 												  role="alert">
-												<p *ngIf="profileZipCode.errors?.required">Zipcode is required.</p>
-												<p *ngIf="profileZipCode.errors?.maxlength">Zipcode is too long.</p>
+												<p *ngIf="profileEmail.errors?.required">Email is required.</p>
+												<p *ngIf="profileEmail.errors?.maxlength">Email is too long.</p>
 											</div>
 											<div class="form-group"
-												  [ngClass]="{ 'has-error': profilePassword.touched && profilePassword.invalid }">
-												<label for="profilePassword">Password</label>
+												  [ngClass]="{ 'has-error': profileZipCode.touched && profileZipCode.invalid }">
+												<label for="profileZipCode">Zipcode</label>
 												<div class="input-group">
 													<div class="input-group-addon">
 														<i class="fa fa-user" aria-hidden="true"></i>
 													</div>
-													<input type="password" name="profilePassword" id="profilePassword"
-															 class="form-control"
-															 maxlength="64" required [(ngModel)]="profile.profilePassword"
-															 #profilePassword="ngModel"/>
+													<input type="text" name="profileZipCode" id="profileZipCode" class="form-control"
+															 maxlength="64" required [(ngModel)]="profile.profileZipCode"
+															 #profileZipCode="ngModel"/>
 												</div>
-												<div [hidden]="profilePassword.valid || profilePassword.pristine"
+												<div [hidden]="profileZipCode.valid || profileZipCode.pristine"
 													  class="alert alert-danger"
 													  role="alert">
-													<p *ngIf="profilePassword.errors?.required">Password is required.</p>
-													<p *ngIf="profilePassword.errors?.maxlength">Password is too long.</p>
+													<p *ngIf="profileZipCode.errors?.required">Zipcode is required.</p>
+													<p *ngIf="profileZipCode.errors?.maxlength">Zipcode is too long.</p>
 												</div>
 												<div class="form-group"
-													  [ngClass]="{ 'has-error': profilePasswordConfirmation.touched && profilePasswordConfirmation.invalid }">
-													<label for="profilePasswordConfirmation">Confirm Password</label>
+													  [ngClass]="{ 'has-error': profilePassword.touched && profilePassword.invalid }">
+													<label for="profilePassword">Password</label>
 													<div class="input-group">
 														<div class="input-group-addon">
 															<i class="fa fa-user" aria-hidden="true"></i>
 														</div>
-														<input type="password" name="profilePasswordConfirmation"
-																 id="profilePasswordConfirmation" class="form-control"
-																 maxlength="64" required
-																 [(ngModel)]="profile.profilePasswordConfirmation"
-																 #profilePasswordConfirmation="ngModel"/>
+														<input type="password" name="profilePassword" id="profilePassword"
+																 class="form-control"
+																 maxlength="64" required [(ngModel)]="profile.profilePassword"
+																 #profilePassword="ngModel"/>
 													</div>
-													<div
-														[hidden]="profilePasswordConfirmation.valid || profilePasswordConfirmation.pristine"
-														class="alert alert-danger" role="alert">
-														<p *ngIf="profilePasswordConfirmation.errors?.required">Confirm Password is
-															required.</p>
-														<p *ngIf="profilePasswordConfirmation.errors?.maxlength">Confirm Password is
-															too long.</p>
-														<p *ngIf="profilePasswordConfirmation.errors?.value!=profilePassword.value">
-															Passwords do not
-															match.</p>
-													</div>
+												</div>
 													<button type="submit" class="btn btn-info btn-lg"
 															  [disabled]="signUpForm.invalid"><i
 															class="fa fa-share"></i> Submit
@@ -117,7 +91,6 @@
 																aria-hidden="true">&times;</span></button>
 														{{ status.message }}
 													</div>
-												</div>
 											</div>
 										</div>
 									</div>
