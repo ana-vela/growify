@@ -12,13 +12,16 @@
 	</div>
 </section>
 <section>
+
+
 <div class="container">
-	<div>
+
+	<div class="add-plant">
 		<button routerLink="/plants" class="btn btn-success" type="button">
 			Click here to add plants
-
 		</button>
 	</div>
+
 	<table class="table table-condensed">
 		<tr>
 			<th>Plant Name</th>
@@ -51,10 +54,5 @@
 		</tr>
 	</table>
 </div>
-			<div>
-				<button routerLink="/plants" class="btn btn-default" type="button">
-					Click here to add plants
 
-				</button>
-			</div>
 </section>
