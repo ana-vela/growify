@@ -1,8 +1,11 @@
 <?php
 require_once(dirname(__DIR__, 3)."/php/classes/Weather.php");
+
 require_once(dirname(__DIR__, 3)."/php/lib/xsrf.php");
 require_once(dirname(__DIR__,3)."/php/classes/autoload.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+
+use Edu\Cnm\Growify\Profile;
 // start the session and create a xsrf token
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
@@ -20,11 +23,11 @@ try {
 
 	//we are likely sending either a zip code via http request
 //  grab data from front end (location - zip code) for specific request
-	$zipcode = filter_input(INPUT_GET, "zipcode", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	//$zipcode = filter_input(INPUT_GET, "zipcode", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$current = filter_input(INPUT_GET, "current", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	if(empty($zipcode) === true ||!is_numeric($zipcode)){
+	/*if(empty($zipcode) === true ||!is_numeric($zipcode)){
 		throw( new InvalidArgumentException("zip code location cannot be empty or non-numeric", 405));
-	}
+	}*/
 
 
 
@@ -32,7 +35,18 @@ try {
 	if($method === "GET"){
 		// set XSRF cookie
 		setXsrfCookie("/");
+
+		if(isset($_SESSION["profile"])) {
+			$profile = Profile::getProfileByProfileId($pdo, $_SESSION["profileId"]);
+			$zipcode = $profile->getProfileZipCode();
+
+		} else {
+			throw(new\InvalidArgumentException("no session - user is not logged in", 401));
+		}
+
+
 		if($current === "true") {
+
 			$weather = Weather::getCurrentWeatherByZipcode($pdo, $zipcode);
 			if($weather !== null) {
 				$reply->data = $weather;
