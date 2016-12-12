@@ -7,28 +7,32 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-8">
+				<form class="form-inline">
 
-					<div class="input-group">
+					<div class="form-group ">
+
 						<label for="plant-search" class="sr-only">Search</label>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search for Plant by Name&hellip;" name="plantName" id="plantName" title="plantName" [(ngModel)]="plantName" (keyup)="filterPlantsOnPlantName();">
 
-							<span class="input-group-addon"><i class="fa fa-search fa-flip-horizontal" aria-hidden="true" ></i></span>
-								<div class="row">
-								<div class="col-md-4">
-									<button class="btn btn-default" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
-									</div>
-									<div class="col-md-4 alert-success" [hidden]="addPlantsSuccess!==true">Success! Plants added to garden.</div>
+						<input type="text" class="form-control" placeholder="Search for Plant by Name&hellip;" name="plantName" id="plantName" title="plantName" [(ngModel)]="plantName" (keyup)="filterPlantsOnPlantName();">
 
-
-								</div>
-
-						</div>
-						</div>
+						<span ><i class="fa fa-search fa-flip-horizontal" aria-hidden="true" ></i></span>
 					</div>
-				<!-- Search Results Table -->
+
+					<button class="btn btn-success" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
+
+					<div class=" alert-success" [hidden]="addPlantsSuccess!==true">Success! Plants added to garden.</div>
+
+
+
+
+					</form>
+				</div>
 			</div>
+
+
+			<!-- Search Results Table -->
+
 
 		<div [hidden]="dataReady">Preparing Data&hellip;</div>
 		<div class="row">

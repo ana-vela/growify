@@ -34,9 +34,8 @@ export class LoginComponent implements OnInit{
 
 
 				if(status.status === 200) {
-					this.router.navigate(['']);
 					this.loginForm.reset();
-					setTimeout(function(){$("#login-modal").modal('hide');},1000);
+					setTimeout(function(){$("#login-modal").modal('hide');this.router.navigate(['garden']);},1000);
 					//this.profileService.getProfileByUsername(this.profile.profileUsername, this.profile.profilePassword).subscribe(profile=>{this.profile = profile;
 					//this.loginService.profile = this.profile;});
 
