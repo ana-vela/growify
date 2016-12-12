@@ -24,7 +24,11 @@
 		<tr *ngFor="let item of plantGarden">
 			<td>{{item.plant.plantName}}</td>
 			<td>{{item.datePlantedMillis | date:'mediumDate'}}</td>
-			<td>Icon</td>
+
+			<td ngSwitch="{{item.plant.plantType}}">
+				<i *ngSwitchCase="'Vegetable'" class="fa fa-crop fa-2x"></i> <!--Add correct crop-->
+				<i *ngSwitchDefault class="fa fa-leaf fa-2x" id="{{item.plant.plantType}}"></i>
+			</td>
 
 			<td>
 				<div class="progress" [hidden]="(item.progress === null) || (item.progress <= 0)">
