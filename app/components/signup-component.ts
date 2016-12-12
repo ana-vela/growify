@@ -3,6 +3,7 @@ import {ProfileService} from "../services/profile-service";
 import {Router} from "@angular/router";
 import {Profile} from "../classes/profile";
 import {Status} from "../classes/status";
+declare var $: any;
 
 @Component({
 	templateUrl: "./templates/signup.php",
@@ -27,6 +28,7 @@ export class SignupComponent implements OnInit{
 				this.status = status;
 				if(status.status === 200) {
 					this.signUpForm.reset()
+					setTimeout(function(){$("#signup-modal").modal('hide');},1000);
 				}
 			});
 	}
