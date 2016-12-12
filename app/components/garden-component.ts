@@ -9,9 +9,10 @@ import {Status} from "../classes/status";
 import {GardenService} from "../services/garden-service";
 import{PlantService} from "../services/plant-service";
 import{PlantAreaService} from "../services/plant-area-service";
-
+import{ProfileService} from "../services/profile-service";
 import {Plant} from "../classes/plant"
 import {PlantGarden} from "../classes/plantGarden";
+import {Profile} from "../classes/profile";
 
 @Component({
 	templateUrl: "./templates/garden.php"
@@ -21,8 +22,9 @@ export class GardenComponent implements OnInit {
 	garden: Garden[] = [];
 	plantGarden: PlantGarden[] = [];
 	plant: Plant[] = [];
+	profile: Profile = new Profile(0, "", "", "", "");
 
-	constructor(private gardenService: GardenService, private plantService: PlantService) {
+	constructor(private gardenService: GardenService, private plantService: PlantService, private profileService: ProfileService) {
 	}
 
 	ngOnInit(): void {
@@ -34,7 +36,25 @@ export class GardenComponent implements OnInit {
 					this.plantService.getPlantByPlantId(this.garden[c].gardenPlantId).subscribe(
 						plant => { // for all of the plants in the garden, retrieve the plant area and store it.
 							this.plant.push(plant);
-							let newPlantGarden: PlantGarden = new PlantGarden(this.garden[c], plant);
+
+							let progress = 0;
+							if(plant.plantDaysToHarvest !== null && plant.plantDaysToHarvest !== 0){
+								if(this.garden[c].gardenDatePlanted !== null){
+									let currentTime = new Date();
+
+									let elapsedDays = currentTime.getMilliseconds()-(Number.parseInt(this.garden[c].gardenDatePlanted))/(1000*60*60*24);
+
+									if(elapsedDays >= plant.plantDaysToHarvest){
+										progress = 100;
+									} else {
+										if(elapsedDays > 0){
+											progress = (elapsedDays / plant.plantDaysToHarvest)*100;
+										}
+									}
+								}
+							}
+
+							let newPlantGarden: PlantGarden = new PlantGarden(this.garden[c], plant, Number.parseInt(this.garden[c].gardenDatePlanted), progress);
 							this.plantGarden.push(newPlantGarden);
 
 						})
@@ -42,5 +62,8 @@ export class GardenComponent implements OnInit {
 				}
 			}
 		);
+
+		this.profileService.getProfile().subscribe(profile=>this.profile=profile);
+
 	}
 }
