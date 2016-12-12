@@ -8,27 +8,25 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<!--<form #plantForm="ngForm" novalidate name="plantForm" id="plantForm" class="form-inline"  >-->
 
 					<div class="input-group">
 						<label for="plant-search" class="sr-only">Search</label>
 						<div class="input-group">
-							<input type="search" class="form-control" placeholder="Search for Plant by Name&hellip;" name="plantName" id="plantName" title="plantName" [(ngModel)]="plantName" (keyup)="filterPlantsOnPlantName();">
+							<input type="text" class="form-control" placeholder="Search for Plant by Name&hellip;" name="plantName" id="plantName" title="plantName" [(ngModel)]="plantName" (keyup)="filterPlantsOnPlantName();">
 
 							<span class="input-group-addon"><i class="fa fa-search fa-flip-horizontal" aria-hidden="true" ></i></span>
+								<div class="row">
+								<div class="col-md-4">
+									<button class="btn btn-default" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
+									</div>
+									<div class="col-md-4 alert-success" [hidden]="addPlantsSuccess!==true">Success! Plants added to garden.</div>
 
-								<div class="col-md-6">
-									<button class="btn btn-success" type="submit" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
 
-<!--									<button class="btn btn-default" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>-->
-
-<!--									<button class="btn btn-success" type="submit"><i class="fa fa-paper-plane"></i> Send</button>-->
 								</div>
-<!--								<div class="col-md-6" [hidden]="addPlantsSuccess===true">Success! Plants added to garden.</div>-->
+
 						</div>
 						</div>
 					</div>
-				<!--</form>-->
 				<!-- Search Results Table -->
 			</div>
 
