@@ -98,7 +98,9 @@ body{
 	.home h1 {
 		font-size: 60px;
 	}
-
+	.harvest-progress {
+		display: none;
+	}
 }
 
 /****** LOGIN MODAL ******/
