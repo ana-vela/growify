@@ -195,7 +195,7 @@ body{
 }
 
 /****** signout MODAL ******/
-.signoutmodal-container {
+.logoutmodal-container {
 	padding: 30px;
 	max-width: 350px;
 	width: 100% !important;
@@ -206,12 +206,12 @@ body{
 	overflow: hidden;
 }
 
-.signoutmodal-container h1 {
+.logoutmodal-container h1 {
 	text-align: center;
 	font-size: 1.8em;
 }
 
-.signoutmodal {
+.logoutmodal {
 	text-align: center;
 	font-size: 14px;
 	font-weight: 700;
@@ -222,13 +222,13 @@ body{
 	  user-select: none; */
 }
 
-.signoutmodal-container a {
+.logoutmodal-container a {
 	text-decoration: none;
 	color: #666;
 	font-weight: 400;
 	text-align: center;
 	display: inline-block;
-	opacity: 0.4;
+	/*opacity: 0.4;*/
 	transition: opacity ease 0.5s;
 }
 

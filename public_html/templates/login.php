@@ -33,11 +33,14 @@
 	</div>
 </div>
 
-<div class="modal fade" id="logout-modal" tabindex="-1" role="dialog">
+<div class="modal fade" id="logout-modal" tabindex="-1" role="dialog" >
 	<div class="modal-dialog">
 		<div class="logoutmodal-container">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
 			<h1>Sign Out</h1>
-			<p class="lead">Thank you for visiting Growify!</p>
+			<p class="text-center">Thank you for visiting Growify!</p>
 		</div>
 	</div>
 </div>
