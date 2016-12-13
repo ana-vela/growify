@@ -1,3 +1,6 @@
+/**
+ * Created by Daniel Eaton on 12/11/2016.
+ */
 import{Component} from "@angular/core";
 import {Status} from "../classes/status";
 import {LoginService} from "../services/login-service";

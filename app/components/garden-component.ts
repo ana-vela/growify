@@ -14,6 +14,9 @@ import {Plant} from "../classes/plant"
 import {PlantGarden} from "../classes/plantGarden";
 import {Profile} from "../classes/profile";
 declare var $: any;
+import{WeatherService} from "../services/weather-service";
+import{Weather} from "../classes/weather";
+import {getResponseURL} from "@angular/http/src/http_utils";
 
 @Component({
 	templateUrl: "./templates/garden.php"
@@ -24,8 +27,11 @@ export class GardenComponent implements OnInit {
 	plantGarden: PlantGarden[] = [];
 	plant: Plant[] = [];
 	profile: Profile = new Profile(0, "", "", "", "");
+	weather: Weather;
+	icons: boolean[]=[];
+	res: any;
 
-	constructor(private gardenService: GardenService, private plantService: PlantService, private profileService: ProfileService) {
+	constructor(private gardenService: GardenService, private plantService: PlantService, private profileService: ProfileService,private weatherService:WeatherService) {
 	}
 
 	ngOnInit(): void {
@@ -59,8 +65,25 @@ export class GardenComponent implements OnInit {
 				}
 			}
 		);
+		this.profileService.getProfile().subscribe(
+			profile=>{
+				this.profile=profile;
+				this.weatherService.getCurrentWeatherByZipcode(this.profile.profileZipCode).subscribe(
+					weather=>{
+						this.weather=weather;
+						for(let count = 0; count < this.plantGarden.length; count++){
+							this.icons.push(this.plantGarden[count].plant.plantMinTemp < this.weather.currentTemperature);
+						}
+					});
+			});
 
 		this.profileService.getProfile().subscribe(profile=>this.profile=profile);
 
 	}
+
+	onDelete(gardenProfileId:number, gardenDatePlanted: string, plantId:number):void {
+		let deleteGarden = new Garden(gardenProfileId, gardenDatePlanted, plantId);
+		this.gardenService.deleteGarden(deleteGarden);
+	}
+
 }

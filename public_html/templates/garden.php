@@ -31,12 +31,14 @@
 			<th class="percentage-progress"></th>
 			<th></th>
 		</tr>
-		<tr *ngFor="let item of plantGarden">
+		<tr *ngFor="let item of plantGarden; let index= index">
 			<td>{{item.plant.plantName}}</td>
 			<td>{{item.datePlantedMillis | date:'mediumDate'}}</td>
 
-			<td ngSwitch="{{item.plant.plantType}}"> <!-- do not add a space between <i> tags!! -->
-				<i *ngSwitchCase="'Vegetable'" class="fa fa-crop fa-2x"></i><i *ngSwitchDefault class="fa fa-leaf fa-2x" id="{{item.plant.plantType}}"></i>
+			<td ngSwitch={{icons[index]}}>
+				<i *ngSwitchCase="'true'" class="fa fa-leaf fa-2x"> </i>
+				<i *ngSwitchCase="'false'" class="fa fa-snowflake-o fa-2x">  </i>
+				<i *ngSwitchDefault> {{icons[index]}}</i>
 			</td>
 
 			<td>
