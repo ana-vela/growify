@@ -42,17 +42,19 @@ export class LoginComponent implements OnInit {
 
 
 				if(status.status === 200) {
+					this.router.navigate(['']);
 					this.loginForm.reset();
-					this.router.navigate(['garden']);
-					//this.profileService.getProfileByUsername(this.profile.profileUsername, this.profile.profilePassword).subscribe(profile=>{this.profile = profile;
-					//this.loginService.profile = this.profile;});
-
 
 					this.loginService.isLoggedIn = true;
 					this.isLoggedIn = true;// *ONLY* use for setting appropriate nav links, this
 					// does not provide secure information (not adequate authentication)
 
 
+					setTimeout(function(){
+						$("#login-modal").modal('hide');
+						//this.router.navigate(['garden']);
+					}
+						,1000);
 
 
 				}
