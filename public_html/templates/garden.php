@@ -28,6 +28,7 @@
 			<th>Date Planted</th>
 			<th class="icon"></th>
 			<th class="harvest-progress"></th>
+			<th class="percentage-progress"></th>
 			<th></th>
 		</tr>
 		<tr *ngFor="let item of plantGarden">
@@ -50,6 +51,7 @@
 					<i class="fa fa-circle gray-dot" *ngFor="let i of item.incompleteDots "></i>
 				</div>
 			</td>
+			<td>{{item.progress | number:'1.0-0'}}&#37;</td>
 			<td><i class="fa fa-trash fa-2x" aria-hidden="true"></i></td>
 		</tr>
 	</table>

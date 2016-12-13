@@ -67,6 +67,8 @@ body{
 	color: lightgreen;
 }
 
+
+
 /******** HOME ***********/
 .home {
 	background: url("../app/img/vegetable-basket.jpg") no-repeat center fixed;
@@ -91,6 +93,15 @@ body{
 	text-shadow: 2px 1px 0 #000;
 }
 
+/* use the min-width of the appropriate breakpoint (this is set on md and lg)*/
+@media only screen and (max-width: 992px) {
+	.home h1 {
+		font-size: 60px;
+	}
+	.harvest-progress {
+		display: none;
+	}
+}
 
 /****** LOGIN MODAL ******/
 .loginmodal-container {
@@ -317,4 +328,5 @@ i.fa-circle::before{
 	padding:0;
 	margin:0;
 }
+
 

@@ -13,6 +13,7 @@ import{ProfileService} from "../services/profile-service";
 import {Plant} from "../classes/plant"
 import {PlantGarden} from "../classes/plantGarden";
 import {Profile} from "../classes/profile";
+declare var $: any;
 
 @Component({
 	templateUrl: "./templates/garden.php"
@@ -28,6 +29,9 @@ export class GardenComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		$("#login-modal").modal('hide');
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
 		this.gardenService.getGardens().subscribe(
 			garden => {
 				this.garden = garden;
