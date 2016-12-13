@@ -101,6 +101,10 @@ body{
 	.harvest-progress {
 		display: none;
 	}
+	.add-plant {
+		position: relative;
+		text-align: center;
+	}
 }
 
 /****** LOGIN MODAL ******/
