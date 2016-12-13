@@ -20,9 +20,11 @@
 					</div>
 
 					<button class="btn btn-success" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
-
+<div class="row">
+<div class="col-md-6">
 					<div class=" alert-success" [hidden]="addPlantsSuccess!==true">Success! Plants added to garden.</div>
-
+	</div>
+</div>
 
 
 
