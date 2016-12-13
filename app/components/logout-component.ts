@@ -16,6 +16,8 @@ export class LogoutComponent {
 	constructor(private loginService: LoginService){}
 	status: Status = null;
 
+
+
 	logoutUser(): void{
 		this.loginService.getLogout()
 			.subscribe(status => {

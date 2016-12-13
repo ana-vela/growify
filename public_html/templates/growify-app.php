@@ -26,15 +26,15 @@
 						<li><a *ngIf="!loginComponent.isLoggedIn" href="#" data-toggle="modal" data-target="#signup-modal" id="signup-link">Sign Up</a></li>
 						<li><a *ngIf="loginComponent.isLoggedIn" routerLink="/garden" id="garden-link">Garden</a></li>
 						<li><a *ngIf="loginComponent.isLoggedIn" routerLink="/plants" id="plants-link">Plants</a></li>
-						<li><a *ngIf="loginComponent.isLoggedIn" href="#" data-toggle="modal" data-target="#logout-modal" (click)="logoutComponent.logoutUser()">Logout</a></li>
+						<li><a *ngIf="loginComponent.isLoggedIn" href="#" data-toggle="modal" data-target="#logout-modal" (click)="loginComponent.logoutUser()">Logout</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
 
-		<login-component ></login-component>
+		<login-component ></login-component> <!-- login and logout -->
 		<signup-component></signup-component>
-		<logout-component></logout-component>
+		<!--<logout-component></logout-component>-->
 		<router-outlet></router-outlet>
 	</main>
 

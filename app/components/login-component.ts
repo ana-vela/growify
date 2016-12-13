@@ -53,4 +53,18 @@ export class LoginComponent implements OnInit {
 
 	}
 
+	logoutUser(): void{
+		this.loginService.getLogout()
+			.subscribe(status => {
+				this.status = status;
+				/* TODO success -- display message, redirect to home page
+				 * failure - display error message on form*/
+				this.loginService.isLoggedIn = false;
+				this.isLoggedIn = false;
+
+			});
+
+	}
+
+
 }

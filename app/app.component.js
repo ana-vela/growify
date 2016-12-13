@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var core_2 = require("@angular/core");
 var login_component_1 = require("./components/login-component");
-var logout_component_1 = require("./components/logout-component");
+//import {LogoutComponent} from "./components/logout-component"
 var login_service_1 = require("./services/login-service");
 var AppComponent = (function () {
     function AppComponent(loginService) {
         this.loginService = loginService;
+        //@ViewChild(LogoutComponent)
+        //private logoutComponent: LogoutComponent;
         this.navCollapse = true;
         this.loggedIn = false; // note: this value is only to set appropriate nav links
     }
@@ -27,11 +29,6 @@ var AppComponent = (function () {
         core_1.ViewChild(login_component_1.LoginComponent), 
         __metadata('design:type', login_component_1.LoginComponent)
     ], AppComponent.prototype, "loginComponent", void 0);
-    __decorate([
-        // isLoggedIn tracked via login service - ideally we would combine login & logout into the same component for a cleaner design
-        core_1.ViewChild(logout_component_1.LogoutComponent), 
-        __metadata('design:type', logout_component_1.LogoutComponent)
-    ], AppComponent.prototype, "logoutComponent", void 0);
     AppComponent = __decorate([
         core_2.Component({
             // Update selector with YOUR_APP_NAME-app. This needs to match the custom tag in webpack/index.php
