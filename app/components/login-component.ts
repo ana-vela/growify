@@ -4,6 +4,7 @@ import {ProfileService} from "../services/profile-service";
 import {Router} from "@angular/router";
 import {Profile} from "../classes/profile";
 import {Status} from "../classes/status";
+declare var $: any;
 
 
 @Component({
@@ -59,9 +60,16 @@ export class LoginComponent implements OnInit {
 				this.status = status;
 				/* TODO success -- display message, redirect to home page
 				 * failure - display error message on form*/
-				this.loginService.isLoggedIn = false;
-				this.isLoggedIn = false;
+				if (status.status === 200) {
+					this.router.navigate(['']);
+					this.loginService.isLoggedIn = false;
+					this.isLoggedIn = false;
 
+					setTimeout(function(){$("#logout-modal").modal('hide');},1000);
+
+
+
+			}
 			});
 
 	}
