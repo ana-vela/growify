@@ -25,7 +25,7 @@ export const routes: Routes = [
 	{path: "plants", component: PlantsComponent},
 	{path: "settings", component: SettingsComponent},
 	{path: "logout", component: LogoutComponent},
-	{path: "activation", component: ActivationComponent}
+	{path: "activation/:activation", component: ActivationComponent}
 ];
 
 export const appRoutingProviders: any[] = [];
