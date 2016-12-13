@@ -54,7 +54,7 @@
 				</div>
 			</td>
 			<td>{{item.progress | number:'1.0-0'}}&#37;</td>
-			<td><i class="fa fa-trash fa-2x" aria-hidden="true" (click)="onDelete(item.garden.gardenProfileId,item.garden.gardenDatePlanted,item.garden.gardenPlantId)" )></i></td>
+			<td><i class="fa fa-trash fa-2x" aria-hidden="true" (click)="onDelete(item.garden.gardenProfileId,item.garden.gardenDatePlanted,item.garden.gardenPlantId)" ></i></td>
 		</tr>
 	</table>
 </div>
