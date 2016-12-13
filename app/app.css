@@ -284,6 +284,11 @@ body{
 
 /******** garden ********/
 
+.add-plant {
+	padding-bottom: 10px;
+
+}
+
 .success-leaf {
 	color: green;
 
