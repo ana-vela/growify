@@ -32,8 +32,10 @@ try {
 
 	//determines which HTTP Method needs to be processed and stores the result in $method.
 	$method = array_key_exists("HTTP_x_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-
+	$profileId = filter_input(INPUT_GET,"gardenProfileId", FILTER_VALIDATE_INT);
+	$plantId = filter_input(INPUT_GET,"gardenPlantId", FILTER_VALIDATE_INT);
 	// get the profileId for the currently logged-in user
+
 	if(isset($_SESSION["profile"])){
 		$profileId = $_SESSION["profileId"];
 	} else {
@@ -91,19 +93,16 @@ try {
 
 	} else if($method === "DELETE") {
 		verifyXsrf();
-		$plantId = $requestObject->gardenPlantId;
-
-		$garden = Garden::getGardenByProfileIdAndPlantId($pdo, $profileId, $plantId);
+		$garden = Garden::getGardenByProfileIdAndPlantId($pdo,$profileId,$plantId);
 		if($garden === null) {
 			throw(new RuntimeException("Garden does not exist", 404));
+		}else{
+			$garden->delete($pdo);
+			$reply->message = "Garden deleted OK";
 		}
-
-
-
-		$reply->message = "Garden(s) deleted OK";
-	} else {
+	} /*else {
 		throw (new InvalidArgumentException("Invalid HTTP method request"));
-	}
+	}*/
 
 	// update reply with exception information
 } catch(Exception $exception) {

@@ -289,7 +289,7 @@ class Garden implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT gardenDatePlanted, gardenPlantId FROM garden WHERE gardenProfileId = :profileId AND gardenPlantId = :plantId";
+		$query = "SELECT gardenProfileId, gardenDatePlanted, gardenPlantId FROM garden WHERE gardenProfileId = :profileId AND gardenPlantId = :plantId";
 		$statement = $pdo->prepare($query);
 
 		// bind the garden profile id to place holder in the template
@@ -302,7 +302,8 @@ class Garden implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$garden = new Garden($row["gardenProfileId"], $row["gardenPlantId"], $row["gardenDatePlanted"]);
+				$dateTime = new \DateTime($row['gardenDatePlanted']);
+				$garden = new Garden($row["gardenProfileId"], $dateTime, $row["gardenPlantId"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
@@ -341,6 +342,13 @@ class Garden implements \JsonSerializable {
 		return $gardens;
 	}
 
+
+public static function deleteByGardenPlantAndProfileId(\PDO $pdo, int $gardenProfileId, int $gardenPlantId){
+	$query = "DELETE FROM garden WHERE gardenProfileId= :gardenProfileId AND gardenPlantId =:gardenPlantId";
+	$parameters = [ "gardenProfileId"=>$gardenProfileId, "gardenPlantId"=>$gardenPlantId];
+	$statement = $pdo->prepare($query);
+	$statement->execute($parameters);
+}
 	/**
 	 * formats the state variables for JSON serialization
 	 * @return array an array containing the serialized state variables.
