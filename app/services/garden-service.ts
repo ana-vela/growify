@@ -13,24 +13,32 @@ import {Plant} from "../classes/plant";
 
 @Injectable()
 export class GardenService extends BaseService {
-	constructor(http:Http) {
+	constructor(http: Http) {
 		super(http);
 	}
+
 	private url = "api/garden/";
 
 
-	getGardens() : Observable<Garden[]> {
+	getGardens(): Observable<Garden[]> {
 		return (this.http.get(this.url).map(this.extractData).catch(this.handleError));
 	}
 
-	postGarden(garden: Garden) : Observable<Status> {
+	postGarden(garden: Garden): Observable<Status> {
 
-		return(this.http.post(this.url, garden)
+		return (this.http.post(this.url, garden)
 			.map(this.extractMessage)
 			.catch(this.handleError));
 
 	}
 
+	deleteGarden(garden: Garden): Observable<Status> {
+
+		return (this.http.delete(this.url + "?gardenProfileId=" + garden.gardenProfileId + ",?gardenPlantId=" + garden.gardenPlantId)
+			.map(this.extractMessage)
+			.catch(this.handleError));
+
+	}
 }
 
 //this.http.get(this.url + "?gardenProfileId=" + gardenProfileId)
