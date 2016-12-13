@@ -1,6 +1,6 @@
 import{Component} from "@angular/core";
 import {Status} from "../classes/status";
-import {LogoutService} from "../services/logout-service";
+import {LoginService} from "../services/login-service";
 
 @Component({
 	templateUrl: "./templates/signout.php",
@@ -9,15 +9,18 @@ import {LogoutService} from "../services/logout-service";
 
 export class LogoutComponent {
 
-	constructor(private logoutService: LogoutService){}
+
+	constructor(private loginService: LoginService){}
 	status: Status = null;
 
 	logoutUser(): void{
-		this.logoutService.getLogout()
+		this.loginService.getLogout()
 			.subscribe(status => {
 				this.status = status;
 				/* TODO success -- display message, redirect to home page
 				 * failure - display error message on form*/
+				this.loginService.isLoggedIn = false;
+
 			});
 
 	}

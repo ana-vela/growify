@@ -20,8 +20,6 @@
 		</div>
 	</div>
 
-	<login-component></login-component>
-	<signup-component></signup-component>
-	<logout-component></logout-component>
+
 </section>
 

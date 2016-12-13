@@ -13,10 +13,20 @@ export class LoginService extends BaseService {
 
 	private loginUrl = "api/login/";
 
-	//profile: Profile = new Profile(0, "", "", "", "");
-	//status: Status = null;
+	private logoutUrl = "api/logout/";
 
-	//isLoggedIn: boolean = false;
+	public isLoggedIn = false;// *ONLY* use for setting appropriate nav links, this
+	// does not provide secure information (not adequate authentication)
+
+	getLogout() : Observable<Status> {
+
+		return(this.http.get(this.logoutUrl)
+			.map(this.extractMessage)
+			.catch(this.handleError));
+
+	}
+
+
 
 	postLogin(profile: Profile) : Observable<Status> {
 
