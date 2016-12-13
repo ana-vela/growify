@@ -4,7 +4,7 @@ import {ProfileService} from "../services/profile-service";
 import {Router} from "@angular/router";
 import {Profile} from "../classes/profile";
 import {Status} from "../classes/status";
-declare var $: any;
+
 
 @Component({
 	templateUrl: "./templates/login.php",
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit{
 
 				if(status.status === 200) {
 					this.loginForm.reset();
-					setTimeout(function(){$("#login-modal").modal('hide');this.router.navigate(['garden']);},1000);
+					this.router.navigate(['garden']);
 					//this.profileService.getProfileByUsername(this.profile.profileUsername, this.profile.profilePassword).subscribe(profile=>{this.profile = profile;
 					//this.loginService.profile = this.profile;});
 
