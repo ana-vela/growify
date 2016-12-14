@@ -31,7 +31,7 @@
 			<th class="percentage-progress"></th>
 			<th></th>
 		</tr>
-		<tr *ngFor="let item of plantGarden; let index= index">
+		<tr *ngFor="let item of plantGarden; let index = index">
 			<td>{{item.plant.plantName}}</td>
 			<td>{{item.datePlantedMillis | date:'mediumDate'}}</td>
 
@@ -54,7 +54,7 @@
 				</div>
 			</td>
 			<td>{{item.progress | number:'1.0-0'}}&#37;</td>
-			<td><i class="fa fa-trash fa-2x" aria-hidden="true" (click)="onDelete(item.garden.gardenProfileId,item.garden.gardenDatePlanted,item.garden.gardenPlantId)" ></i></td>
+			<td><button type="delete" class="fa fa-trash fa-2x" aria-hidden="true" (click)="onDelete(item, item.garden.gardenPlantId);"></button></td>
 		</tr>
 	</table>
 </div>

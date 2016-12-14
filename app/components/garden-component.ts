@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ChangeDetectorRef} from "@angular/core";
 import {Router} from "@angular/router";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
@@ -10,7 +10,7 @@ import {GardenService} from "../services/garden-service";
 import{PlantService} from "../services/plant-service";
 import{PlantAreaService} from "../services/plant-area-service";
 import{ProfileService} from "../services/profile-service";
-import {Plant} from "../classes/plant"
+import {Plant} from "../classes/plant";
 import {PlantGarden} from "../classes/plantGarden";
 import {Profile} from "../classes/profile";
 declare var $: any;
@@ -29,9 +29,11 @@ export class GardenComponent implements OnInit {
 	profile: Profile = new Profile(0, "", "", "", "");
 	weather: Weather;
 	icons: boolean[]=[];
+	status: Status = null;
 	res: any;
 
-	constructor(private gardenService: GardenService, private plantService: PlantService, private profileService: ProfileService,private weatherService:WeatherService) {
+
+	constructor(private gardenService: GardenService, private plantService: PlantService, private profileService: ProfileService,private weatherService:WeatherService,private ChangeDetectorRef: ChangeDetectorRef) {
 	}
 
 	ngOnInit(): void {
@@ -81,9 +83,18 @@ export class GardenComponent implements OnInit {
 
 	}
 
-	onDelete(gardenProfileId:number, gardenDatePlanted: string, plantId:number):void {
-		let deleteGarden = new Garden(gardenProfileId, gardenDatePlanted, plantId);
-		this.gardenService.deleteGarden(deleteGarden);
+	onDelete(item: PlantGarden, plantId: number): void{
+
+		this.gardenService.deleteGarden(plantId)
+			.subscribe(status => {
+				this.status = status;
+
+				if(status.status == 200)
+				{
+					let pos = this.plantGarden.indexOf(item);
+					this.plantGarden.splice(pos,1);
+				}
+			});
 	}
 
 }
