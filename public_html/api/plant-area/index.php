@@ -45,7 +45,7 @@ try {
 // Handle GET request
 	if($method === "GET") {
 		//set XSRF cookie
-		setXsrfCookie("/");
+		setXsrfCookie();
 
 		// if plant id and plant area number are present get the plant area for that combination -- (need help with this)
 		if (empty($plantId) === false && empty($plantAreaNumber) === false) {

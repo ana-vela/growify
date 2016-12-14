@@ -44,7 +44,7 @@ try {
 
 	if($method === "GET"){
 		//set XSRF cookie
-		setXsrfCookie();
+		setXsrfCookie("/");
 		//get a specific garden or all gardens and update reply
 		// only get gardens for currently logged-in user
 
