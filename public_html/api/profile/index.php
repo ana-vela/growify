@@ -135,8 +135,14 @@ try {
 			$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 			$message = <<< EOF
 				<h2>Welcome to Growify!</h2>
-				<p>In order to start your garden please visit the following URL to complete the registration process: </p>
+				<p>Dear $requestObject->profileUsername,</p>
+				<p>In order to login and start your garden please visit the following URL to complete the registration process: </p>
 				<p><a href="$confirmLink">$confirmLink</a></p>
+				<br/><br/>
+				<div style="margin-left=75vw;">
+					<p>Thank you for signing up,</p>
+					<h3>Growify Greg</h3>
+				</div>
 EOF;
 
 			// create Swift message
