@@ -7,7 +7,7 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-4">
 				<form class="form-inline">
 
 					<div class="form-group ">
@@ -16,24 +16,32 @@
 
 						<input type="text" class="form-control" placeholder="Search for Plant by Name&hellip;" name="plantName" id="plantName" title="plantName" [(ngModel)]="plantName" (keyup)="filterPlantsOnPlantName();">
 
-						<span ><i class="fa fa-search fa-flip-horizontal" aria-hidden="true" ></i></span>
+						<!--<span ><i class="fa fa-search fa-flip-horizontal" aria-hidden="true" ></i></span>-->
 					</div>
 
-					<button class="btn btn-success" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
-<div class="row">
-<div class="col-md-6">
-					<div class=" alert-success" [hidden]="addPlantsSuccess!==true">Success! Plants added to garden.</div>
-	</div>
-</div>
-
-
-
-					</form>
-				</div>
+				</form>
 			</div>
+		</div>
+				<div class="row">
+
+					<div class="col-md-4">
+						<button class="btn btn-success" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
+					</div>
+				</div>
 
 
-			<!-- Search Results Table -->
+		<div class="row">
+			<div class="col-md-4">
+				<div class=" alert-success" [hidden]="addPlantsSuccess!==true">Success! Plants added to garden.</div>
+
+			</div>
+		</div>
+
+
+
+
+
+		<!-- Search Results Table -->
 
 
 		<div [hidden]="dataReady">Preparing Data&hellip;</div>
