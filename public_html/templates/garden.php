@@ -33,7 +33,8 @@
 		</tr>
 		<tr *ngFor="let item of plantGarden; let index = index">
 			<td>{{item.plant.plantName}}</td>
-			<td><a data-target="#date-modal" href="#" (click)="selectDate(item.datePlantedMillis)">{{item.datePlantedMillis | date:'mediumDate'}}</a></td>
+			<!--<td><a data-target="#date-modal" href="#" (click)="selectDate(item.datePlantedMillis)">{{item.datePlantedMillis | date:'mediumDate'}}</a></td>-->
+			<td>{{item.datePlantedMillis | date:'mediumDate'}}</td>
 
 			<td ngSwitch={{icons[index]}}>
 				<i *ngSwitchCase="'true'" class="fa fa-leaf fa-2x"> </i>
@@ -48,7 +49,7 @@
 
 					</div>
 				</div>-->
-				<div class="progress harvest-progress" >
+				<div class="progress harvest-progress" [hidden]="(item.progress === null) || (item.progress <= 0)">
 					<!--<i class="fa fa-circle" *ngFor="let i of item.progressDots "></i>
 					<i class="fa fa-circle gray-dot" *ngFor="let i of item.incompleteDots "></i>-->
 					<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [ngStyle]="{'width': item.progress+'%'}">
@@ -62,7 +63,7 @@
 	</table>
 </div>
 
-
+<!--
 	<div class="modal fade" id="date-modal" tabindex="-1" role="dialog" >
 		<div class="date-dialog">
 			<div class="datemodal-container">
@@ -73,15 +74,13 @@
 
 				<form>
 					<input type="month">
-					<input type="day">
 					<input type="date">
-					<input type="year">
 					<button type="submit" class="btn btn-success">OK</button>
 				</form>
 			</div>
 		</div>
 	</div>
-
+-->
 
 </section>
 
