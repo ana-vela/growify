@@ -32,8 +32,7 @@ try {
 
 	//determines which HTTP Method needs to be processed and stores the result in $method.
 	$method = array_key_exists("HTTP_x_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-	$profileId = filter_input(INPUT_GET,"gardenProfileId", FILTER_VALIDATE_INT);
-	$plantId = filter_input(INPUT_GET,"gardenPlantId", FILTER_VALIDATE_INT);
+	$plantId = filter_input(INPUT_GET, "plantId", FILTER_VALIDATE_INT);
 	// get the profileId for the currently logged-in user
 
 	if(isset($_SESSION["profile"])){

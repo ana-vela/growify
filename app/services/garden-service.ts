@@ -32,9 +32,8 @@ export class GardenService extends BaseService {
 
 	}
 
-	deleteGarden(garden: Garden): Observable<Status> {
-
-		return (this.http.delete(this.url + "?gardenProfileId=" + garden.gardenProfileId + ",?gardenPlantId=" + garden.gardenPlantId)
+	deleteGarden(plantId: number): Observable<Status> {
+		return (this.http.delete(this.url + "?plantId="+ plantId)
 			.map(this.extractMessage)
 			.catch(this.handleError));
 
