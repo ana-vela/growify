@@ -75,7 +75,7 @@ try {
 				$reply->data = $plantArea;
 				//Here, we store the retrieved PlantArea in the $reply->data state variable.
 			}
-		}
+		} else {}
 
 
 

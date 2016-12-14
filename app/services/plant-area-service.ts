@@ -16,7 +16,7 @@ export class PlantAreaService extends BaseService {
 	// get plant area for a given plantId and currently logged-in user
 	// many plants don't have this data, in which case it will return not found.
 	getPlantAreaByPlantId( plantId: number){
-		return(this.http.get(this.plantAreaUrl+"/?plantAreaPlantId="+plantId).map(this.extractData).catch(this.handleError));
+		return(this.http.get(this.plantAreaUrl+"?plantAreaPlantId="+plantId).map(this.extractData).catch(this.handleError));
 	}
 
 	getAllPlantAreas(): Observable<PlantArea[]>{
