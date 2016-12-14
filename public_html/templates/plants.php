@@ -25,14 +25,14 @@
 				<div class="row">
 
 					<div class="col-md-4">
-						<button class="btn btn-success" type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
+						<button class="btn btn-success add-plant-button " type="button" (click)="addSelectedPlantsToGarden()">Add Selected Plants</button>
 					</div>
 				</div>
 
 
 		<div class="row">
 			<div class="col-md-4">
-				<div class=" alert-success" [hidden]="addPlantsSuccess!==true">Success! Plants added to garden.</div>
+				<div class="alert-success" [hidden]="addPlantsSuccess!==true">Success! Plants added to garden.</div>
 
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 						<!-- Companion Plant & Combative Plant data -->
 						<div class="row">
 							<div class="col-md-6">
-								<div class="well " id="companion-plants">
+								<div *ngIf="companionPlantNames.length>0"class="well " id="companion-plants">
 
 									<b>Companion Plants</b>
 									<ul>
@@ -96,7 +96,7 @@
 								</div>
 							</div>
 							<div class=" col-md-6">
-								<div class="well " id="combative-plants">
+								<div *ngIf="combativePlantNames.length>0" class="well " id="combative-plants">
 
 									<b>Combative Plants</b>
 									<ul>

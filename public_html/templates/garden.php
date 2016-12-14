@@ -33,7 +33,7 @@
 		</tr>
 		<tr *ngFor="let item of plantGarden; let index = index">
 			<td>{{item.plant.plantName}}</td>
-			<td>{{item.datePlantedMillis | date:'mediumDate'}}</td>
+			<td><a data-target="#date-modal" href="#" (click)="selectDate(item.datePlantedMillis)">{{item.datePlantedMillis | date:'mediumDate'}}</a></td>
 
 			<td ngSwitch={{icons[index]}}>
 				<i *ngSwitchCase="'true'" class="fa fa-leaf fa-2x"> </i>
@@ -48,9 +48,12 @@
 
 					</div>
 				</div>-->
-				<div class=" harvest-progress" >
-					<i class="fa fa-circle" *ngFor="let i of item.progressDots "></i>
-					<i class="fa fa-circle gray-dot" *ngFor="let i of item.incompleteDots "></i>
+				<div class="progress harvest-progress" >
+					<!--<i class="fa fa-circle" *ngFor="let i of item.progressDots "></i>
+					<i class="fa fa-circle gray-dot" *ngFor="let i of item.incompleteDots "></i>-->
+					<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [ngStyle]="{'width': item.progress+'%'}">
+						<span class="sr-only">{{item.progress}}% Complete (success)</span>
+					</div>
 				</div>
 			</td>
 			<td>{{item.progress | number:'1.0-0'}}&#37;</td>
@@ -59,4 +62,26 @@
 	</table>
 </div>
 
+
+	<div class="modal fade" id="date-modal" tabindex="-1" role="dialog" >
+		<div class="date-dialog">
+			<div class="datemodal-container">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h1>Date Planted</h1>
+
+				<form>
+					<input type="month">
+					<input type="day">
+					<input type="date">
+					<input type="year">
+					<button type="submit" class="btn btn-success">OK</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
 </section>
+

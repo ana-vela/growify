@@ -31,9 +31,15 @@ export class GardenComponent implements OnInit {
 	icons: boolean[]=[];
 	status: Status = null;
 	res: any;
+	newDate: Date;
 
 
 	constructor(private gardenService: GardenService, private plantService: PlantService, private profileService: ProfileService,private weatherService:WeatherService,private ChangeDetectorRef: ChangeDetectorRef) {
+	}
+
+	// select a new date for a garden/plant row entry.
+	selectDate(millis: number){
+		this.newDate = new Date(millis);
 	}
 
 	ngOnInit(): void {

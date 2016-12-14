@@ -293,8 +293,13 @@ body{
 	background: lightgreen;
 }
 
+.add-plant-button {
+	margin: 10px;
+
+}
+
 .plant-search-icon {
-	test-align:right;
+	text-align:right;
 }
 
 /******** garden ********/
