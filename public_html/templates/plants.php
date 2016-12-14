@@ -76,8 +76,8 @@
 					</div>
 					<div class="modal-body">
 						<p><em>{{modalPlant.plantLatinName}}</em><p>
-						<p><b>Spread:</b> {{modalPlant.plantSpread | number:'1.0-1'}} ft.</p>
-						<p><b>Height:</b> {{modalPlant.plantHeight | number:'1.0-1'}} ft.</p>
+						<p *ngIf="modalPlant.plantSpread !== null"><b>Spread:</b> {{modalPlant.plantSpread | number:'1.0-1'}} ft.</p>
+						<p *ngIf="modalPlant.plantHeight !== null"><b>Height:</b> {{modalPlant.plantHeight | number:'1.0-1'}} ft.</p>
 						<p *ngIf="modalPlant.plantDaysToHarvest !== null"><b>Days to Harvest:</b> {{modalPlant.plantDaysToHarvest | number:'.0-0'}}</p>
 						<p *ngIf="modalPlantArea !== null">Recommended Planting Dates: {{modalPlantArea.plantAreaStartDay}}/{{modalPlantArea.plantAreaStartMonth}} - {{modalPlantArea.plantAreaEndDay}}/{{modalPlantArea.plantAreaEndMonth}}</p>
 						<h4>Description:</h4>
