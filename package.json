@@ -21,7 +21,7 @@
     "@angular/platform-browser": "~2.2.0",
     "@angular/platform-browser-dynamic": "~2.2.0",
     "@angular/router": "~3.2.0",
-    "typescript": "",
+
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
@@ -42,7 +42,7 @@
 
     "bootstrap-loader": "^1.3.0",
     "bootstrap-sass": "^3.3.7",
-    "awesome-typescript-loader": "^2.2.4",
+    "awesome-typescript-loader": "2.2.4",
     "css-loader": "^0.25.0",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.15.0",
@@ -57,9 +57,9 @@
     "rimraf": "^2.5.2",
     "sass-loader": "^4.0.0",
     "style-loader": "0.13.1",
-    "typescript": "^2.1.1",
+    "typescript": "2.1.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.3",
+    "webpack": "1.13.0",
     "webpack-merge": "^0.15.0"
   }
 }
