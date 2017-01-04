@@ -13,7 +13,7 @@ setXsrfCookie();
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-		<base href="<?php echo dirname($_SERVER["PHP_SELF"]) . "/"; ?>" />
+		<base href="/" />
 
 		<!--<link type="text/css" href="/app/css/weather-icons.css" rel="stylesheet"/>-->
 		<link href="https://fonts.googleapis.com/css?family=Merienda+One|Merienda:700" rel="stylesheet">

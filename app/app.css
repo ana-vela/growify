@@ -1,7 +1,7 @@
 /*******Weather **************/
 /* TODO - I can only seem to link this correctly with an absolute path - either find a better way, or change the path as needed */
 
-@import 'https://bootcamp-coders.cnm.edu/~rdicharry/farmers-almanac/app/css/weather-icons.css';
+@import 'https://growify.me/app/css/weather-icons.css';
 /*@import 'https://<?php echo dirname($__DIR__) . "/"; ?>css/weather-icons.css';*/
 /*@import url('../app/css/weather-icons.css');*/
 
