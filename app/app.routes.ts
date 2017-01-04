@@ -4,14 +4,13 @@ import {LoginComponent} from "./components/login-component";
 import {SignupComponent} from "./components/signup-component";
 import {GardenComponent} from "./components/garden-component";
 import {PlantsComponent} from "./components/plants-component";
-import {SettingsComponent} from "./components/settings-component";
 import {WeatherComponent} from "./components/weather-component";
 import {TacoComponent} from "./components/taco-component";
 import {ActivationComponent} from "./components/activation-component";
 
 
 
-export const allAppComponents = [HomeComponent, LoginComponent, SignupComponent,ActivationComponent, GardenComponent, PlantsComponent, SettingsComponent, TacoComponent, WeatherComponent];
+export const allAppComponents = [HomeComponent, LoginComponent, SignupComponent,ActivationComponent, GardenComponent, PlantsComponent, TacoComponent, WeatherComponent];
 
 export const routes: Routes = [
 	// note: the order the components are listed in matters!
@@ -22,7 +21,6 @@ export const routes: Routes = [
 	{path: "weather", component: WeatherComponent},
 	{path: "garden", component: GardenComponent},
 	{path: "plants", component: PlantsComponent},
-	{path: "settings", component: SettingsComponent},
 	{path: "activation/:activation", component: ActivationComponent}
 ];
 
