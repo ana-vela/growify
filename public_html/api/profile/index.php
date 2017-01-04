@@ -131,7 +131,7 @@ try {
 			//generate and send activation email
 			$subject = "Activate your account";
 			$basePath = dirname($_SERVER['SCRIPT_NAME'],3);
-			$urlglue = $basePath . "/activation/" . $activation;
+			$urlglue = $basePath . "activation/" . $activation;
 			$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 			$message = <<< EOF
 				<h2>Welcome to Growify!</h2>
