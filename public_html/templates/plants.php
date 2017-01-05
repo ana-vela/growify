@@ -79,7 +79,7 @@
 						<p *ngIf="modalPlant.plantSpread !== null"><b>Spread:</b> {{modalPlant.plantSpread | number:'1.0-1'}} ft.</p>
 						<p *ngIf="modalPlant.plantHeight !== null"><b>Height:</b> {{modalPlant.plantHeight | number:'1.0-1'}} ft.</p>
 						<p *ngIf="modalPlant.plantDaysToHarvest !== null"><b>Days to Harvest:</b> {{modalPlant.plantDaysToHarvest | number:'.0-0'}}</p>
-						<p *ngIf="modalPlantArea !== null">Recommended Planting Dates: {{modalPlantArea.plantAreaStartDay}}/{{modalPlantArea.plantAreaStartMonth}} - {{modalPlantArea.plantAreaEndDay}}/{{modalPlantArea.plantAreaEndMonth}}</p>
+						<p *ngIf="modalPlantArea !== null">Recommended Planting Dates: {{modalPlantArea.plantAreaStartMonth}}/{{modalPlantArea.plantAreaStartDay}} - {{modalPlantArea.plantAreaEndMonth}}/{{modalPlantArea.plantAreaEndDay}}</p>
 						<h4>Description:</h4>
 						<p>{{modalPlant.plantDescription}}</p>
 						<!-- Companion Plant & Combative Plant data -->
