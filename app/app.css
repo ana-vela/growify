@@ -97,12 +97,20 @@ body{
 	.home h1 {
 		font-size: 60px;
 	}
-	.harvest-progress {
-		display: none;
-	}
+
 	.add-plant {
 		position: relative;
 		text-align: center;
+	}
+}
+
+@media only screen and (max-width: 768px){
+	.harvest-progress {
+		display: none;
+	}
+
+	.progress .harvest-progress {
+		display: none;
 	}
 }
 

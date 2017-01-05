@@ -29,7 +29,7 @@
 			<th class="icon"></th>
 			<th class="harvest-progress"></th>
 			<th class="percentage-progress"></th>
-			<th></th>
+			<th class="delete-button-col"></th>
 		</tr>
 		<tr *ngFor="let item of plantGarden; let index = index">
 			<td>{{item.plant.plantName}}</td>
@@ -42,14 +42,14 @@
 				<i *ngSwitchDefault> {{icons[index]}}</i>
 			</td>
 
-			<td>
+			<td class="harvest-progress">
 				<!--<div class="progress" [hidden]="(item.progress === null) || (item.progress <= 0)">
 					<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  aria-valuemin="0" aria-valuemax="100" [style]={{item.progressStyle}}>
 						<span class="sr-only">{{item.progress}}% Complete (success)</span>
 
 					</div>
 				</div>-->
-				<div class="progress harvest-progress" [hidden]="(item.progress === null) || (item.progress <= 0)">
+				<div class="progress" [hidden]="(item.progress === null) || (item.progress <= 0)">
 					<!--<i class="fa fa-circle" *ngFor="let i of item.progressDots "></i>
 					<i class="fa fa-circle gray-dot" *ngFor="let i of item.incompleteDots "></i>-->
 					<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [ngStyle]="{'width': item.progress+'%'}">
@@ -57,8 +57,8 @@
 					</div>
 				</div>
 			</td>
-			<td>{{item.progress | number:'1.0-0'}}&#37;</td>
-			<td><button type="delete" class="fa fa-trash fa-2x" aria-hidden="true" (click)="onDelete(item, item.garden.gardenPlantId);"></button></td>
+			<td class="percentage-progress" ><span [hidden]="(item.progress === null) || (item.progress <= 0)">{{item.progress | number:'1.0-0'}}&#37;</span></td>
+			<td><button type="delete" class="fa fa-trash fa-2x delete-button-col" aria-hidden="true" (click)="onDelete(item, item.garden.gardenPlantId);"></button></td>
 		</tr>
 	</table>
 </div>
