@@ -21,7 +21,8 @@ export const routes: Routes = [
 	{path: "weather", component: WeatherComponent},
 	{path: "garden", component: GardenComponent},
 	{path: "plants", component: PlantsComponent},
-	{path: "activation/:activation", component: ActivationComponent}
+	{path: "activation/:activation", component: ActivationComponent},
+	{path: "**", redirectTo: ""}
 ];
 
 export const appRoutingProviders: any[] = [];
