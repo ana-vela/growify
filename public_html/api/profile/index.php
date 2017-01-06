@@ -138,11 +138,9 @@ try {
 				<p>Dear $requestObject->profileUsername,</p>
 				<p>In order to login and start your garden please visit the following URL to complete the registration process: </p>
 				<p><a href="$confirmLink">$confirmLink</a></p>
-				<br/><br/>
-				<div style="margin-left=75vw;">
-					<p>Thank you for signing up,</p>
-					<h3>Growify Greg</h3>
-				</div>
+				<br/>
+				<p>Thank you for signing up,</p>
+				<h3>Growify Greg</h3>
 EOF;
 
 			// create Swift message
@@ -192,7 +190,7 @@ EOF;
 				throw(new RuntimeException("unable to send email"));
 			}
 			// update reply
-			$reply->message = "Profile Created OK";
+			$reply->message = "Thank you for creating a profile with Growify!";
 		}
 	} elseif($method == "DELETE") {
 		$profile = Profile::getProfileByProfileUsername($pdo, $profileUserInput);
