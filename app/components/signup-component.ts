@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit{
 				this.status = status;
 				if(status.status === 200) {
 					this.signUpForm.reset()
+					alert("Please check your inbox for an email to activate your account. Thank you.");
 					setTimeout(function(){$("#signup-modal").modal('hide');},1000);
 				}
 			});
