@@ -18,6 +18,9 @@ export class ActivationComponent implements OnInit{
 			.switchMap((params: Params) => this.activationService.getActivation(params['activation']))
 			.subscribe(status => {
 				this.status = status;
+				if(status.status === 200) {
+					alert("Thank you for activating your account. You can now login.")
+				}
 			});
 
 	}
